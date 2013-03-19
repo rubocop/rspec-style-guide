@@ -599,10 +599,14 @@ meant to be able to change with it.
         # ...
       end
     end
+    ```
 
+    ```Rails
     # app/views/articles/show.html.erb
     <%= "Published at: #{formatted_date(@article.published_at)}" %>
-
+    ```
+    
+    ```Ruby
     # spec/views/articles/show.html.erb_spec.rb
     describe 'articles/show.html.erb' do
       it 'displays the formatted date of article publishing' do
