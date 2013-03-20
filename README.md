@@ -180,66 +180,66 @@ meant to be able to change with it.
   a matching negative case) that it needs refactoring, or may have no purpose.
 
   ```Ruby
-  # bad
+    # bad
 
-  # This is a case where refactoring is the correct choice
-  describe "#attributes" do
-    context "the returned hash" do 
-      it "includes the display name" do
-        # ...
-      end
+    # This is a case where refactoring is the correct choice
+    describe "#attributes" do
+      context "the returned hash" do 
+        it "includes the display name" do
+          # ...
+        end
 
-      it "includes the creation time" do
-        # ...
-      end
-    end
-  end
-
-  # This is a case where the negative case needs to be tested, but wasn't
-  describe "#attributes" do
-    context "when display name is present" do
-      before do
-        subject.display_name = "something"
-      end
-
-      it "includes the display name" do
-        # ...
-      end
-    end
-  end
-
-  # good
-
-  # Refactored
-  describe "#attributes" do
-    subject { FactoryGirl.create(:article) }
-
-    its(:attributes) { should include subject.display_name }
-    its(:attributes) { should include subject.created_at }
-  end
-
-  # Added the negative case
-  describe "#attributes" do
-    context "when display name is present" do
-      before do
-        subject.display_name = "something"
-      end
-      
-      it "includes the display name" do
-        # ...
+        it "includes the creation time" do
+          # ...
+        end
       end
     end
 
-    context "when display name is not present" do
-      before do
-        subject.display_name = nil
-      end
+    # This is a case where the negative case needs to be tested, but wasn't
+    describe "#attributes" do
+      context "when display name is present" do
+        before do
+          subject.display_name = "something"
+        end
 
-      it "does not include the display name" do
-        # ...
+        it "includes the display name" do
+          # ...
+        end
       end
     end
-  end
+
+    # good
+
+    # Refactored
+    describe "#attributes" do
+      subject { FactoryGirl.create(:article) }
+
+      its(:attributes) { should include subject.display_name }
+      its(:attributes) { should include subject.created_at }
+    end
+
+    # Added the negative case
+    describe "#attributes" do
+      context "when display name is present" do
+        before do
+          subject.display_name = "something"
+        end
+        
+        it "includes the display name" do
+          # ...
+        end
+      end
+
+      context "when display name is not present" do
+        before do
+          subject.display_name = nil
+        end
+
+        it "does not include the display name" do
+          # ...
+        end
+      end
+    end
   ```
 
 * `context` block descriptions should always start with "when"
@@ -324,35 +324,35 @@ meant to be able to change with it.
   pull request.
 
   ```Ruby
-  # bad
-  [:new, :show, :index].each do |action|
-    "it returns 200" do
-      get action
-      response.should be_ok
+    # bad
+    [:new, :show, :index].each do |action|
+      "it returns 200" do
+        get action
+        response.should be_ok
+      end
     end
-  end
 
-  # good (more verbose for the time being, but better for the future development)
-  describe "GET new" do
-    it "returns 200" do
-      get :new
-      response.should be_ok
+    # good (more verbose for the time being, but better for the future development)
+    describe "GET new" do
+      it "returns 200" do
+        get :new
+        response.should be_ok
+      end
     end
-  end
 
-  describe "GET show" do
-    it "returns 200" do
-      get :show
-      response.should be_ok
+    describe "GET show" do
+      it "returns 200" do
+        get :show
+        response.should be_ok
+      end
     end
-  end
 
-  describe "GET index" do
-    it "returns 200" do
-      get :index
-      response.should be_ok
+    describe "GET index" do
+      it "returns 200" do
+        get :index
+        response.should be_ok
+      end
     end
-  end
   ```
 
 * Use [Factory Girl](https://github.com/thoughtbot/factory_girl) to create test
@@ -599,10 +599,14 @@ meant to be able to change with it.
         # ...
       end
     end
+    ```
 
+    ```Rails
     # app/views/articles/show.html.erb
     <%= "Published at: #{formatted_date(@article.published_at)}" %>
-
+    ```
+    
+    ```Ruby
     # spec/views/articles/show.html.erb_spec.rb
     describe 'articles/show.html.erb' do
       it 'displays the formatted date of article publishing' do
@@ -811,29 +815,32 @@ meant to be able to change with it.
   * the e-mail is sent to the right e-mail address
   * the e-mail contains the required information
 
-     ```Ruby
-     describe SubscriberMailer do
-       let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
+    ```Ruby
+    describe SubscriberMailer do
+      let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
-       describe 'successful registration email' do
-         subject { SubscriptionMailer.successful_registration_email(subscriber) }
+      describe 'successful registration email' do
+        subject { SubscriptionMailer.successful_registration_email(subscriber) }
 
-         its(:subject) { should == 'Successful Registration!' }
-         its(:from) { should == ['info@your_site.com'] }
-         its(:to) { should == [subscriber.email] }
+        its(:subject) { should == 'Successful Registration!' }
+        its(:from) { should == ['info@your_site.com'] }
+        its(:to) { should == [subscriber.email] }
 
-         it 'contains the subscriber name' do
-           subject.body.encoded.should match(subscriber.name)
-         end
-       end
-     end
-     ```
+        it 'contains the subscriber name' do
+          subject.body.encoded.should match(subscriber.name)
+        end
+      end
+    end
+    ```
 
 # Contributing
 
-Open tickets or send pull requests with improvements. 
+Open tickets or send pull requests with improvements. Please write [good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+or your pull requests will be closed.
 
 # Credit
+Inspiration was taken from the following:
 
 [howaboutwe's rspec style guide](https://github.com/howaboutwe/rspec-style-guide)
+
 [bbatsov's rspec style guide](https://github.com/bbatsov/rails-style-guide)
