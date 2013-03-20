@@ -835,9 +835,12 @@ meant to be able to change with it.
 
 # Contributing
 
-Open tickets or send pull requests with improvements. 
+Open tickets or send pull requests with improvements. Please write [good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+or your pull requests will be closed.
 
 # Credit
+Inspiration was taken from the following:
 
 [howaboutwe's rspec style guide](https://github.com/howaboutwe/rspec-style-guide)
+
 [bbatsov's rspec style guide](https://github.com/bbatsov/rails-style-guide)
