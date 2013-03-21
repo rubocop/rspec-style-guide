@@ -15,8 +15,8 @@ lacking thorough examples, but some things in the RSpec world change week by
 week or month by month. With that said, as the standard changes this guide is 
 meant to be able to change with it.
 
-* Do not leave a line return after a context or describe. It makes the code more
-  difficult to read for no reason.
+* Do not leave line returns after `context` or `describe` descriptions. It does
+  not make the code any easier to read and lowers the value of logical chunks.
 
     ```Ruby
     # bad
@@ -45,33 +45,14 @@ meant to be able to change with it.
     end
     ```
 
-* Leave one line return after `let`, `subject`, `before`/`after`, and `it` 
-  blocks. It helps to separate blocks and their conditional logic from other 
-  similar types of code chunks. Plus, the code is very hard to skim over when
-  there are no line returns.
+* Leave one line return after `let`, `subject`, and `before`/`after` blocks.
 
     ```Ruby
     # bad
     describe Article do
       subject { FactoryGirl.create(:some_article) }
       describe "#summary" do
-        context "when there is a summary" do
-          before do
-            subject.summary = "some summary"
-          end
-          it "returns the summary" do
-            # ...
-          end
-        end
-
-        context "when there is not a summary" do
-          before do
-            subject.summary = nil
-          end
-          it "returns nil" do
-            # ...
-          end
-        end
+        # ...
       end
     end
 
@@ -80,25 +61,82 @@ meant to be able to change with it.
       subject { FactoryGirl.create(:some_article) }
 
       describe "#summary" do
-        context "when there is a summary" do
-          before do
-            subject.summary = "some summary"
-          end
+        # ...
+      end
+    end
+    ```
 
-          it "returns the summary" do
-            # ...
-          end
-        end
+* Only group `let`, `subject` blocks and separate them from `before`/`after` 
+  blocks. It makes the code much more readable.
 
-        context "when there is not a summary" do
-          before do
-            subject.summary = nil
-          end
+    ```Ruby
+    # bad
+    describe Article do
+      subject { FactoryGirl.create(:some_article) }
+      let(:user) { FactoryGirl.create(:user) }
+      before do
+        # ...
+      end
+      after do
+        # ...
+      end
+      describe "#summary" do
+        # ...
+      end
+    end
 
-          it "returns nil" do
-            # ...
-          end
-        end
+    # good
+    describe Article do
+      subject { FactoryGirl.create(:some_article) }
+      let(:user) { FactoryGirl.create(:user) }
+
+      before do
+        # ...
+      end
+
+      after do
+        # ...
+      end
+
+      describe "#summary" do
+        # ...
+      end
+    end
+    ```
+
+* Leave one line return around `it` blocks. This helps to separate the 
+  expectations from their conditional logic (contexts for instance).
+
+    ```Ruby
+    # bad
+    describe "#summary" do
+      let(:item) { mock('something') }
+
+      it "returns the summary" do
+        # ...
+      end
+      it "does something else" do
+        # ...
+      end
+      it "does another thing" do
+        # ...
+      end
+    end
+
+    # good
+    describe "#summary" do
+      let(:item) { mock('something') }
+
+      it "returns the summary" do
+        # ...
+      end
+
+      it "does something else" do
+        # ...
+      end
+      
+      it "does another thing" do
+        # ...
       end
     end
     ```
