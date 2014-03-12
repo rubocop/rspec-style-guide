@@ -22,11 +22,11 @@ meant to be able to change with it.
     # bad
     describe Article do
 
-      describe "#summary" do
+      describe '#summary' do
 
-        context "when there is a summary" do
+        context 'when there is a summary' do
 
-          it "returns the summary" do
+          it 'returns the summary' do
             # ...
           end
         end
@@ -35,9 +35,9 @@ meant to be able to change with it.
 
     # good
     describe Article do
-      describe "#summary" do
-        context "when there is a summary" do
-          it "returns the summary" do
+      describe '#summary' do
+        context 'when there is a summary' do
+          it 'returns the summary' do
             # ...
           end
         end
@@ -51,7 +51,7 @@ meant to be able to change with it.
     # bad
     describe Article do
       subject { FactoryGirl.create(:some_article) }
-      describe "#summary" do
+      describe '#summary' do
         # ...
       end
     end
@@ -60,7 +60,7 @@ meant to be able to change with it.
     describe Article do
       subject { FactoryGirl.create(:some_article) }
 
-      describe "#summary" do
+      describe '#summary' do
         # ...
       end
     end
@@ -80,7 +80,7 @@ meant to be able to change with it.
       after do
         # ...
       end
-      describe "#summary" do
+      describe '#summary' do
         # ...
       end
     end
@@ -98,7 +98,7 @@ meant to be able to change with it.
         # ...
       end
 
-      describe "#summary" do
+      describe '#summary' do
         # ...
       end
     end
@@ -109,33 +109,33 @@ meant to be able to change with it.
 
     ```Ruby
     # bad
-    describe "#summary" do
+    describe '#summary' do
       let(:item) { mock('something') }
 
-      it "returns the summary" do
+      it 'returns the summary' do
         # ...
       end
-      it "does something else" do
+      it 'does something else' do
         # ...
       end
-      it "does another thing" do
+      it 'does another thing' do
         # ...
       end
     end
 
     # good
-    describe "#summary" do
+    describe '#summary' do
       let(:item) { mock('something') }
 
-      it "returns the summary" do
+      it 'returns the summary' do
         # ...
       end
 
-      it "does something else" do
+      it 'does something else' do
         # ...
       end
       
-      it "does another thing" do
+      it 'does another thing' do
         # ...
       end
     end
@@ -147,31 +147,31 @@ meant to be able to change with it.
 
     ```Ruby
     # bad
-    describe "#summary" do
+    describe '#summary' do
       before(:each) do
-        subject.summary = "something"
+        subject.summary = 'something'
       end
     end
 
     # good
-    describe "#summary" do
+    describe '#summary' do
       before do
-        subject.summary = "something"
+        subject.summary = 'something'
       end
     end
     ```
 
-* Do not write "should" in the beginning of your `it` blocks. The descriptions 
+* Do not write 'should' in the beginning of your `it` blocks. The descriptions 
   represent actual functionality - not what might be happening.
     
     ```Ruby
     # bad
-    it "should return the summary" do
+    it 'should return the summary' do
       # ...
     end
     
     # good
-    it "returns the summary" do
+    it 'returns the summary' do
       # ...
     end
     ```
@@ -221,26 +221,26 @@ meant to be able to change with it.
     # bad
 
     # This is a case where refactoring is the correct choice
-    describe "#attributes" do
-      context "the returned hash" do 
-        it "includes the display name" do
+    describe '#attributes' do
+      context 'the returned hash' do 
+        it 'includes the display name' do
           # ...
         end
 
-        it "includes the creation time" do
+        it 'includes the creation time' do
           # ...
         end
       end
     end
 
     # This is a case where the negative case needs to be tested, but wasn't
-    describe "#attributes" do
-      context "when display name is present" do
+    describe '#attributes' do
+      context 'when display name is present' do
         before do
-          subject.display_name = "something"
+          subject.display_name = 'something'
         end
 
-        it "includes the display name" do
+        it 'includes the display name' do
           # ...
         end
       end
@@ -249,7 +249,7 @@ meant to be able to change with it.
     # good
 
     # Refactored
-    describe "#attributes" do
+    describe '#attributes' do
       subject { FactoryGirl.create(:article) }
 
       its(:attributes) { should include subject.display_name }
@@ -257,39 +257,39 @@ meant to be able to change with it.
     end
 
     # Added the negative case
-    describe "#attributes" do
-      context "when display name is present" do
+    describe '#attributes' do
+      context 'when display name is present' do
         before do
-          subject.display_name = "something"
+          subject.display_name = 'something'
         end
         
-        it "includes the display name" do
+        it 'includes the display name' do
           # ...
         end
       end
 
-      context "when display name is not present" do
+      context 'when display name is not present' do
         before do
           subject.display_name = nil
         end
 
-        it "does not include the display name" do
+        it 'does not include the display name' do
           # ...
         end
       end
     end
   ```
 
-* `context` block descriptions should always start with "when"
+* `context` block descriptions should always start with 'when'
 
     ```Ruby
     # bad
-    context "the display name is not present" do
+    context 'the display name is not present' do
       # ...
     end
 
     # good
-    context "when the display name is not present" do
+    context 'when the display name is not present' do
       # ...
     end
     ```
@@ -299,25 +299,25 @@ meant to be able to change with it.
 
     ```Ruby
     # bad
-    it "returns the display name if it is present" do
+    it 'returns the display name if it is present' do
       # ...
     end
 
     # good
-    context "when display name is present" do
-      it "returns the display name"
+    context 'when display name is present' do
+      it 'returns the display name'
     end
 
     # This encourages the addition of negative test cases that might have
     # been overlooked
-    context "when display name is not present" do
-      it "returns nil"
+    context 'when display name is not present' do
+      it 'returns nil'
     end
     ```
 
 * Name the `describe` blocks as follows:
-  * use hash "#method" for instance methods
-  * use dot ".method" for class methods
+  * use hash '#method' for instance methods
+  * use dot '.method' for class methods
 
   Given the following exists
     ```Ruby
@@ -364,29 +364,29 @@ meant to be able to change with it.
   ```Ruby
     # bad
     [:new, :show, :index].each do |action|
-      "it returns 200" do
+      'it returns 200' do
         get action
         response.should be_ok
       end
     end
 
     # good (more verbose for the time being, but better for the future development)
-    describe "GET new" do
-      it "returns 200" do
+    describe 'GET new' do
+      it 'returns 200' do
         get :new
         response.should be_ok
       end
     end
 
-    describe "GET show" do
-      it "returns 200" do
+    describe 'GET show' do
+      it 'returns 200' do
         get :show
         response.should be_ok
       end
     end
 
-    describe "GET index" do
-      it "returns 200" do
+    describe 'GET index' do
+      it 'returns 200' do
         get :index
         response.should be_ok
       end
@@ -411,7 +411,7 @@ meant to be able to change with it.
     * Performance: To prevent running a slow, unrelated task.
     * Determinism: To ensure the test gives the same result each
       time. e.g. Kernel#rand, external web services.
-    * Vendoring: When relying on 3rd party code used as a "black box",
+    * Vendoring: When relying on 3rd party code used as a 'black box',
       which wasn't written with testability in mind.
     * Legacy: Stubbing old code that requires complex setup. (New code
       should not require complex setup!)
@@ -434,8 +434,8 @@ meant to be able to change with it.
     # bad (stubbing too far)
     subject { mock_model(Article) }
 
-    describe "#summary" do
-      context "when summary is not present" do
+    describe '#summary' do
+      context 'when summary is not present' do
         # This stub_chain is stubbing the #nil? method, which makes the
         # test pass, but you are no longer testing the functionality of 
         # the code, you are testing the functionality of the test suite.
@@ -443,7 +443,7 @@ meant to be able to change with it.
         # written for the Article class.
         subject.stub_chain(:summary, :nil?).and_return(true)
 
-        it "returns nil" do
+        it 'returns nil' do
           subject.summary.should be_nil
         end
       end
@@ -453,13 +453,13 @@ meant to be able to change with it.
     # good (stubbing only what's necessary)
     subject { mock_model(Article) }
 
-    describe "#summary" do
-      context "when summary is not present" do
+    describe '#summary' do
+      context 'when summary is not present' do
         # This is no longer stubbing all of the functionality, and will 
         # actually test the objects handling of the methods return value.
         subject.stub(:summary).and_return(nil)
 
-        it "returns nil" do
+        it 'returns nil' do
           subject.summary.should be_nil
         end
       end
@@ -470,14 +470,14 @@ meant to be able to change with it.
 
     ```Ruby
     # bad
-    it "offsets the time 2 days into the future" do
+    it 'offsets the time 2 days into the future' do
       current_time = Time.now
       Time.stub(:now).and_return(current_time)
       subject.get_offset_time.should be_the_same_time_as (current_time + 2.days)
     end
 
     # good
-    it "offsets the time 2 days into the future" do
+    it 'offsets the time 2 days into the future' do
       Timecop.freeze(Time.now) do
         subject.get_offset_time.should be_the_same_time_as 2.days.from_now
       end
@@ -522,7 +522,7 @@ meant to be able to change with it.
     end
     ```
 
-* Use RSpec's "magical matcher" methods when possible. For instance, a class
+* Use RSpec's 'magical matcher' methods when possible. For instance, a class
   with the method `published?` should be tested with the following:
 
     ```Ruby
@@ -554,7 +554,7 @@ meant to be able to change with it.
 
     ```Ruby
     # bad
-    it "publishes the article" do
+    it 'publishes the article' do
       article.publish
       
       # Creating another shared Article test object above would cause this
@@ -563,12 +563,12 @@ meant to be able to change with it.
     end
 
     # good
-    it "publishes the article" do
+    it 'publishes the article' do
       -> { article.publish }.should change(Article, :count).by(1)
     end
     ```
 
-* Be careful not to focus on being "DRY" by moving repeated expectations into a 
+* Be careful not to focus on being 'DRY' by moving repeated expectations into a 
   shared environment too early, as this can lead to brittle tests that rely too 
   much on one other.
 
@@ -641,7 +641,7 @@ meant to be able to change with it.
 
     ```Rails
     # app/views/articles/show.html.erb
-    <%= "Published at: #{formatted_date(@article.published_at)}" %>
+    <%= 'Published at: #{formatted_date(@article.published_at)}' %>
     ```
     
     ```Ruby
@@ -748,7 +748,7 @@ meant to be able to change with it.
             assigns[:article].should be_eql(article)
           end
 
-          it 're-renders the "new" template' do
+          it 're-renders the 'new' template' do
             post :create
             response.should render_template('new')
           end
@@ -767,8 +767,8 @@ meant to be able to change with it.
     describe Article do
       let(:article) { FactoryGirl.create(:article) }
 
-      # Currently, "subject" is the same as "Article.new"
-      it "is an instance of Article" do
+      # Currently, 'subject' is the same as 'Article.new'
+      it 'is an instance of Article' do
         subject.should be_an Article
         subject.should_not be_persisted
       end
