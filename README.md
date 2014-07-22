@@ -235,7 +235,7 @@ describe ArticlesController do
   describe 'GET new' do
     it 'assigns new article and renders the new article template' do
       get :new
-      expect(assigns[:article]).to be_a_new Article
+      expect(assigns[:article]).to be_a(Article)
       expect(response).to render_template :new
     end
   end
@@ -307,8 +307,8 @@ end
 describe '#attributes' do
   subject { FactoryGirl.create(:article) }
 
-  its(:attributes) { should include subject.display_name }
-  its(:attributes) { should include subject.created_at }
+  expect(subject.attributes).to include subject.display_name
+  expect(subject.attributes).to include subject.created_at
 end
 
 # Added the negative case
@@ -335,297 +335,324 @@ describe '#attributes' do
 end
 ```
 
-* `context` block descriptions should always start with 'when'
+### `context` descriptions
 
-    ```ruby
-    # bad
-    context 'the display name is not present' do
-      # ...
+`context` block descriptions should always start with 'when'
+
+#### Bad Example
+
+```ruby
+context 'the display name is not present' do
+  # ...
+end
+```
+
+#### Good Example
+
+```ruby
+context 'when the display name is not present' do
+  # ...
+end
+```
+
+### `it` descriptions
+
+`it` block descriptions should never end with a conditional. This is a code
+smell that the `it` most likely needs to be wrapped in a `context`.
+
+#### Bad Example
+
+```ruby
+it 'returns the display name if it is present' do
+  # ...
+end
+```
+
+#### Good Example
+
+```ruby
+context 'when display name is present' do
+  it 'returns the display name'
+end
+
+# This encourages the addition of negative test cases that might have
+# been overlooked
+context 'when display name is not present' do
+  it 'returns nil'
+end
+```
+
+### `describe` block naming
+
+- use hash '#method' for instance methods
+- use dot '.method' for class methods
+
+Given the following exists
+
+```ruby
+class Article
+  def summary
+    #...
+  end
+
+  def self.latest
+    #...
+  end
+end
+```
+
+#### Bad Example
+
+```ruby
+describe Article do
+  describe 'summary' do
+    #...
+  end
+
+  describe 'latest' do
+    #...
+  end
+end
+```
+
+#### Good Example
+
+```ruby
+describe Article do
+  describe '#summary' do
+    #...
+  end
+
+  describe '.latest' do
+    #...
+  end
+end
+```
+
+### `it`s in iterators
+
+Do not write iterators to generate tests. When another developer adds a
+feature to one of the items in the iteration, he must then break it out into a
+separate test - he is forced to edit code that has nothing to do with his pull
+request.
+
+#### Bad Example
+
+```ruby
+[:new, :show, :index].each do |action|
+  it 'returns 200' do
+    get action
+    response.should be_ok
+  end
+end
+```
+
+#### Good Example
+
+more verbose for the time being, but better for the future development
+
+```ruby
+describe 'GET new' do
+  it 'returns 200' do
+    get :new
+    response.should be_ok
+  end
+end
+
+describe 'GET show' do
+  it 'returns 200' do
+    get :show
+    response.should be_ok
+  end
+end
+
+describe 'GET index' do
+  it 'returns 200' do
+    get :index
+    response.should be_ok
+  end
+end
+```
+
+### Factories/Fixtures
+
+Use [Factory Girl](https://github.com/thoughtbot/factory_girl) to create test
+objects in integration tests. You should very rarely have to use
+`ModelName.create` within an integration spec. Do **not** use fixtures as they
+are not nearly as maintainable as factories.
+
+```ruby
+subject { FactoryGirl.create(:some_article) }
+```
+
+### Mocks/Stubs/Doubles
+
+Use mocks and stubs with caution. While they help to improve the performance
+of the test suite, you can mock/stub yourself into a false-positive state very
+easily. When resorting to mocking and stubbing, only mock against a small,
+stable, obvious (or documented) API, so stubs are likely to represent reality
+after future refactoring.
+
+This is generally means you should use them with more isolated/behavioral
+tests rather than with integration tests.
+
+```ruby
+# double an object
+article = doubel('article')
+
+# stubbing a method
+allow(Article).to receive(:find).with(5).and_return(article)
+```
+
+*NOTE*: if you stub a method that could give a false-positive test result, you 
+have gone too far. See below:
+
+#### Bad Example
+
+```ruby
+subject { double('article') }
+
+describe '#summary' do
+  context 'when summary is not present' do
+    # This stubbing of the #nil? method, makes the test pass, but
+    # you are no longer testing the functionality of the code,
+    # you are testing the functionality of the test suite.
+    # This test would pass if there was not a single line of code 
+    # written for the Article class.
+    it 'returns nil' do
+      summary = double('summary')
+      allow(subject).to receive(:summary).and_return(summary)
+      allow(summary).to receive(:nil?).and_return(true)
+      expect(subject.summary).to be_nil
     end
+  end
+end
+```
 
-    # good
-    context 'when the display name is not present' do
-      # ...
+#### Good Example
+
+```ruby
+subject { double('article') }
+
+describe '#summary' do
+  context 'when summary is not present' do
+    # This is no longer stubbing all of the functionality, and will 
+    # actually test the objects handling of the methods return value.
+    it 'returns nil' do
+      allow(subject).to receive(:summary).and_return(nil)
+      expect(subject.summary).to be_nil
     end
-    ```
+  end
+end
+```
 
-* `it` block descriptions should never end with a conditional. This is a code
-  smell that the `it` most likely needs to be wrapped in a `context`.
+### Dealing with Time
 
-    ```ruby
-    # bad
-    it 'returns the display name if it is present' do
-      # ...
-    end
+Always use [Timecop](https://github.com/travisjeffery/timecop) instead of
+stubbing anything on Time or Date.
 
-    # good
-    context 'when display name is present' do
-      it 'returns the display name'
-    end
+#### Bad Example
 
-    # This encourages the addition of negative test cases that might have
-    # been overlooked
-    context 'when display name is not present' do
-      it 'returns nil'
-    end
-    ```
+```ruby
+it 'offsets the time 2 days into the future' do
+  current_time = Time.now
+  allow(Time).to receive(:now).and_return(current_time)
+  expect(subject.get_offset_time).to be_the_same_time_as (current_time + 2.days)
+end
+```
 
-* Name the `describe` blocks as follows:
-  * use hash '#method' for instance methods
-  * use dot '.method' for class methods
+#### Good Example
 
-  Given the following exists
-    ```ruby
-    class Article
-      def summary
-        #...
-      end
+```ruby
+it 'offsets the time 2 days into the future' do
+  Timecop.freeze(Time.now) do
+    expect(subject.get_offset_time).to be_the_same_time_as 2.days.from_now
+  end
+end
+```
 
-      def self.latest
-        #...
-      end
-    end
-    ```
+*NOTE*: `#be_the_same_time_as` is a RSpec matcher we added to the platform, it
+is not normally available to RSpec.
 
-    ```ruby
-    # bad
-    describe Article do
-      describe 'summary' do
-        #...
-      end
+### `let` blocks
 
-      describe 'latest' do
-        #...
-      end
-    end
+Use `let` blocks instead of `before(:each)` blocks to create data for the spec
+examples. `let` blocks get lazily evaluated. It also removes the instance
+variables from the test suite (which don't look as nice as local variables).
 
-    # good
-    describe Article do
-      describe '#summary' do
-        #...
-      end
+These should primarily be used when you have duplication among a number of
+`it` blocks within a `context` but not all of them. Be careful with overuse of
+`let` as it makes the test suite much more difficult to read.
 
-      describe '.latest' do
-        #...
-      end
-    end
-    ```
+```ruby
+# use this:
+let(:article) { FactoryGirl.create(:article) }
 
-* Do not write iterators to generate tests. When another developer adds a 
-  feature to one of the items in the iteration, he must then break it out into
-  a separate test - he is forced to edit code that has nothing to do with his
-  pull request.
+# ... instead of this:
+before { @article = FactoryGirl.create(:article) }
+```
 
-  ```ruby
-    # bad
-    [:new, :show, :index].each do |action|
-      'it returns 200' do
-        get action
-        response.should be_ok
-      end
-    end
+### `subject`
 
-    # good (more verbose for the time being, but better for the future development)
-    describe 'GET new' do
-      it 'returns 200' do
-        get :new
-        response.should be_ok
-      end
-    end
+Use `subject` when possible
 
-    describe 'GET show' do
-      it 'returns 200' do
-        get :show
-        response.should be_ok
-      end
-    end
+```ruby
+describe Article do
+  subject { FactoryGirl.create(:article) }
 
-    describe 'GET index' do
-      it 'returns 200' do
-        get :index
-        response.should be_ok
-      end
-    end
-  ```
+  it 'is not published on creation' do
+    expect(subject).not_to be_published
+  end
+end
+```
 
-* Use [Factory Girl](https://github.com/thoughtbot/factory_girl) to create test
-  objects. You should very rarely have to use `ModelName.create` within a spec.
+### Magic Matchers
 
-  ```ruby
-  subject { FactoryGirl.create(:some_article) }
-  ```
+Use RSpec's 'magical matcher' methods when possible. For instance, a class
+with the method `published?` should be tested with the following:
 
-* Use mocks and stubs with caution. While they help to improve the performance 
-  of the test suite, you can mock/stub yourself into a false-positive state very
-  easily. When resorting to mocking and stubbing, only mock against a small, 
-  stable, obvious (or documented) API, so stubs are likely to represent reality 
-  after future refactoring.
+```ruby
+it 'is published' do
+  # actually tests subject.published? == true
+  expect(subject).to be_published
+end
+```
 
-  * [joahking](https://github.com/joahking) gives a good explanation of when to 
-  use stubs/mocks:
-    * Performance: To prevent running a slow, unrelated task.
-    * Determinism: To ensure the test gives the same result each
-      time. e.g. Kernel#rand, external web services.
-    * Vendoring: When relying on 3rd party code used as a 'black box',
-      which wasn't written with testability in mind.
-    * Legacy: Stubbing old code that requires complex setup. (New code
-      should not require complex setup!)
-    * BDD: To remove the dependence on code that does not yet exist.
-    * Controller / Functional tests:
-    > In a controller spec, we don't care about how our data objects are created or what data they contain; we are writing expectations for the functional behavior of that controller, and that controller only. Mocks and stubs are used to decouple from the model layer and stay focused on the task of specing the controller.
+### Incidental State
 
-    ```ruby
-    # mocking a model
-    article = mock_model(Article)
+Avoid incidental state as much as possible.
 
-    # stubbing a method
-    Article.stub(:find).with(article.id).and_return(article)
-    ```
+#### Bad Example
 
-  NOTE: if you stub a method that could give a false-positive test result, you 
-  have gone too far. See below:
+```ruby
+it 'publishes the article' do
+  article.publish
+  
+  # Creating another shared Article test object above would cause this
+  # test to break
+  Article.count.should == 2
+end
+```
 
-    ```ruby
-    # bad (stubbing too far)
-    subject { mock_model(Article) }
+#### Good Example
 
-    describe '#summary' do
-      context 'when summary is not present' do
-        # This stub_chain is stubbing the #nil? method, which makes the
-        # test pass, but you are no longer testing the functionality of 
-        # the code, you are testing the functionality of the test suite.
-        # This test would pass if there was not a single line of code 
-        # written for the Article class.
-        subject.stub_chain(:summary, :nil?).and_return(true)
+```ruby
+it 'publishes the article' do
+  expect { article.publish }.to change(Article, :count).by(1)
+end
+```
 
-        it 'returns nil' do
-          subject.summary.should be_nil
-        end
-      end
-    end
+### DRY
 
+Be careful not to focus on being 'DRY' by moving repeated expectations into a
+shared environment too early, as this can lead to brittle tests that rely too
+much on one other.
 
-    # good (stubbing only what's necessary)
-    subject { mock_model(Article) }
-
-    describe '#summary' do
-      context 'when summary is not present' do
-        # This is no longer stubbing all of the functionality, and will 
-        # actually test the objects handling of the methods return value.
-        subject.stub(:summary).and_return(nil)
-
-        it 'returns nil' do
-          subject.summary.should be_nil
-        end
-      end
-    end
-    ```
-
-* Always use [Timecop](https://github.com/travisjeffery/timecop) instead of stubbing anything on Time or Date.
-
-    ```ruby
-    # bad
-    it 'offsets the time 2 days into the future' do
-      current_time = Time.now
-      Time.stub(:now).and_return(current_time)
-      subject.get_offset_time.should be_the_same_time_as (current_time + 2.days)
-    end
-
-    # good
-    it 'offsets the time 2 days into the future' do
-      Timecop.freeze(Time.now) do
-        subject.get_offset_time.should be_the_same_time_as 2.days.from_now
-      end
-    end
-    ```
-
-    NOTE: `#be_the_same_time_as` is a RSpec matcher we added to the platform, it
-    is not normally available to RSpec.
-
-* Use `let` blocks instead of `before(:each)` blocks to create data for the spec
-  examples. `let` blocks get lazily evaluated. It also removes the instance 
-  variables from the test suite (which don't look as nice as local variables).
-
-    ```ruby
-    # use this:
-    let(:article) { FactoryGirl.create(:article) }
-
-    # ... instead of this:
-    before { @article = FactoryGirl.create(:article) }
-    ```
-
-* Use `let!` blocks when you want the content to be evaluated immediately (skip 
-  the lazy loading altogether). 
-
-  ```ruby
-  let!(:article) { FactoryGirl.create(:article) }
-  ```
-
-  NOTE: mostly, you should be using `let` (without the bang `!`) - but there are
-  a few special cases when lazy loading can cause problems - this is the only 
-  reason to use `let!`.
-
-* Use `subject` when possible
-
-    ```ruby
-    describe Article do
-      subject { FactoryGirl.create(:article) }
-
-      it 'is not published on creation' do
-        subject.should_not be_published
-      end
-    end
-    ```
-
-* Use RSpec's 'magical matcher' methods when possible. For instance, a class
-  with the method `published?` should be tested with the following:
-
-    ```ruby
-    it 'is published' do
-      # actually tests subject.published? == true
-      subject.should be_published
-    end
-    ```
-
-* Use `its` when possible
-
-    ```ruby
-    # bad
-    describe Article do
-      subject { FactoryGirl.create(:article) }
-
-      it 'has the current date as creation date' do
-        subject.creation_date.should == Date.today
-      end
-    end
-
-    # good
-    describe Article do
-      subject { FactoryGirl.create(:article) }
-      its(:creation_date) { should == Date.today }
-    end
-    ```
-* Avoid incidental state as much as possible.
-
-    ```ruby
-    # bad
-    it 'publishes the article' do
-      article.publish
-      
-      # Creating another shared Article test object above would cause this
-      # test to break
-      Article.count.should == 2
-    end
-
-    # good
-    it 'publishes the article' do
-      -> { article.publish }.should change(Article, :count).by(1)
-    end
-    ```
-
-* Be careful not to focus on being 'DRY' by moving repeated expectations into a 
-  shared environment too early, as this can lead to brittle tests that rely too 
-  much on one other.
+It general it is best to start with doing everything directly in your `it`
+blocks even if it is duplication and then refactor you tests after you have
+them working to be a little more DRY. However, keep in mind that duplication
+in test suites is NOT fround upon, in fact it is preferred if it provides
+easier understanding and reading of a test.
 
 ### Views
 
