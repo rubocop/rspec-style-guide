@@ -6,44 +6,58 @@ This is meant to be a style guide that reflects real-world usage, as well as a
 guide that holds to an ideal that has been agreed upon by many of the people it 
 was intended to be used by.
 
+## How to Read This Guide
+
 The guide is separated into sections based on the different pieces of an entire 
 spec file. There was an attempt to omit all obvious information, if anything is
 unclear, feel free to open an issue asking for further clarity.
+
+## A Living Document
 
 Per the comment above, this guide is a work in progress - some rules are simply
 lacking thorough examples, but some things in the RSpec world change week by 
 week or month by month. With that said, as the standard changes this guide is 
 meant to be able to change with it.
 
-* Do not leave line returns after `context` or `describe` descriptions. It does
-  not make the code any easier to read and lowers the value of logical chunks.
+## Style Guide Rules
 
-    ```Ruby
-    # bad
-    describe Article do
 
-      describe '#summary' do
+### Line Returns after `feature`, `context`, or `describe`
 
-        context 'when there is a summary' do
+Do not leave line returns after `feature`, `context` or `describe`
+descriptions. It does makes the code more difficult to read and lowers the
+value of logical chunks.
 
-          it 'returns the summary' do
-            # ...
-          end
-        end
+#### Bad Example
+
+```ruby
+describe Article do
+
+  describe '#summary' do
+
+    context 'when there is a summary' do
+
+      it 'returns the summary' do
+        # ...
       end
     end
+  end
+end
+```
 
-    # good
-    describe Article do
-      describe '#summary' do
-        context 'when there is a summary' do
-          it 'returns the summary' do
-            # ...
-          end
-        end
+#### Good Example
+
+```ruby
+describe Article do
+  describe '#summary' do
+    context 'when there is a summary' do
+      it 'returns the summary' do
+        # ...
       end
     end
-    ```
+  end
+end
+```
 
 * Leave one line return after `let`, `subject`, and `before`/`after` blocks.
 
