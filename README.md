@@ -442,7 +442,7 @@ request.
 [:new, :show, :index].each do |action|
   it 'returns 200' do
     get action
-    response.should be_ok
+    expect(response).to be_ok
   end
 end
 ```
@@ -455,21 +455,21 @@ more verbose for the time being, but better for the future development
 describe 'GET new' do
   it 'returns 200' do
     get :new
-    response.should be_ok
+    expect(response).to be_ok
   end
 end
 
 describe 'GET show' do
   it 'returns 200' do
     get :show
-    response.should be_ok
+    expect(response).to be_ok
   end
 end
 
 describe 'GET index' do
   it 'returns 200' do
     get :index
-    response.should be_ok
+    expect(response).to be_ok
   end
 end
 ```
