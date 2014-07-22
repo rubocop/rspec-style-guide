@@ -59,244 +59,285 @@ describe Article do
 end
 ```
 
-* Leave one line return after `let`, `subject`, and `before`/`after` blocks.
+### `let`, `subject`, and `before`/`after` group line returns
 
-    ```Ruby
-    # bad
-    describe Article do
-      subject { FactoryGirl.create(:some_article) }
-      describe '#summary' do
-        # ...
-      end
-    end
+Leave one line return after `let`, `subject`, and `before`/`after` blocks.
 
-    # good
-    describe Article do
-      subject { FactoryGirl.create(:some_article) }
+#### Bad Example
 
-      describe '#summary' do
-        # ...
-      end
-    end
-    ```
+```ruby
+describe Article do
+  subject { FactoryGirl.create(:some_article) }
+  describe '#summary' do
+    # ...
+  end
+end
+```
 
-* Only group `let`, `subject` blocks and separate them from `before`/`after` 
-  blocks. It makes the code much more readable.
+#### Good Example
 
-    ```Ruby
-    # bad
-    describe Article do
-      subject { FactoryGirl.create(:some_article) }
-      let(:user) { FactoryGirl.create(:user) }
-      before do
-        # ...
-      end
-      after do
-        # ...
-      end
-      describe '#summary' do
-        # ...
-      end
-    end
+```ruby
+describe Article do
+  subject { FactoryGirl.create(:some_article) }
 
-    # good
-    describe Article do
-      subject { FactoryGirl.create(:some_article) }
-      let(:user) { FactoryGirl.create(:user) }
+  describe '#summary' do
+    # ...
+  end
+end
+```
 
-      before do
-        # ...
-      end
+### `let`, `subject`, `before`/`after` grouping
 
-      after do
-        # ...
-      end
+Only group `let`, `subject` blocks and separate them from `before`/`after`
+blocks. It makes the code much more readable.
 
-      describe '#summary' do
-        # ...
-      end
-    end
-    ```
+#### Bad Example
 
-* Leave one line return around `it` blocks. This helps to separate the 
-  expectations from their conditional logic (contexts for instance).
+```ruby
+describe Article do
+  subject { FactoryGirl.create(:some_article) }
+  let(:user) { FactoryGirl.create(:user) }
+  before do
+    # ...
+  end
+  after do
+    # ...
+  end
+  describe '#summary' do
+    # ...
+  end
+end
+```
 
-    ```Ruby
-    # bad
-    describe '#summary' do
-      let(:item) { mock('something') }
+#### Good Example
 
-      it 'returns the summary' do
-        # ...
-      end
-      it 'does something else' do
-        # ...
-      end
-      it 'does another thing' do
-        # ...
-      end
-    end
+```ruby
+describe Article do
+  subject { FactoryGirl.create(:some_article) }
+  let(:user) { FactoryGirl.create(:user) }
 
-    # good
-    describe '#summary' do
-      let(:item) { mock('something') }
+  before do
+    # ...
+  end
 
-      it 'returns the summary' do
-        # ...
-      end
+  after do
+    # ...
+  end
 
-      it 'does something else' do
-        # ...
-      end
-      
-      it 'does another thing' do
-        # ...
-      end
-    end
-    ```
+  describe '#summary' do
+    # ...
+  end
+end
+```
 
-* There is no need to specify `(:each)` for `before`/`after` blocks, as it is
-  the default functionality. There are almost zero cases to use `(:all)` 
-  anymore, but if you do find one - just write it out like `before(:all)`
+### `it` block line returns
 
-    ```Ruby
-    # bad
-    describe '#summary' do
-      before(:each) do
-        subject.summary = 'something'
-      end
-    end
+Leave one line return around `it` blocks. This helps to separate the
+expectations from their conditional logic (contexts for instance).
 
-    # good
-    describe '#summary' do
-      before do
-        subject.summary = 'something'
-      end
-    end
-    ```
+#### Bad Example
 
-* Do not write 'should' in the beginning of your `it` blocks. The descriptions 
-  represent actual functionality - not what might be happening.
+```ruby
+describe '#summary' do
+  let(:item) { mock('something') }
+
+  it 'returns the summary' do
+    # ...
+  end
+  it 'does something else' do
+    # ...
+  end
+  it 'does another thing' do
+    # ...
+  end
+end
+```
+
+#### Good Example
+
+```ruby
+describe '#summary' do
+  let(:item) { mock('something') }
+
+  it 'returns the summary' do
+    # ...
+  end
+
+  it 'does something else' do
+    # ...
+  end
+  
+  it 'does another thing' do
+    # ...
+  end
+end
+```
+
+### `before(:each)`or `before`
+
+There is no need to specify `(:each)` for `before`/`after` blocks, as it is
+the default functionality. There are almost zero cases to use `before(:all)`
+anymore, but if you do find one - just write it out like `before(:all)`
+
+#### Bad Example
+
+```ruby
+describe '#summary' do
+  before(:each) do
+    subject.summary = 'something'
+  end
+end
+```
+
+#### Good Example
+
+```ruby
+describe '#summary' do
+  before do
+    subject.summary = 'something'
+  end
+end
+```
+
+### 'should' it or 'should not' in `it` statements
+
+Do not write 'should' or 'should not' in the beginning of your `it` blocks.
+The descriptions represent actual functionality - not what might be happening.
     
-    ```Ruby
-    # bad
-    it 'should return the summary' do
+#### Bad Example
+
+```ruby
+it 'should return the summary' do
+  # ...
+end
+```
+
+#### Good Example
+
+```ruby
+it 'returns the summary' do
+  # ...
+end
+```
+
+### The One Expectation
+
+Use only one expectation per example. There are very few scenarios where two
+or more expectations in a single `it` block should be used. So, general rule
+of thumb is one expectation per `it` block.
+
+#### Bad Example
+
+```ruby
+describe ArticlesController do
+  #...
+
+  describe 'GET new' do
+    it 'assigns new article and renders the new article template' do
+      get :new
+      expect(assigns[:article]).to be_a_new Article
+      expect(response).to render_template :new
+    end
+  end
+
+  # ...
+end
+```
+
+#### Good Example
+
+```ruby
+describe ArticlesController do
+  #...
+
+  describe 'GET new' do
+    it 'assigns a new article' do
+      get :new
+      expect(assigns[:article]).to be_a(Article)
+    end
+
+    it 'renders the new article template' do
+      get :new
+      expet(response).to render_template :new
+    end
+  end
+end
+```
+
+### Context Cases
+
+`context` blocks should pretty much always have an opposite negative case. It
+should actually be a strong code smell if there is a single context (without a
+matching negative case) that it needs refactoring, or may have no purpose.
+
+#### Bad Example
+
+```ruby
+# This is a case where refactoring is the correct choice
+describe '#attributes' do
+  context 'the returned hash' do 
+    it 'includes the display name' do
       # ...
+    end
+
+    it 'includes the creation time' do
+      # ...
+    end
+  end
+end
+
+# This is a case where the negative case needs to be tested, but wasn't
+describe '#attributes' do
+  context 'when display name is present' do
+    before do
+      subject.display_name = 'something'
+    end
+
+    it 'includes the display name' do
+      # ...
+    end
+  end
+end
+```
+
+#### Good Example
+
+```ruby
+# Refactored
+describe '#attributes' do
+  subject { FactoryGirl.create(:article) }
+
+  its(:attributes) { should include subject.display_name }
+  its(:attributes) { should include subject.created_at }
+end
+
+# Added the negative case
+describe '#attributes' do
+  context 'when display name is present' do
+    before do
+      subject.display_name = 'something'
     end
     
-    # good
-    it 'returns the summary' do
+    it 'includes the display name' do
       # ...
     end
-    ```
+  end
 
-* Use just one expectation per example.
+  context 'when display name is not present' do
+    before do
+      subject.display_name = nil
+    end
 
-    ```Ruby
-    # bad
-    describe ArticlesController do
-      #...
-
-      describe 'GET new' do
-        it 'assigns new article and renders the new article template' do
-          get :new
-          assigns[:article].should be_a_new Article
-          response.should render_template :new
-        end
-      end
-
+    it 'does not include the display name' do
       # ...
     end
-
-    # good
-    describe ArticlesController do
-      #...
-
-      describe 'GET new' do
-        it 'assigns a new article' do
-          get :new
-          assigns[:article].should be_a_new Article
-        end
-
-        it 'renders the new article template' do
-          get :new
-          response.should render_template :new
-        end
-      end
-
-    end
-    ```
-
-* `context` blocks should pretty much always have an opposite negative case. It
-  should actually be a strong code smell if there is a single context (without 
-  a matching negative case) that it needs refactoring, or may have no purpose.
-
-  ```Ruby
-    # bad
-
-    # This is a case where refactoring is the correct choice
-    describe '#attributes' do
-      context 'the returned hash' do 
-        it 'includes the display name' do
-          # ...
-        end
-
-        it 'includes the creation time' do
-          # ...
-        end
-      end
-    end
-
-    # This is a case where the negative case needs to be tested, but wasn't
-    describe '#attributes' do
-      context 'when display name is present' do
-        before do
-          subject.display_name = 'something'
-        end
-
-        it 'includes the display name' do
-          # ...
-        end
-      end
-    end
-
-    # good
-
-    # Refactored
-    describe '#attributes' do
-      subject { FactoryGirl.create(:article) }
-
-      its(:attributes) { should include subject.display_name }
-      its(:attributes) { should include subject.created_at }
-    end
-
-    # Added the negative case
-    describe '#attributes' do
-      context 'when display name is present' do
-        before do
-          subject.display_name = 'something'
-        end
-        
-        it 'includes the display name' do
-          # ...
-        end
-      end
-
-      context 'when display name is not present' do
-        before do
-          subject.display_name = nil
-        end
-
-        it 'does not include the display name' do
-          # ...
-        end
-      end
-    end
-  ```
+  end
+end
+```
 
 * `context` block descriptions should always start with 'when'
 
-    ```Ruby
+    ```ruby
     # bad
     context 'the display name is not present' do
       # ...
@@ -311,7 +352,7 @@ end
 * `it` block descriptions should never end with a conditional. This is a code
   smell that the `it` most likely needs to be wrapped in a `context`.
 
-    ```Ruby
+    ```ruby
     # bad
     it 'returns the display name if it is present' do
       # ...
@@ -334,7 +375,7 @@ end
   * use dot '.method' for class methods
 
   Given the following exists
-    ```Ruby
+    ```ruby
     class Article
       def summary
         #...
@@ -346,7 +387,7 @@ end
     end
     ```
 
-    ```Ruby
+    ```ruby
     # bad
     describe Article do
       describe 'summary' do
@@ -375,7 +416,7 @@ end
   a separate test - he is forced to edit code that has nothing to do with his
   pull request.
 
-  ```Ruby
+  ```ruby
     # bad
     [:new, :show, :index].each do |action|
       'it returns 200' do
@@ -410,7 +451,7 @@ end
 * Use [Factory Girl](https://github.com/thoughtbot/factory_girl) to create test
   objects. You should very rarely have to use `ModelName.create` within a spec.
 
-  ```Ruby
+  ```ruby
   subject { FactoryGirl.create(:some_article) }
   ```
 
@@ -433,7 +474,7 @@ end
     * Controller / Functional tests:
     > In a controller spec, we don't care about how our data objects are created or what data they contain; we are writing expectations for the functional behavior of that controller, and that controller only. Mocks and stubs are used to decouple from the model layer and stay focused on the task of specing the controller.
 
-    ```Ruby
+    ```ruby
     # mocking a model
     article = mock_model(Article)
 
@@ -444,7 +485,7 @@ end
   NOTE: if you stub a method that could give a false-positive test result, you 
   have gone too far. See below:
 
-    ```Ruby
+    ```ruby
     # bad (stubbing too far)
     subject { mock_model(Article) }
 
@@ -482,7 +523,7 @@ end
 
 * Always use [Timecop](https://github.com/travisjeffery/timecop) instead of stubbing anything on Time or Date.
 
-    ```Ruby
+    ```ruby
     # bad
     it 'offsets the time 2 days into the future' do
       current_time = Time.now
@@ -505,7 +546,7 @@ end
   examples. `let` blocks get lazily evaluated. It also removes the instance 
   variables from the test suite (which don't look as nice as local variables).
 
-    ```Ruby
+    ```ruby
     # use this:
     let(:article) { FactoryGirl.create(:article) }
 
@@ -516,7 +557,7 @@ end
 * Use `let!` blocks when you want the content to be evaluated immediately (skip 
   the lazy loading altogether). 
 
-  ```Ruby
+  ```ruby
   let!(:article) { FactoryGirl.create(:article) }
   ```
 
@@ -526,7 +567,7 @@ end
 
 * Use `subject` when possible
 
-    ```Ruby
+    ```ruby
     describe Article do
       subject { FactoryGirl.create(:article) }
 
@@ -539,7 +580,7 @@ end
 * Use RSpec's 'magical matcher' methods when possible. For instance, a class
   with the method `published?` should be tested with the following:
 
-    ```Ruby
+    ```ruby
     it 'is published' do
       # actually tests subject.published? == true
       subject.should be_published
@@ -548,7 +589,7 @@ end
 
 * Use `its` when possible
 
-    ```Ruby
+    ```ruby
     # bad
     describe Article do
       subject { FactoryGirl.create(:article) }
@@ -566,7 +607,7 @@ end
     ```
 * Avoid incidental state as much as possible.
 
-    ```Ruby
+    ```ruby
     # bad
     it 'publishes the article' do
       article.publish
@@ -599,7 +640,7 @@ end
   `app/views` part. This is used by the `render` method when it is
   called without arguments.
 
-    ```Ruby
+    ```ruby
     # spec/views/articles/new.html.erb_spec.rb
     require 'spec_helper'
 
@@ -613,7 +654,7 @@ end
 * The method `assign` supplies the instance variables which the view
   uses and are supplied by the controller.
 
-    ```Ruby
+    ```ruby
     # spec/views/articles/edit.html.erb_spec.rb
     describe 'articles/edit.html.erb' do
       it 'renders the form for a new article creation' do
@@ -631,7 +672,7 @@ end
 
 * Prefer the capybara negative selectors over should_not with the positive.
 
-    ```Ruby
+    ```ruby
     # bad
     page.should_not have_selector('input', type: 'submit')
     page.should_not have_xpath('tr')
@@ -644,7 +685,7 @@ end
 * When a view uses helper methods, these methods need to be stubbed. Stubbing 
   the helper methods is done on the `template` object:
 
-    ```Ruby
+    ```ruby
     # app/helpers/articles_helper.rb
     class ArticlesHelper
       def formatted_date(date)
@@ -658,7 +699,7 @@ end
     <%= 'Published at: #{formatted_date(@article.published_at)}' %>
     ```
     
-    ```Ruby
+    ```ruby
     # spec/views/articles/show.html.erb_spec.rb
     describe 'articles/show.html.erb' do
       it 'displays the formatted date of article publishing' do
@@ -685,7 +726,7 @@ end
   * Data returned from the action - assigns, etc.
   * Result from the action - template render, redirect, etc.
 
-        ```Ruby
+        ```ruby
         # Example of a commonly used controller spec
         # spec/controllers/articles_controller_spec.rb
         # We are interested only in the actions the controller should perform
@@ -721,7 +762,7 @@ end
 * Use context when the controller action has different behaviour depending on 
   the received params.
 
-    ```Ruby
+    ```ruby
     # A classic example for use of contexts in a controller spec is creation or update when the object saves successfully or not.
 
     describe ArticlesController do
@@ -777,7 +818,7 @@ end
 * Use `FactoryGirl.create` to make real objects, or just use a new (unsaved) 
   instance with `subject`.
 
-    ```Ruby
+    ```ruby
     describe Article do
       let(:article) { FactoryGirl.create(:article) }
 
@@ -792,7 +833,7 @@ end
 * It is acceptable to mock other models or child objects.
 * Create the model for all examples in the spec to avoid duplication.
 
-    ```Ruby
+    ```ruby
     describe Article do
       let(:article) { FactoryGirl.create(:article) }
     end
@@ -800,7 +841,7 @@ end
 
 * Add an example ensuring that the FactoryGirl.created model is valid.
 
-    ```Ruby
+    ```ruby
     describe Article do
       it 'is valid with valid attributes' do
         article.should be_valid
@@ -812,7 +853,7 @@ end
   which should be validated. Using `be_valid` does not guarantee that the 
   problem is in the intended attribute.
 
-    ```Ruby
+    ```ruby
     # bad
     describe '#title' do
       it 'is required' do
@@ -832,7 +873,7 @@ end
 
 * Add a separate `describe` for each attribute which has validations.
 
-    ```Ruby
+    ```ruby
     describe Article do
       describe '#title' do
         it 'is required' do
@@ -846,7 +887,7 @@ end
 * When testing uniqueness of a model attribute, name the other object 
   `another_object`.
 
-    ```Ruby
+    ```ruby
     describe Article do
       describe '#title' do
         it 'is unique' do
@@ -867,7 +908,7 @@ end
   * the e-mail is sent to the right e-mail address
   * the e-mail contains the required information
 
-    ```Ruby
+    ```ruby
     describe SubscriberMailer do
       let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
