@@ -139,7 +139,7 @@ expectations from their conditional logic (contexts for instance).
 
 ```ruby
 describe '#summary' do
-  let(:item) { mock('something') }
+  let(:item) { double('something') }
 
   it 'returns the summary' do
     # ...
@@ -157,7 +157,7 @@ end
 
 ```ruby
 describe '#summary' do
-  let(:item) { mock('something') }
+  let(:item) { double('something') }
 
   it 'returns the summary' do
     # ...
@@ -499,7 +499,7 @@ tests rather than with integration tests.
 
 ```ruby
 # double an object
-article = doubel('article')
+article = double('article')
 
 # stubbing a method
 allow(Article).to receive(:find).with(5).and_return(article)
@@ -631,7 +631,7 @@ it 'publishes the article' do
   
   # Creating another shared Article test object above would cause this
   # test to break
-  Article.count.should == 2
+  expect(Article.count).to eq(2)
 end
 ```
 
@@ -686,13 +686,13 @@ easier understanding and reading of a test.
     # spec/views/articles/edit.html.erb_spec.rb
     describe 'articles/edit.html.erb' do
       it 'renders the form for a new article creation' do
-        assign(:article, mock_model(Article).as_new_record.as_null_object)
+        assign(:article, double(Article).as_null_object)
         render
-        rendered.should have_selector('form',
+        expect(rendered).to have_selector('form',
           method: 'post',
           action: articles_path
         ) do |form|
-          form.should have_selector('input', type: 'submit')
+          expect(form).to have_selector('input', type: 'submit')
         end
       end
     end
@@ -702,12 +702,12 @@ easier understanding and reading of a test.
 
     ```ruby
     # bad
-    page.should_not have_selector('input', type: 'submit')
-    page.should_not have_xpath('tr')
+    expect(page).to_not have_selector('input', type: 'submit')
+    expect(page).to_not have_xpath('tr')
 
     # good
-    page.should have_no_selector('input', type: 'submit')
-    page.should have_no_xpath('tr')
+    expect(page).to have_no_selector('input', type: 'submit')
+    expect(page).to have_no_xpath('tr')
     ```
 
 * When a view uses helper methods, these methods need to be stubbed. Stubbing 
@@ -731,13 +731,13 @@ easier understanding and reading of a test.
     # spec/views/articles/show.html.erb_spec.rb
     describe 'articles/show.html.erb' do
       it 'displays the formatted date of article publishing' do
-        article = mock_model(Article, published_at: Date.new(2012, 01, 01))
+        article = double(Article, published_at: Date.new(2012, 01, 01))
         assign(:article, article)
 
-        template.stub(:formatted_date).with(article.published_at).and_return('01.01.2012')
+        allow(template).to_receive(:formatted_date).with(article.published_at).and_return('01.01.2012')
 
         render
-        rendered.should have_content('Published at: 01.01.2012')
+        expect(rendered).to have_content('Published at: 01.01.2012')
       end
     end
     ```
@@ -763,25 +763,25 @@ easier understanding and reading of a test.
 
         describe ArticlesController do
           # The model will be used in the specs for all methods of the controller
-          let(:article) { mock_model(Article) }
+          let(:article) { double(Article) }
 
           describe 'POST create' do
-            before { Article.stub(:new).and_return(article) }
+            before { allow(Article).to receive(:new).and_return(article) }
 
             it 'creates a new article with the given attributes' do
-              Article.should_receive(:new).with(title: 'The New Article Title').and_return(article)
+              expect(Article).to receive(:new).with(title: 'The New Article Title').and_return(article)
               post :create, message: { title: 'The New Article Title' }
             end
 
             it 'saves the article' do
-              article.should_receive(:save)
+              expect(article).to receive(:save)
               post :create
             end
 
             it 'redirects to the Articles index' do
-              article.stub(:save)
+              allow(article).to receive(:save)
               post :create
-              response.should redirect_to(action: 'index')
+              expect(response).to redirect_to(action: 'index')
             end
           end
         end
@@ -794,46 +794,50 @@ easier understanding and reading of a test.
     # A classic example for use of contexts in a controller spec is creation or update when the object saves successfully or not.
 
     describe ArticlesController do
-      let(:article) { mock_model(Article) }
+      let(:article) { double(Article) }
 
       describe 'POST create' do
-        before { Article.stub(:new).and_return(article) }
+        before { allow(Article).to receive(:new).and_return(article) }
 
         it 'creates a new article with the given attributes' do
-          Article.should_receive(:new).with(title: 'The New Article Title').and_return(article)
+          expect(Article).to receive(:new).with(title: 'The New Article Title').and_return(article)
           post :create, article: { title: 'The New Article Title' }
         end
 
         it 'saves the article' do
-          article.should_receive(:save)
+          expect(article).to receive(:save)
           post :create
         end
 
         context 'when the article saves successfully' do
-          before { article.stub(:save).and_return(true) }
+          before do
+            allow(article).to receive(:save).and_return(true)
+          end
 
           it 'sets a flash[:notice] message' do
             post :create
-            flash[:notice].should eq('The article was saved successfully.')
+            expect(flash[:notice]).to eq('The article was saved successfully.')
           end
 
           it 'redirects to the Articles index' do
             post :create
-            response.should redirect_to(action: 'index')
+            expect(response).to redirect_to(action: 'index')
           end
         end
 
         context 'when the article fails to save' do
-          before { article.stub(:save).and_return(false) }
+          before do
+            allow(article).to receive(:save).and_return(false)
+          end
 
           it 'assigns @article' do
             post :create
-            assigns[:article].should be_eql(article)
+            expect(assigns[:article]).to eq(article)
           end
 
           it 're-renders the 'new' template' do
             post :create
-            response.should render_template('new')
+            expect(response).to render_template('new')
           end
         end
       end
@@ -852,8 +856,11 @@ easier understanding and reading of a test.
 
       # Currently, 'subject' is the same as 'Article.new'
       it 'is an instance of Article' do
-        subject.should be_an Article
-        subject.should_not be_persisted
+        expect(subject).to be_an Article
+      end
+
+      it 'is not persisted' do
+        expect(subject).to_not be_persisted
       end
     end
     ```
@@ -872,7 +879,7 @@ easier understanding and reading of a test.
     ```ruby
     describe Article do
       it 'is valid with valid attributes' do
-        article.should be_valid
+        expect(article).to be_valid
       end
     end
     ```
@@ -886,7 +893,7 @@ easier understanding and reading of a test.
     describe '#title' do
       it 'is required' do
         article.title = nil
-        article.should_not be_valid
+        expect(article).to_not be_valid
       end
     end
 
@@ -894,7 +901,7 @@ easier understanding and reading of a test.
     describe '#title' do
       it 'is required' do
         article.title = nil
-        article.should have(1).error_on(:title)
+        expect(article).to have(1).error_on(:title)
       end
     end
     ```
@@ -906,7 +913,7 @@ easier understanding and reading of a test.
       describe '#title' do
         it 'is required' do
           article.title = nil
-          article.should have(1).error_on(:title)
+          expect(article).to have(1).error_on(:title)
         end
       end
     end
@@ -920,7 +927,7 @@ easier understanding and reading of a test.
       describe '#title' do
         it 'is unique' do
           another_article = FactoryGirl.create(:article, title: article.title)
-          article.should have(1).error_on(:title)
+          expect(article).to have(1).error_on(:title)
         end
       end
     end
@@ -938,7 +945,7 @@ easier understanding and reading of a test.
 
     ```ruby
     describe SubscriberMailer do
-      let(:subscriber) { mock_model(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
+      let(:subscriber) { double(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
       describe 'successful registration email' do
         subject { SubscriptionMailer.successful_registration_email(subscriber) }
@@ -948,7 +955,7 @@ easier understanding and reading of a test.
         its(:to) { should == [subscriber.email] }
 
         it 'contains the subscriber name' do
-          subject.body.encoded.should match(subscriber.name)
+          expect(subject.body.encoded).to match(subscriber.name)
         end
       end
     end
