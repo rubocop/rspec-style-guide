@@ -337,12 +337,13 @@ end
 
 ### `context` descriptions
 
-`context` block descriptions should always start with 'when'
+`context` block descriptions should always start with 'when', and be in the
+form of a sentence with proper grammar.
 
 #### Bad Example
 
 ```ruby
-context 'the display name is not present' do
+context 'the display name not present' do
   # ...
 end
 ```
