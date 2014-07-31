@@ -258,7 +258,7 @@ describe ArticlesController do
 
     it 'renders the new article template' do
       get :new
-      expet(response).to render_template :new
+      expect(response).to render_template :new
     end
   end
 end
