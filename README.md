@@ -494,7 +494,7 @@ easily. When resorting to mocking and stubbing, only mock against a small,
 stable, obvious (or documented) API, so stubs are likely to represent reality
 after future refactoring.
 
-This is generally means you should use them with more isolated/behavioral
+This generally means you should use them with more isolated/behavioral
 tests rather than with integration tests.
 
 ```ruby
