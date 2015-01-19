@@ -874,15 +874,7 @@ easier understanding and reading of a test.
     end
     ```
 
-* Add an example ensuring that the FactoryGirl.created model is valid.
-
-    ```ruby
-    describe Article do
-      it 'is valid with valid attributes' do
-        expect(article).to be_valid
-      end
-    end
-    ```
+* Use [FactoryGirl.lint](https://github.com/thoughtbot/factory_girl/blob/master/GETTING_STARTED.md#linting-factories) to ensure that all Factories are valid.
 
 * When testing validations, use `have(x).errors_on` to specify the attibute
   which should be validated. Using `be_valid` does not guarantee that the 
