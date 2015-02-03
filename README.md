@@ -650,9 +650,9 @@ shared environment too early, as this can lead to brittle tests that rely too
 much on one other.
 
 It general it is best to start with doing everything directly in your `it`
-blocks even if it is duplication and then refactor you tests after you have
+blocks even if it is duplication and then refactor your tests after you have
 them working to be a little more DRY. However, keep in mind that duplication
-in test suites is NOT fround upon, in fact it is preferred if it provides
+in test suites is NOT frowned upon, in fact it is preferred if it provides
 easier understanding and reading of a test.
 
 ### Views
