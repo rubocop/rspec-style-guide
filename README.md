@@ -698,7 +698,7 @@ easier understanding and reading of a test.
     end
     ```
 
-* Prefer the capybara negative selectors over should_not with the positive.
+* Prefer the capybara negative selectors over to_not with the positive.
 
     ```ruby
     # bad
