@@ -663,7 +663,7 @@ easier understanding and reading of a test.
 * The naming convention for the view specs is adding `_spec.rb` to the
   view name, for example the view `_form.html.erb` has a
   corresponding spec `_form.html.erb_spec.rb`.
-* `spec_helper.rb` need to be required in each view spec file.
+* `spec_helper.rb` needs to be required in each view spec file.
 * The outer `describe` block uses the path to the view without the
   `app/views` part. This is used by the `render` method when it is
   called without arguments.
