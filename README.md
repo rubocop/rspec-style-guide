@@ -884,7 +884,7 @@ easier understanding and reading of a test.
     end
     ```
 
-* When testing validations, use `have(x).errors_on` to specify the attibute
+* When testing validations, use `have(x).errors_on` to specify the attribute
   which should be validated. Using `be_valid` does not guarantee that the 
   problem is in the intended attribute.
 
