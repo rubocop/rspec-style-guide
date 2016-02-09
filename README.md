@@ -1,22 +1,22 @@
 # The RSpec Style Guide
 
 This RSpec style guide outlines our recommended best practices so that our
-developers can write code that can be maintained by other (future) developers. 
-This is meant to be a style guide that reflects real-world usage, as well as a 
-guide that holds to an ideal that has been agreed upon by many of the people it 
+developers can write code that can be maintained by other (future) developers.
+This is meant to be a style guide that reflects real-world usage, as well as a
+guide that holds to an ideal that has been agreed upon by many of the people it
 was intended to be used by.
 
 ## How to Read This Guide
 
-The guide is separated into sections based on the different pieces of an entire 
+The guide is separated into sections based on the different pieces of an entire
 spec file. There was an attempt to omit all obvious information, if anything is
 unclear, feel free to open an issue asking for further clarity.
 
 ## A Living Document
 
 Per the comment above, this guide is a work in progress - some rules are simply
-lacking thorough examples, but some things in the RSpec world change week by 
-week or month by month. With that said, as the standard changes this guide is 
+lacking thorough examples, but some things in the RSpec world change week by
+week or month by month. With that said, as the standard changes this guide is
 meant to be able to change with it.
 
 ## Style Guide Rules
@@ -166,7 +166,7 @@ describe '#summary' do
   it 'does something else' do
     # ...
   end
-  
+
   it 'does another thing' do
     # ...
   end
@@ -203,7 +203,7 @@ end
 
 Do not write 'should' or 'should not' in the beginning of your `it` blocks.
 The descriptions represent actual functionality - not what might be happening.
-    
+
 #### Bad Example
 
 ```ruby
@@ -275,7 +275,7 @@ matching negative case) that it needs refactoring, or may have no purpose.
 ```ruby
 # This is a case where refactoring is the correct choice
 describe '#attributes' do
-  context 'the returned hash' do 
+  context 'the returned hash' do
     it 'includes the display name' do
       # ...
     end
@@ -317,7 +317,7 @@ describe '#attributes' do
     before do
       subject.display_name = 'something'
     end
-    
+
     it 'includes the display name' do
       # ...
     end
@@ -430,7 +430,7 @@ describe Article do
 end
 ```
 
-### `it`s in iterators
+### `it` in iterators
 
 Do not write iterators to generate tests. When another developer adds a
 feature to one of the items in the iteration, he must then break it out into a
@@ -505,7 +505,7 @@ article = double('article')
 allow(Article).to receive(:find).with(5).and_return(article)
 ```
 
-*NOTE*: if you stub a method that could give a false-positive test result, you 
+*NOTE*: if you stub a method that could give a false-positive test result, you
 have gone too far. See below:
 
 #### Bad Example
@@ -518,7 +518,7 @@ describe '#summary' do
     # This stubbing of the #nil? method, makes the test pass, but
     # you are no longer testing the functionality of the code,
     # you are testing the functionality of the test suite.
-    # This test would pass if there was not a single line of code 
+    # This test would pass if there was not a single line of code
     # written for the Article class.
     it 'returns nil' do
       summary = double('summary')
@@ -537,7 +537,7 @@ subject { double('article') }
 
 describe '#summary' do
   context 'when summary is not present' do
-    # This is no longer stubbing all of the functionality, and will 
+    # This is no longer stubbing all of the functionality, and will
     # actually test the objects handling of the methods return value.
     it 'returns nil' do
       allow(subject).to receive(:summary).and_return(nil)
@@ -628,7 +628,7 @@ Avoid incidental state as much as possible.
 ```ruby
 it 'publishes the article' do
   article.publish
-  
+
   # Creating another shared Article test object above would cause this
   # test to break
   expect(Article.count).to eq(2)
@@ -710,7 +710,7 @@ easier understanding and reading of a test.
     expect(page).to have_no_xpath('tr')
     ```
 
-* When a view uses helper methods, these methods need to be stubbed. Stubbing 
+* When a view uses helper methods, these methods need to be stubbed. Stubbing
   the helper methods is done on the `template` object:
 
     ```ruby
@@ -726,7 +726,7 @@ easier understanding and reading of a test.
     # app/views/articles/show.html.erb
     <%= 'Published at: #{formatted_date(@article.published_at)}' %>
     ```
-    
+
     ```ruby
     # spec/views/articles/show.html.erb_spec.rb
     describe 'articles/show.html.erb' do
@@ -742,12 +742,12 @@ easier understanding and reading of a test.
     end
     ```
 
-* The helpers specs are separated from the view specs in the `spec/helpers` 
+* The helpers specs are separated from the view specs in the `spec/helpers`
   directory.
 
 ### Controllers
 
-* Mock the models and stub their methods. Testing the controller should not 
+* Mock the models and stub their methods. Testing the controller should not
   depend on the model creation.
 * Test only the behaviour the controller should be responsible about:
   * Execution of particular methods
@@ -787,7 +787,7 @@ easier understanding and reading of a test.
         end
         ```
 
-* Use context when the controller action has different behaviour depending on 
+* Use context when the controller action has different behaviour depending on
   the received params.
 
     ```ruby
@@ -847,7 +847,7 @@ easier understanding and reading of a test.
 ### Models
 
 * Do not mock the models in their own specs.
-* Use `FactoryGirl.create` to make real objects, or just use a new (unsaved) 
+* Use `FactoryGirl.create` to make real objects, or just use a new (unsaved)
   instance with `subject`.
 
     ```ruby
@@ -884,8 +884,9 @@ easier understanding and reading of a test.
     end
     ```
 
-* When testing validations, use `have(x).errors_on` to specify the attribute
-  which should be validated. Using `be_valid` does not guarantee that the 
+
+* When testing validations, use `expect(model.errors[:attribute].size).to eq(x)` to specify the attribute
+  which should be validated. Using `be_valid` does not guarantee that the
   problem is in the intended attribute.
 
     ```ruby
@@ -901,7 +902,8 @@ easier understanding and reading of a test.
     describe '#title' do
       it 'is required' do
         article.title = nil
-        expect(article).to have(1).error_on(:title)
+        article.valid?
+        expect(article.errors[:title].size).to eq(1)
       end
     end
     ```
@@ -913,13 +915,14 @@ easier understanding and reading of a test.
       describe '#title' do
         it 'is required' do
           article.title = nil
-          expect(article).to have(1).error_on(:title)
+          article.valid?
+          expect(article.errors[:title].size).to eq(1)
         end
       end
     end
     ```
 
-* When testing uniqueness of a model attribute, name the other object 
+* When testing uniqueness of a model attribute, name the other object
   `another_object`.
 
     ```ruby
@@ -927,7 +930,8 @@ easier understanding and reading of a test.
       describe '#title' do
         it 'is unique' do
           another_article = FactoryGirl.create(:article, title: article.title)
-          expect(article).to have(1).error_on(:title)
+          article.valid?
+          expect(another_article.errors[:title].size).to eq(1)
         end
       end
     end
