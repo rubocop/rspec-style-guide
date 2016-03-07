@@ -1,6 +1,7 @@
 # ReachLocal: RSpec Style Guide
 
-## Learn the rules like a pro, so you can break them like an artist. - Picasso
+> **Learn the rules like a pro, so you can break them like an artist.** 
+> - _Pablo Picasso_
 
 This guide helps describe some recommended practices that we've found
 to help in writing specs that are easier for ourselves and our colleagues
