@@ -220,13 +220,13 @@ it 'returns the summary' do
 end
 ```
 
-### The One Expectation
+### Increase happiness by reducing expectations.
 
-Use only one expectation per example. There are very few scenarios where two
-or more expectations in a single `it` block should be used. So, general rule
-of thumb is one expectation per `it` block.
+It is usually helpful to keep your expecations to the least amount to
+prove that the scenario passed. This sometimes means more than one
+expecation will be used to prove an action succeeded or failed to occur.
 
-#### Bad Example
+#### This is fine if the relationship between expectations is obvious:
 
 ```ruby
 describe ArticlesController do
@@ -244,24 +244,56 @@ describe ArticlesController do
 end
 ```
 
-#### Good Example
+#### If the relationship between expectations might **not** be obvious:
 
 ```ruby
 describe ArticlesController do
   #...
 
   describe 'GET new' do
+    before { get :new }
+
     it 'assigns a new article' do
-      get :new
       expect(assigns[:article]).to be_a(Article)
     end
 
     it 'renders the new article template' do
-      get :new
       expect(response).to render_template :new
     end
   end
 end
+```
+
+#### Let's look at an example straight from RSpec-Expecations:
+
+```ruby
+module RSpec
+  module Expectations
+    RSpec.describe Syntax do
+      context "when passing a message to an expectation" do
+        let(:warner) { ::Kernel }
+
+        let(:string_like_object) do
+          Struct.new(:to_str, :to_s).new(*(["Ceci n'est pas une Chaine."]*2))
+        end
+
+        # ...
+
+        describe "expect(...).to" do
+          it "prints a warning when the message object isn't a String" do
+            expect(warner).to receive(:warn).with(/ignoring.*message/)
+            expect(3).to eq(3), :not_a_string
+          end
+
+          it "doesn't print a warning when message is a String" do
+            expect(warner).not_to receive(:warn)
+            expect(3).to eq(3), "a string"
+          end
+
+          it "doesn't print a warning when message responds to to_str" do
+            expect(warner).not_to receive(:warn)
+            expect(3).to eq(3), string_like_object
+          end
 ```
 
 ### Context Cases
