@@ -754,38 +754,39 @@ easier understanding and reading of a test.
   * Data returned from the action - assigns, etc.
   * Result from the action - template render, redirect, etc.
 
-        ```ruby
-        # Example of a commonly used controller spec
-        # spec/controllers/articles_controller_spec.rb
-        # We are interested only in the actions the controller should perform
-        # So we are mocking the model creation and stubbing its methods
-        # And we concentrate only on the things the controller should do
+    ```ruby
+    # Example of a commonly used controller spec
+    # spec/controllers/articles_controller_spec.rb
+    # We are interested only in the actions the controller should perform
+    # So we are mocking the model creation and stubbing its methods
+    # And we concentrate only on the things the controller should do
 
-        describe ArticlesController do
-          # The model will be used in the specs for all methods of the controller
-          let(:article) { double(Article) }
+    describe ArticlesController do
+      # The model will be used in the specs for all methods of the controller
+      let(:article) { double(Article) }
 
-          describe 'POST create' do
-            before { allow(Article).to receive(:new).and_return(article) }
+      describe 'POST create' do
+        before { allow(Article).to receive(:new).and_return(article) }
 
-            it 'creates a new article with the given attributes' do
-              expect(Article).to receive(:new).with(title: 'The New Article Title').and_return(article)
-              post :create, message: { title: 'The New Article Title' }
-            end
-
-            it 'saves the article' do
-              expect(article).to receive(:save)
-              post :create
-            end
-
-            it 'redirects to the Articles index' do
-              allow(article).to receive(:save)
-              post :create
-              expect(response).to redirect_to(action: 'index')
-            end
-          end
+        it 'creates a new article with the given attributes' do
+          expect(Article).to receive(:new).with(title: 'The New Article Title').and_return(article)
+          post :create, message: { title: 'The New Article Title' }
         end
-        ```
+
+        it 'saves the article' do
+          expect(article).to receive(:save)
+          post :create
+        end
+
+        it 'redirects to the Articles index' do
+          allow(article).to receive(:save)
+          post :create
+          expect(response).to redirect_to(action: 'index')
+        end
+      end
+    end
+    ```
+
 
 * Use context when the controller action has different behaviour depending on
   the received params.
