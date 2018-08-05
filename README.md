@@ -1,34 +1,28 @@
-# The RSpec Style Guide
+# ReachLocal: RSpec Style Guide
 
-This RSpec style guide outlines our recommended best practices so that our
-developers can write code that can be maintained by other (future) developers.
-This is meant to be a style guide that reflects real-world usage, as well as a
-guide that holds to an ideal that has been agreed upon by many of the people it
-was intended to be used by.
+> **Learn the rules like a pro, so you can break them like an artist.** - _Pablo Picasso_
 
-## How to Read This Guide
+This guide helps describe some recommended practices that we've found
+to help in writing specs that are easier for ourselves and our colleagues
+to comprehend and maintain.
 
-The guide is separated into sections based on the different pieces of an entire
-spec file. There was an attempt to omit all obvious information, if anything is
-unclear, feel free to open an issue asking for further clarity.
+Although, maybe you've found something that doesn't make sense in your
+current context? Maybe there's something missing in the guideline? Progress
+is more important than doctrine so move forward then loop back. There might
+be a reason things were recommended here or it might be something that was missed.
 
-## A Living Document
+If you have an idea on how to improve this doc then please submit a PR with
+an explanation of what you're changing with an explanation of your goal.
 
-Per the comment above, this guide is a work in progress - some rules are simply
-lacking thorough examples, but some things in the RSpec world change week by
-week or month by month. With that said, as the standard changes this guide is
-meant to be able to change with it.
-
-## Style Guide Rules
-
+## Recommendations
 
 ### Line Returns after `feature`, `context`, or `describe`
 
-Do not leave line returns after `feature`, `context` or `describe`
+Avoid line returns after `feature`, `context` or `describe`
 descriptions. It does makes the code more difficult to read and lowers the
 value of logical chunks.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 describe Article do
@@ -45,7 +39,7 @@ describe Article do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 describe Article do
@@ -63,7 +57,7 @@ end
 
 Leave one line return after `let`, `subject`, and `before`/`after` blocks.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 describe Article do
@@ -74,7 +68,7 @@ describe Article do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 describe Article do
@@ -91,7 +85,7 @@ end
 Only group `let`, `subject` blocks and separate them from `before`/`after`
 blocks. It makes the code much more readable.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 describe Article do
@@ -109,7 +103,7 @@ describe Article do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 describe Article do
@@ -135,7 +129,7 @@ end
 Leave one line return around `it` blocks. This helps to separate the
 expectations from their conditional logic (contexts for instance).
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 describe '#summary' do
@@ -153,7 +147,7 @@ describe '#summary' do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 describe '#summary' do
@@ -179,7 +173,7 @@ There is no need to specify `(:each)` for `before`/`after` blocks, as it is
 the default functionality. There are almost zero cases to use `before(:all)`
 anymore, but if you do find one - just write it out like `before(:all)`
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 describe '#summary' do
@@ -189,7 +183,7 @@ describe '#summary' do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 describe '#summary' do
@@ -201,10 +195,10 @@ end
 
 ### 'should' it or 'should not' in `it` statements
 
-Do not write 'should' or 'should not' in the beginning of your `it` blocks.
+Avoid writing 'should' or 'should not' in the beginning of your `it` blocks.
 The descriptions represent actual functionality - not what might be happening.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 it 'should return the summary' do
@@ -212,7 +206,7 @@ it 'should return the summary' do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 it 'returns the summary' do
@@ -270,7 +264,7 @@ end
 should actually be a strong code smell if there is a single context (without a
 matching negative case) that it needs refactoring, or may have no purpose.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 # This is a case where refactoring is the correct choice
@@ -300,7 +294,7 @@ describe '#attributes' do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 # Refactored
@@ -340,7 +334,7 @@ end
 `context` block descriptions should always start with 'when', and be in the
 form of a sentence with proper grammar.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 context 'the display name not present' do
@@ -348,7 +342,7 @@ context 'the display name not present' do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 context 'when the display name is not present' do
@@ -361,7 +355,7 @@ end
 `it` block descriptions should never end with a conditional. This is a code
 smell that the `it` most likely needs to be wrapped in a `context`.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 it 'returns the display name if it is present' do
@@ -369,7 +363,7 @@ it 'returns the display name if it is present' do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 context 'when display name is present' do
@@ -406,7 +400,7 @@ class Article
 end
 ```
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 describe Article do
@@ -420,7 +414,7 @@ describe Article do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 describe Article do
@@ -436,12 +430,12 @@ end
 
 ### `it` in iterators
 
-Do not write iterators to generate tests. When another developer adds a
+Avoid writing iterators to generate tests. When another developer adds a
 feature to one of the items in the iteration, he must then break it out into a
 separate test - he is forced to edit code that has nothing to do with his pull
 request.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 [:new, :show, :index].each do |action|
@@ -452,7 +446,7 @@ request.
 end
 ```
 
-#### Good Example
+#### Recommended
 
 more verbose for the time being, but better for the future development
 
@@ -512,7 +506,7 @@ allow(Article).to receive(:find).with(5).and_return(article)
 *NOTE*: if you stub a method that could give a false-positive test result, you
 have gone too far. See below:
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 subject { double('article') }
@@ -534,7 +528,7 @@ describe '#summary' do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 subject { double('article') }
@@ -556,7 +550,7 @@ end
 Always use [Timecop](https://github.com/travisjeffery/timecop) instead of
 stubbing anything on Time or Date.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 it 'offsets the time 2 days into the future' do
@@ -566,7 +560,7 @@ it 'offsets the time 2 days into the future' do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 it 'offsets the time 2 days into the future' do
@@ -627,7 +621,7 @@ end
 
 Avoid incidental state as much as possible.
 
-#### Bad Example
+#### Not recommended
 
 ```ruby
 it 'publishes the article' do
@@ -639,7 +633,7 @@ it 'publishes the article' do
 end
 ```
 
-#### Good Example
+#### Recommended
 
 ```ruby
 it 'publishes the article' do
@@ -851,7 +845,7 @@ easier understanding and reading of a test.
 
 ### Models
 
-* Do not mock the models in their own specs.
+* Don't mock the models in their own specs.
 * Use `FactoryGirl.create` to make real objects, or just use a new (unsaved)
   instance with `subject`.
 
@@ -870,7 +864,7 @@ easier understanding and reading of a test.
     end
     ```
 
-* It is acceptable to mock other models or child objects.
+* It is okay to mock other models or child objects.
 * Create the model for all examples in the spec to avoid duplication.
 
     ```ruby
@@ -972,12 +966,16 @@ easier understanding and reading of a test.
 
 # Contributing
 
-Open tickets or send pull requests with improvements. Please write [good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
-or your pull requests will be closed.
+Questions about this doc? Have something that you'd like to see changed but
+aren't ready for a PR? Then submit an issue to this repo to start a conversation.
+
+Want to dive right in and start changing the doc? Then PR's are welcome. If
+you're unsure about how to format a PR then we recommend reading about how to
+write [good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html).
 
 # Credit
+
 Inspiration was taken from the following:
 
-[howaboutwe's rspec style guide](https://github.com/howaboutwe/rspec-style-guide)
-
-[bbatsov's rspec style guide](https://github.com/bbatsov/rails-style-guide)
+- [howaboutwe's rspec style guide](https://github.com/howaboutwe/rspec-style-guide)
+- [bbatsov's rspec style guide](https://github.com/bbatsov/rails-style-guide)
