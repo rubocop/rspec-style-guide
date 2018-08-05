@@ -373,13 +373,17 @@ end
 
 ```ruby
 context 'when display name is present' do
-  it 'returns the display name'
+  it 'returns the display name' do
+    # ...
+  end
 end
 
 # This encourages the addition of negative test cases that might have
 # been overlooked
 context 'when display name is not present' do
-  it 'returns nil'
+  it 'returns nil' do
+    # ...
+  end
 end
 ```
 
@@ -393,11 +397,11 @@ Given the following exists
 ```ruby
 class Article
   def summary
-    #...
+    # ...
   end
 
   def self.latest
-    #...
+    # ...
   end
 end
 ```
