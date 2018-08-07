@@ -1043,6 +1043,6 @@ or your pull requests will be closed.
 # Credit
 Inspiration was taken from the following:
 
-[howaboutwe's rspec style guide](https://github.com/howaboutwe/rspec-style-guide)
+[HowAboutWe's RSpec style guide](https://github.com/howaboutwe/rspec-style-guide)
 
-[bbatsov's rspec style guide](https://github.com/bbatsov/rails-style-guide)
+[Community Rails style guide](https://github.com/rubocop-hq/rails-style-guide)
