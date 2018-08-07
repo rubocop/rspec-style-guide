@@ -663,6 +663,31 @@ it 'is published' do
 end
 ```
 
+### Be Matcher
+
+Avoid using `be` matcher without arguments. It is too generic, as it pass on
+everything that is not `nil` or `false`. If that is the exact intend, use
+`be_truthy`. In all other cases it's better to specify what exactly is the
+expected value.
+
+#### Bad Example
+
+```ruby
+it 'has author' do
+  expect(article.author).to be
+end
+```
+
+#### Good Example
+
+```ruby
+it 'has author' do
+  expect(article.author).to be_truthy # same as the original
+  expect(article.author).not_to be_nil # `be` is often used to check for non-nil value
+  expect(article.author).to be_an(Author) # explicit check for the type of the value
+end
+```
+
 ### Incidental State
 
 Avoid incidental state as much as possible.
