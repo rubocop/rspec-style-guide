@@ -307,8 +307,10 @@ end
 describe '#attributes' do
   subject { FactoryGirl.create(:article) }
 
-  expect(subject.attributes).to include subject.display_name
-  expect(subject.attributes).to include subject.created_at
+  specify do
+    expect(subject.attributes).to include subject.display_name
+    expect(subject.attributes).to include subject.created_at
+  end
 end
 
 # Added the negative case
