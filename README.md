@@ -173,6 +173,44 @@ describe '#summary' do
 end
 ```
 
+### Leading `subject`
+
+When `subject` is used, it should be the first declaration in the example group.
+
+#### Bad Example
+
+```ruby
+describe Article do
+  before do
+    # ...
+  end
+
+  let(:user) { FactoryGirl.create(:user) }
+  subject { FactoryGirl.create(:some_article) }
+
+  describe '#summary' do
+    # ...
+  end
+end
+```
+
+#### Good Example
+
+```ruby
+describe Article do
+  subject { FactoryGirl.create(:some_article) }
+  let(:user) { FactoryGirl.create(:user) }
+
+  before do
+    # ...
+  end
+
+  describe '#summary' do
+    # ...
+  end
+end
+```
+
 ### `before(:each)`or `before`
 
 There is no need to specify `(:each)` for `before`/`after` blocks, as it is
