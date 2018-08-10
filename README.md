@@ -67,7 +67,7 @@ Leave one line return after `let`, `subject`, and `before`/`after` blocks.
 
 ```ruby
 describe Article do
-  subject { FactoryGirl.create(:some_article) }
+  subject { FactoryBot.create(:some_article) }
   describe '#summary' do
     # ...
   end
@@ -78,7 +78,7 @@ end
 
 ```ruby
 describe Article do
-  subject { FactoryGirl.create(:some_article) }
+  subject { FactoryBot.create(:some_article) }
 
   describe '#summary' do
     # ...
@@ -95,8 +95,8 @@ blocks. It makes the code much more readable.
 
 ```ruby
 describe Article do
-  subject { FactoryGirl.create(:some_article) }
-  let(:user) { FactoryGirl.create(:user) }
+  subject { FactoryBot.create(:some_article) }
+  let(:user) { FactoryBot.create(:user) }
   before do
     # ...
   end
@@ -113,8 +113,8 @@ end
 
 ```ruby
 describe Article do
-  subject { FactoryGirl.create(:some_article) }
-  let(:user) { FactoryGirl.create(:user) }
+  subject { FactoryBot.create(:some_article) }
+  let(:user) { FactoryBot.create(:user) }
 
   before do
     # ...
@@ -185,8 +185,8 @@ describe Article do
     # ...
   end
 
-  let(:user) { FactoryGirl.create(:user) }
-  subject { FactoryGirl.create(:some_article) }
+  let(:user) { FactoryBot.create(:user) }
+  subject { FactoryBot.create(:some_article) }
 
   describe '#summary' do
     # ...
@@ -198,8 +198,8 @@ end
 
 ```ruby
 describe Article do
-  subject { FactoryGirl.create(:some_article) }
-  let(:user) { FactoryGirl.create(:user) }
+  subject { FactoryBot.create(:some_article) }
+  let(:user) { FactoryBot.create(:user) }
 
   before do
     # ...
@@ -343,7 +343,7 @@ end
 ```ruby
 # Refactored
 describe '#attributes' do
-  subject { FactoryGirl.create(:article) }
+  subject { FactoryBot.create(:article) }
 
   specify do
     expect(subject.attributes).to include subject.display_name
@@ -521,13 +521,13 @@ end
 
 ### Factories/Fixtures
 
-Use [Factory Girl](https://github.com/thoughtbot/factory_girl) to create test
+Use [Factory Bot](https://github.com/thoughtbot/factory_bot) to create test
 objects in integration tests. You should very rarely have to use
 `ModelName.create` within an integration spec. Do **not** use fixtures as they
 are not nearly as maintainable as factories.
 
 ```ruby
-subject { FactoryGirl.create(:some_article) }
+subject { FactoryBot.create(:some_article) }
 ```
 
 ### Mocks/Stubs/Doubles
@@ -631,10 +631,10 @@ These should primarily be used when you have duplication among a number of
 
 ```ruby
 # use this:
-let(:article) { FactoryGirl.create(:article) }
+let(:article) { FactoryBot.create(:article) }
 
 # ... instead of this:
-before { @article = FactoryGirl.create(:article) }
+before { @article = FactoryBot.create(:article) }
 ```
 
 ### `subject`
@@ -643,7 +643,7 @@ Use `subject` when possible
 
 ```ruby
 describe Article do
-  subject { FactoryGirl.create(:article) }
+  subject { FactoryBot.create(:article) }
 
   it 'is not published on creation' do
     expect(subject).not_to be_published
@@ -892,12 +892,12 @@ easier understanding and reading of a test.
 ### Models
 
 * Do not mock the models in their own specs.
-* Use `FactoryGirl.create` to make real objects, or just use a new (unsaved)
+* Use `FactoryBot.create` to make real objects, or just use a new (unsaved)
   instance with `subject`.
 
     ```ruby
     describe Article do
-      let(:article) { FactoryGirl.create(:article) }
+      let(:article) { FactoryBot.create(:article) }
 
       # Currently, 'subject' is the same as 'Article.new'
       it 'is an instance of Article' do
@@ -915,11 +915,11 @@ easier understanding and reading of a test.
 
     ```ruby
     describe Article do
-      let(:article) { FactoryGirl.create(:article) }
+      let(:article) { FactoryBot.create(:article) }
     end
     ```
 
-* Add an example ensuring that the FactoryGirl.created model is valid.
+* Add an example ensuring that the FactoryBot.created model is valid.
 
     ```ruby
     describe Article do
@@ -974,7 +974,7 @@ easier understanding and reading of a test.
     describe Article do
       describe '#title' do
         it 'is unique' do
-          another_article = FactoryGirl.create(:article, title: article.title)
+          another_article = FactoryBot.create(:article, title: article.title)
           article.valid?
           expect(another_article.errors[:title].size).to eq(1)
         end
