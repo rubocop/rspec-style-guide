@@ -975,7 +975,7 @@ easier understanding and reading of a test.
       describe '#title' do
         it 'is unique' do
           another_article = FactoryGirl.create(:article, title: article.title)
-          article.valid?
+          another_article.valid?
           expect(another_article.errors[:title].size).to eq(1)
         end
       end
