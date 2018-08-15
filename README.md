@@ -542,8 +542,9 @@ meant to be able to change with it.
 ## Naming
 
 * <a name="context-descriptions"></a>
-  `context` block descriptions should always start with 'when', and be in the
-  form of a sentence with proper grammar.
+  `context` block descriptions should always start with 'when', 'with' or
+  'without', and be in the form of a sentence (or form a part of a sentence)
+  with proper grammar.
 <sup>[[link](#context-descriptions)]</sup>
 
   ```ruby
@@ -552,8 +553,24 @@ meant to be able to change with it.
     # ...
   end
 
+  context 'the display name has utf8 characters' do
+    # ...
+  end
+
+  context 'the display name has no utf8 characters' do
+    # ...
+  end
+
   # good
   context 'when the display name is not present' do
+    # ...
+  end
+
+  context 'with utf8 characters in the display name' do
+    # ...
+  end
+
+  context 'without utf8 characters in the display name' do
     # ...
   end
   ```
