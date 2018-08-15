@@ -64,6 +64,46 @@ meant to be able to change with it.
   end
   ```
 
+* <a name="empty-lines-between-describes"></a>
+    Leave one empty line between `feature`, `context` or `describe` blocks.
+    Do not leave empty line after the last such block in a group.
+  <sup>[[link](#empty-lines-between-describes)]</sup>
+
+  ```ruby
+  # bad
+  describe Article do
+    describe '#summary' do
+      context 'when there is a summary' do
+        # ...
+      end
+      context 'when there is no summary' do
+        # ...
+      end
+
+    end
+    describe '#comments' do
+      # ...
+    end
+  end
+
+  # good
+  describe Article do
+    describe '#summary' do
+      context 'when there is a summary' do
+        # ...
+      end
+
+      context 'when there is no summary' do
+        # ...
+      end
+    end
+
+    describe '#comments' do
+      # ...
+    end
+  end
+  ```
+
 * <a name="empty-lines-after-let"></a>
   Leave one empty line after `let`, `subject`, and `before`/`after` blocks.
 <sup>[[link](#empty-lines-after-let)]</sup>
