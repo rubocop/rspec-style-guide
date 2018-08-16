@@ -419,6 +419,36 @@ meant to be able to change with it.
   end
   ```
 
+* <a name="it-and-specify"></a>
+  Use `specify` if the example doesn't have a description, use `it` for
+  examples with descriptions. An exception is one-line example, where
+  `it` is preferable.
+<sup>[[link](#it-and-specify)]</sup>
+
+  ```ruby
+  # bad
+  it do
+    # ...
+  end
+
+  specify 'it sends an email' do
+    # ...
+  end
+
+  specify { is_expected.to be_truthy }
+
+  # good
+  specify do
+    # ...
+  end
+
+  it 'sends an email' do
+    # ...
+  end
+
+  it { is_expected.to be_truthy }
+  ```
+
 * <a name="it-in-iterators"></a>
   Do not write iterators to generate tests. When another developer adds a
   feature to one of the items in the iteration, he must then break it out into a
