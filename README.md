@@ -406,18 +406,83 @@ meant to be able to change with it.
   ```
 
 * <a name="use-subject"></a>
-  Use `subject` when possible
+  Use named `subject` when possible. Only use anonymous subject declaration
+  when you don't reference it in any tests, e.g. when `is_expected` is used.
 <sup>[[link](#use-subject)]</sup>
 
   ```ruby
+  # bad
+  describe Article do
+    it 'is not published on creation' do
+      article = FactoryBot.create(:article)
+      expect(article).not_to be_published
+    end
+  end
+
+  # good
   describe Article do
     subject { FactoryBot.create(:article) }
 
     it 'is not published on creation' do
-      expect(subject).not_to be_published
+      is_expected.not_to be_published
+    end
+  end
+
+  # even better
+  describe Article do
+    subject(:article) { FactoryBot.create(:article) }
+
+    it 'is not published on creation' do
+      expect(article).not_to be_published
     end
   end
   ```
+
+* <a name="subject-naming-in-context"></a>
+When you reassign subject with different attributes in different contexts, give
+different names to the subject, so it easier to see what the actual subject
+represents.
+<sup>[[link](#subject-naming-in-context)]</sup>
+
+```ruby
+# bad
+describe Article do
+  context 'when there is an author' do
+    subject(:article) { FactoryBot.create(:article, author: user) }
+
+    it 'it shows other articles by the same author' do
+      expect(article.related_stories).to include(story1, story2)
+    end
+  end
+
+  context 'when the author is anonymous' do
+    subject(:article) { FactoryBot.create(:article, author: nil) }
+
+    it 'it match stories by title' do
+      expect(article.related_stories).to include(story3, story4)
+    end
+  end
+end
+
+# good
+describe Article do
+  context 'when there is an author' do
+    subject(:article) { FactoryBot.create(:article, author: user) }
+
+    it 'it shows other articles by the same author' do
+      expect(article.related_stories).to include(story1, story2)
+    end
+  end
+
+  context 'when the author is anonymous' do
+    subject(:guest_article) { FactoryBot.create(:article, author: nil) }
+
+    it 'it matches stories by title' do
+      expect(guest_article.related_stories).to include(story3, story4)
+    end
+  end
+end
+```
 
 * <a name="it-and-specify"></a>
   Use `specify` if the example doesn't have a description, use `it` for
