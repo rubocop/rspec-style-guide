@@ -413,9 +413,10 @@ meant to be able to change with it.
   ```ruby
   # bad
   describe Article do
+    subject { FactoryBot.create(:article) }
+
     it 'is not published on creation' do
-      article = FactoryBot.create(:article)
-      expect(article).not_to be_published
+      expect(subject).not_to be_published
     end
   end
 
@@ -439,9 +440,9 @@ meant to be able to change with it.
   ```
 
 * <a name="subject-naming-in-context"></a>
-When you reassign subject with different attributes in different contexts, give
-different names to the subject, so it easier to see what the actual subject
-represents.
+  When you reassign subject with different attributes in different contexts, give
+  different names to the subject, so it's easier to see what the actual subject
+  represents.
 <sup>[[link](#subject-naming-in-context)]</sup>
 
 ```ruby
@@ -450,7 +451,7 @@ describe Article do
   context 'when there is an author' do
     subject(:article) { FactoryBot.create(:article, author: user) }
 
-    it 'it shows other articles by the same author' do
+    it 'shows other articles by the same author' do
       expect(article.related_stories).to include(story1, story2)
     end
   end
@@ -458,7 +459,7 @@ describe Article do
   context 'when the author is anonymous' do
     subject(:article) { FactoryBot.create(:article, author: nil) }
 
-    it 'it match stories by title' do
+    it 'matches stories by title' do
       expect(article.related_stories).to include(story3, story4)
     end
   end
@@ -466,10 +467,10 @@ end
 
 # good
 describe Article do
-  context 'when there is an author' do
+  context 'when article has an author' do
     subject(:article) { FactoryBot.create(:article, author: user) }
 
-    it 'it shows other articles by the same author' do
+    it 'shows other articles by the same author' do
       expect(article.related_stories).to include(story1, story2)
     end
   end
@@ -477,7 +478,7 @@ describe Article do
   context 'when the author is anonymous' do
     subject(:guest_article) { FactoryBot.create(:article, author: nil) }
 
-    it 'it matches stories by title' do
+    it 'matches stories by title' do
       expect(guest_article.related_stories).to include(story3, story4)
     end
   end
