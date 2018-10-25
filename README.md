@@ -824,6 +824,33 @@ meant to be able to change with it.
 
 ## Rails
 
+  * <a name="matcher-libraries"></a>
+    Use third-party matcher libraries that provide convenience helpers
+    that will significantly simplify the examples, [Shoulda Matchers](https://github.com/thoughtbot/shoulda-matchers)
+    are one worth mentioning.
+    <sup>[[link](#matcher-libraries)]</sup>
+
+    ```ruby
+    # bad
+    describe '#title' do
+      it 'is required' do
+        article.title = nil
+        article.valid?
+        expect(article.errors[:title])
+          .to contain_exactly('Article has no title')
+        not
+      end
+    end
+
+    # good
+    describe '#title' do
+      it 'is required' do
+        expect(article).to validate_presence_of(:title)
+          .with_message('Article has no title')
+      end
+    end
+    ```
+
 ### Views
 
   * <a name="view-directory-structure"></a>
