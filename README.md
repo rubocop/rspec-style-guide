@@ -33,7 +33,7 @@ meant to be able to change with it.
 
   * <a name="empty-lines-after-describe"></a>
     Do not leave empty lines after `feature`, `context` or `describe`
-    descriptions. It does makes the code more difficult to read and lowers the
+    descriptions. It doesn't make the code more readable and lowers the
     value of logical chunks.
     <sup>[[link](#empty-lines-after-describe)]</sup>
 
@@ -168,8 +168,8 @@ meant to be able to change with it.
     ```
 
   * <a name="empty-lines-around-it"></a>
-    Leave one empty line around `it`/`specify` blocks. This helps to separate the
-    expectations from their conditional logic (contexts for instance).
+    Leave one empty line around `it`/`specify` blocks. This helps to separate
+    the expectations from their conditional logic (contexts for instance).
     <sup>[[link](#empty-lines-around-it)]</sup>
 
     ```ruby
