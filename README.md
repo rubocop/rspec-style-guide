@@ -1195,8 +1195,26 @@ meant to be able to change with it.
 
 # Contributing
 
-Open tickets or send pull requests with improvements. Please write [good commit messages](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
-or your pull requests will be closed.
+Nothing written in this guide is set in stone. Everyone is welcome to
+contribute, so that we could ultimately create a resource that will be
+beneficial to the entire Ruby community.
+
+Feel free to open tickets or send pull requests with improvements.
+Thanks in advance for your help!
+
+You can also support the project (and RuboCop) with financial
+contributions via [Patreon](https://www.patreon.com/bbatsov).
+
+## How to Contribute?
+
+It's easy, just follow the contribution guidelines below.
+
+* [Fork](https://help.github.com/articles/fork-a-repo) the project on GitHub.
+* Make your feature addition or bug fix in a feature branch.
+* Include a [good description](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
+of your changes.
+* Push your feature branch to GitHub.
+* Send a [Pull Request](https://help.github.com/articles/using-pull-requests).
 
 # Credit
 
