@@ -1228,3 +1228,6 @@ Inspiration was taken from the following:
 [HowAboutWe's RSpec style guide](https://github.com/howaboutwe/rspec-style-guide)
 
 [Community Rails style guide](https://github.com/rubocop-hq/rails-style-guide)
+
+This guide was maintained by [ReachLocal](https://github.com/reachlocal)
+for a long while.
