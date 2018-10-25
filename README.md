@@ -281,29 +281,17 @@ meant to be able to change with it.
 
 ## Example Structure
 
-  * <a name="one-expectation"></a>
-    Use only one expectation per example. There are very few scenarios where two
-    or more expectations in a single `it` block should be used. So, general rule
-    of thumb is one expectation per `it` block.
-    <sup>[[link](#one-expectation)]</sup>
+  * <a name="one-expectation"></a><a name="expectations-per-example"></a>
+    For examples two styles are considered acceptable. The first variant
+    is separate example for each expectation, which comes with a cost of
+    duplicated context initialization. The second variant is multiple
+    expectations per example with `aggregate_failures` tag set for a
+    group or example. Use your best judgement in each case, and apply
+    your strategy consistently.
+    <sup>[[link](#expectations-per-example)]</sup>
 
     ```ruby
-    # bad
-    describe ArticlesController do
-      #...
-
-      describe 'GET new' do
-        it 'assigns new article and renders the new article template' do
-          get :new
-          expect(assigns[:article]).to be_a(Article)
-          expect(response).to render_template :new
-        end
-      end
-
-      # ...
-    end
-
-    # good
+    # good - one expectation per example
     describe ArticlesController do
       #...
 
@@ -318,6 +306,21 @@ meant to be able to change with it.
           expect(response).to render_template :new
         end
       end
+    end
+
+    # good - multiple expectations with aggregated failures
+    describe ArticlesController do
+      #...
+
+      describe 'GET new', :aggregate_failures do
+        it 'assigns new article and renders the new article template' do
+          get :new
+          expect(assigns[:article]).to be_a(Article)
+          expect(response).to render_template :new
+        end
+      end
+
+      # ...
     end
     ```
 
