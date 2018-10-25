@@ -598,61 +598,46 @@ meant to be able to change with it.
     ```
 
   * <a name="doubles"></a>
-    Use mocks and stubs with caution. While they help to improve the performance
-    of the test suite, you can mock/stub yourself into a false-positive state very
-    easily. When resorting to mocking and stubbing, only mock against a small,
-    stable, obvious (or documented) API, so stubs are likely to represent reality
-    after future refactoring.
+    Prefer using verifying doubles over normal doubles.
     <sup>[[link](#doubles)]</sup>
 
-    This generally means you should use them with more isolated/behavioral
-    tests rather than with integration tests.
+    Verifying doubles are a stricter alternative to normal doubles that
+    provide guarantees, e.g. a failure will be triggered if an invalid
+    method is being stubbed or a method is called with an invalid number
+    of arguments.
+
+    In general, use doubles with more isolated/behavioral tests rather
+    than with integration tests.
+
+    *NOTE*: There is no justification for turning
+    `verify_partial_doubles` configuration option off. That will
+    significantly reduce the confidence in partial doubles.
 
     ```ruby
-    # double an object
-    article = double('article')
+    # good - verifying instance double
+    article = instance_double('Article')
+    allow(article).to receive(:author).and_return(nil)
 
-    # stubbing a method
+    presenter = described_class.new(article)
+    expect(presenter.title).to include('by an unknown author')
+
+
+    # good - verifying object double
+    article = object_double(Article.new, valid?: true)
+    expect(article.save).to be true
+
+
+    # good - verifying partial double
     allow(Article).to receive(:find).with(5).and_return(article)
+
+
+    # good - verifying class double
+    notifier = class_double('Notifier')
+    expect(notifier).to receive(:notify).with('suspended as')
     ```
 
-    *NOTE*: if you stub a method that could give a false-positive test result, you
-    have gone too far. See below:
-
-    ```ruby
-    # bad
-    subject { double('article') }
-
-    describe '#summary' do
-      context 'when summary is not present' do
-        # This stubbing of the #nil? method, makes the test pass, but
-        # you are no longer testing the functionality of the code,
-        # you are testing the functionality of the test suite.
-        # This test would pass if there was not a single line of code
-        # written for the Article class.
-        it 'returns nil' do
-          summary = double('summary')
-          allow(subject).to receive(:summary).and_return(summary)
-          allow(summary).to receive(:nil?).and_return(true)
-          expect(subject.summary).to be_nil
-        end
-      end
-    end
-
-    # good
-    subject { double('article') }
-
-    describe '#summary' do
-      context 'when summary is not present' do
-        # This is no longer stubbing all of the functionality, and will
-        # actually test the objects handling of the methods return value.
-        it 'returns nil' do
-          allow(subject).to receive(:summary).and_return(nil)
-          expect(subject.summary).to be_nil
-        end
-      end
-    end
-    ```
+    *NOTE*: If you stub a method that could give a false-positive test result, you
+    have gone too far.
 
   * <a name="dealing-with-time"></a>
     Always use [Timecop](https://github.com/travisjeffery/timecop) instead of
