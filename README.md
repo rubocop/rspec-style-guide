@@ -1216,6 +1216,11 @@ of your changes.
 * Push your feature branch to GitHub.
 * Send a [Pull Request](https://help.github.com/articles/using-pull-requests).
 
+# License
+
+![Creative Commons License](http://i.creativecommons.org/l/by/3.0/88x31.png)
+This work is licensed under a [Creative Commons Attribution 3.0 Unported License](http://creativecommons.org/licenses/by/3.0/deed.en_US)
+
 # Credit
 
 Inspiration was taken from the following:
