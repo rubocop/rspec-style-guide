@@ -262,23 +262,6 @@ meant to be able to change with it.
     end
     ```
 
-  * <a name="should-in-it"></a>
-    Do not write 'should' or 'should not' in the beginning of your `it` blocks.
-    The descriptions represent actual functionality - not what might be happening.
-    <sup>[[link](#should-in-it)]</sup>
-
-    ```ruby
-    # bad
-    it 'should return the summary' do
-      # ...
-    end
-
-    # good
-    it 'returns the summary' do
-      # ...
-    end
-    ```
-
 ## Example Structure
 
   * <a name="one-expectation"></a><a name="expectations-per-example"></a>
@@ -783,6 +766,24 @@ meant to be able to change with it.
       describe '.latest' do
         #...
       end
+    end
+    ```
+
+  * <a name="should-in-it"></a>
+    Do not write 'should' or 'should not' in the beginning of your `it`
+    blocks. The descriptions represent actual functionality - not what
+    might be happening.
+    <sup>[[link](#should-in-it)]</sup>
+
+    ```ruby
+    # bad
+    it 'should return the summary' do
+      # ...
+    end
+
+    # good
+    it 'returns the summary' do
+      # ...
     end
     ```
 
