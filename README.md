@@ -492,6 +492,8 @@ meant to be able to change with it.
     Use `specify` if the example doesn't have a description, use `it` for
     examples with descriptions. An exception is one-line example, where
     `it` is preferable.
+    `specify` is also useful when the docstring does not read well off
+    of `it`.
     <sup>[[link](#it-and-specify)]</sup>
 
     ```ruby
@@ -506,6 +508,10 @@ meant to be able to change with it.
 
     specify { is_expected.to be_truthy }
 
+    it '#do_something is deprecated` do
+      ...
+    end
+
     # good
     specify do
       # ...
@@ -516,6 +522,10 @@ meant to be able to change with it.
     end
 
     it { is_expected.to be_truthy }
+
+    specify '#do_something is deprecated` do
+      ...
+    end
     ```
 
   * <a name="it-in-iterators"></a>
