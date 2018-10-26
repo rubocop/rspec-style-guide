@@ -488,6 +488,43 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="dont-stub-subject"></a>
+    Don't stub methods of the object under test, it's a code smell and
+    often indicates a bad design of the object itself.
+    <sup>[[link](#dont-stub-subject)]</sup>
+
+    ```ruby
+    # bad
+    describe 'Article' do
+      subject(:article) { Article.new }
+
+      it 'indicates that the author is unknown' do
+        allow(article).to receive(:author).and_return(nil)
+        expect(article.description).to include('by an unknown author')
+      end
+    end
+
+    # good - with correct subject initialization
+    describe 'Article' do
+      subject(:article) { Article.new(author: nil) }
+
+      it 'indicates that the author is unknown' do
+        expect(article.description).to include('by an unknown author')
+      end
+    end
+
+    # good - with better object design
+    describe 'Article' do
+      subject(:presenter) { ArticlePresenter.new(article) }
+      let(:article) { Article.new }
+
+      it 'indicates that the author is unknown' do
+        allow(article).to receive(:author).and_return(nil)
+        expect(presenter.description).to include('by an unknown author')
+      end
+    end
+    ```
+
   * <a name="it-and-specify"></a>
     Use `specify` if the example doesn't have a description, use `it` for
     examples with descriptions. An exception is one-line example, where
