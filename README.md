@@ -798,6 +798,32 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="keep-example-descriptions-short"></a>
+    Keep example description shorter than 60 characters.
+    <sup>[[link](#keep-example-descriptions-short)]</sup>
+
+    Write the example that documents itself, and generates proper
+    documentation format output.
+
+    ```ruby
+    # bad
+    it 'rewrites "should not return something" as "does not return something"' do
+      # ...
+    end
+
+    # good
+    it 'rewrites "should not return something"' do
+      expect(rewrite('should not return something')).to
+        eq 'does not return something'
+    end
+
+    # good - self-documenting
+    specify do
+      expect(rewrite('should not return something')).to
+        eq 'does not return something'
+    end
+    ```
+
   * <a name="example-group-naming"></a>
     Prefix `describe` description with a hash for instance methods, with a
     dot for class methods.
