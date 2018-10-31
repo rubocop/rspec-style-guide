@@ -307,6 +307,31 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="use-contexts"></a>
+    Use contexts to make the tests clear, well organized, and easy to
+    read.
+    <sup>[[link](#use-contexts)]</sup>
+
+    ```ruby
+    # bad
+    it 'has 200 status code if logged in' do
+      expect(response).to respond_with 200
+    end
+
+    it 'has 401 status code if not logged in' do
+      expect(response).to respond_with 401
+    end
+
+    # good
+    context 'when logged in' do
+      it { is_expected.to respond_with 200 }
+    end
+
+    context 'when logged out' do
+      it { is_expected.to respond_with 401 }
+    end
+    ```
+
   * <a name="context-cases"></a>
     `context` blocks should pretty much always have an opposite negative case. It
     should actually be a strong code smell if there is a single context (without a
