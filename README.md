@@ -834,6 +834,32 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="describe-the-methods"></a>
+    Be clear about what method you are describing. Use the Ruby
+    documentation convention of `.` when referring to a class method's
+    name and `#` when referring to an instance method's name.
+    <sup>[[link](#describe-the-methods)]</sup>
+
+    ```ruby
+    # bad
+    describe 'the authenticate method for User' do
+      # ...
+    end
+
+    describe 'if the user is an admin' do
+      # ...
+    end
+
+    # good
+    describe '.authenticate' do
+      # ...
+    end
+
+    describe '#admin?' do
+      # ...
+    end
+    ```
+
 ## Matchers
 
   * <a name="predicate-matchers"></a>
