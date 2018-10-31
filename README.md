@@ -873,6 +873,33 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="extract-common-expectation-parts-into-matchers"></a>
+    Extract frequently used common logic from your examples into
+    [custom matchers](https://relishapp.com/rspec/rspec-expectations/docs/custom-matchers/define-a-custom-matcher).
+    <sup>[[link](#extract-common-expectation-parts-into-matchers)]</sup>
+
+    ```ruby
+    # bad
+    it 'returns JSON with temperature in Celsius' do
+      json = JSON.parse(response.body).with_indifferent_access
+      expect(json[:celsius]).to eq 30
+    end
+
+    it 'returns JSON with temperature in Farenheit' do
+      json = JSON.parse(response.body).with_indifferent_access
+      expect(json[:farenheit]).to eq 86
+    end
+
+    # good
+    it 'returns JSON with temperature in Celsius' do
+      expect(response).to include_json(celsius: 30)
+    end
+
+    it 'returns JSON with temperature in Farenheit' do
+      expect(response).to include_json(farenheit: 86)
+    end
+    ```
+
 ## Rails
 
   * <a name="matcher-libraries"></a>
