@@ -28,6 +28,7 @@ meant to be able to change with it.
       * [Controllers](#controllers)
       * [Models](#models)
       * [Mailers](#mailers)
+  * [Recommendations](#recommendations)
 
 ## Layout
 
@@ -1633,6 +1634,48 @@ meant to be able to change with it.
       end
     end
     ```
+
+## Recommendations
+
+  * <a name="use-guard"></a>
+    Running the whole suite on every change your can be very time
+    consuming and may break the flow.
+    [`guard-rspec`](https://github.com/guard/guard-rspec) continuously
+    runs tests related to changed files only and may optionally notify
+    if a failure happens.
+    <sup>[[link](#use-guard)]</sup>
+
+    Run `guard` in a separate shell.
+    ```
+    bundle exec guard
+    ```
+
+    Example `Guardfile`:
+
+    ```
+    guard 'rspec', cmd: 'bundle exec rspec' do
+      # run every updated spec file
+      watch(%r{^spec/.+_spec\.rb$})
+
+      # run lib specs when a file in lib/ changes
+      watch(%r{^lib/(.+)\.rb$}) { |_, name| "spec/lib/#{name}_spec.rb" }
+
+      # run model specs related to the changed model
+      watch(%r{^app/(.+)\.rb$}) { |_, name| "spec/#{name}_spec.rb" }
+
+      # run view specs related to the changed view
+      watch(%r{^app/(.*\.erb|haml))$}) { |_, name| "spec/#{name}_spec.rb" }
+
+      # run integration specs related to the changed controller
+      watch(%r{^app/controllers/(.+)\.rb}) { |_, name| "spec/requests/#{name}_spec.rb" }
+
+      # run all integration tests when application controller change
+      watch('app/controllers/application_controller.rb') { "spec/requests" }
+    end
+    ```
+
+    *NOTE*: TDD workflow instead works best with a keybinding that runs
+    just examples you want.
 
 # Contributing
 
