@@ -711,15 +711,32 @@ meant to be able to change with it.
     easier understanding and reading of a test.
 
   * <a name="factories"></a>
-    Use [Factory Bot](https://github.com/thoughtbot/factory_bot) to create test
-    objects in integration tests. You should very rarely have to use
-    `ModelName.create` within an integration spec. Do **not** use fixtures as they
-    are not nearly as maintainable as factories.
+    Use [Factory Bot](https://github.com/thoughtbot/factory_bot) to
+    create test data in integration tests. You should very rarely
+    have to use `ModelName.create` within an integration spec. Do
+    **not** use fixtures as they are not nearly as maintainable as
+    factories.
     <sup>[[link](#factories)]</sup>
 
     ```ruby
-    subject(:article) { FactoryBot.create(:some_article) }
+    # bad
+    subject(:article) do
+      Article.create(
+        title: 'Piccolina',
+        author: 'John Archer',
+        published_at: '17 August 2172',
+        approved: true
+      )
+    end
+
+    # good
+    subject(:article) { FactoryBot.create(:article) }
     ```
+
+    *NOTE*: When talking about unit tests the best practice would be to
+    use neither fixtures nor factories. Put as much of your domain logic
+    in libraries that can be tested without needing complex, time
+    consuming setup with either factories or fixtures.
 
   * <a name="needed-data"></a>
     Do not load more data than needed to test your code.
