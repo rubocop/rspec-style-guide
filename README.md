@@ -911,6 +911,24 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="use-expect"></a>
+    On new projects always use the new `expect` syntax.
+    <sup>[[link](#use-expect)]</sup>
+
+    Configure RSpec to only accept the new `expect` syntax.
+
+    ```ruby
+    # bad
+    it 'creates a resource' do
+      response.should respond_with_content_type(:json)
+    end
+
+    # good
+    it 'creates a resource' do
+      expect(response).to respond_with_content_type(:json)
+    end
+    ```
+
 ## Matchers
 
   * <a name="predicate-matchers"></a>
