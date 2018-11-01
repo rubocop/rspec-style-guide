@@ -550,6 +550,55 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="let-and-let!"></a>
+    Use `let` and `let!` blocks instead of assigning values to instance
+    variables in `before` blocks.
+    <sup>[[link](#let-and-let!)]</sup>
+
+    ```ruby
+    # bad
+    describe '#type_id' do
+      before do
+        @resource = FactoryBot.create(:device)
+        @type = Type.find(@resource.type_id)
+      end
+
+      it 'sets the type_id field' do
+        expect(@resource.type_id).to equal(@type.id)
+      end
+    end
+
+    # good
+    describe '#type_id' do
+      let(:resource) { FactoryBot.create(:device) }
+      let(:type) { Type.find resource.type_id }
+
+      it 'sets the type_id field' do
+        expect(resource.type_id).to equal(type.id)
+      end
+    end
+    ```
+
+    Use `let` to initialize actions that are lazy loaded to test your specs.
+
+    ```ruby
+    context 'when updates a non-existent property value' do
+      let(:properties) { { id: 1, slected: 'on'} }
+
+      def update
+        resource.properties = properties
+      end
+
+      it 'raises an error' do
+        expect { update }.to raise_error InvalidProperty, '`slected` is not a property'
+      end
+    end
+    ```
+
+    Use `let!` to define variables even if they are not referenced in
+    examples. This can be useful to populate your database to test
+    negative cases.
+
   * <a name="it-and-specify"></a>
     Use `specify` if the example doesn't have a description, use `it` for
     examples with descriptions. An exception is one-line example, where
