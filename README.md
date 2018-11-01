@@ -721,6 +721,23 @@ meant to be able to change with it.
     subject(:article) { FactoryBot.create(:some_article) }
     ```
 
+  * <a name="needed-data"></a>
+    Do not load more data than needed to test your code.
+    <sup>[[link](#needed-data)]</sup>
+
+    ```ruby
+    # good
+    RSpec.describe User do
+      describe ".top" do
+        subject { described_class.top(2) }
+
+        before { FactoryBot.create_list(:user, 3) }
+
+        it { is_expected.to have(2).items }
+      end
+    end
+    ```
+
   * <a name="doubles"></a>
     Use mocks and stubs with caution. While they help to improve the performance
     of the test suite, you can mock/stub yourself into a false-positive state very
