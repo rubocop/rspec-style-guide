@@ -678,6 +678,73 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="shared-examples"></a>
+    Use shared examples to reduce code duplication.
+    <sup>[[link](#shared-examples)]</sup>
+
+    ```ruby
+    # bad
+    describe 'GET /articles' do
+      let(:article) { FactoryBot.create(:article, owner: owner) }
+
+      before { page.driver.get '/articles' }
+
+      context 'when user is the owner' do
+        let(:user) { owner }
+
+        it 'shows all owned articles' do
+          expect(page.status_code).to be(200)
+          contains_resource resource
+        end
+      end
+
+      context 'when user is an admin' do
+        let(:user) { FactoryBot.create(:user, :admin) }
+
+        it 'shows all resources' do
+          expect(page.status_code).to be(200)
+          contains_resource resource
+        end
+      end
+    end
+
+    # good
+    describe 'GET /articles' do
+      let(:article) { FactoryBot.create(:article, owner: owner) }
+
+      before { page.driver.get '/articles' }
+
+      shared_examples 'shows articles' do
+        it 'shows all related articles' do
+          expect(page.status_code).to be(200)
+          contains_resource resource
+        end
+      end
+
+      context 'when user is the owner' do
+        let(:user) { owner }
+
+        include_examples 'shows articles'
+      end
+
+      context 'when user is an admin' do
+        let(:user) { FactoryBot.create(:user, :admin) }
+
+        include_examples 'shows articles'
+      end
+    end
+
+    # good
+    describe 'GET /devices' do
+      let(:resource) { FactoryBot.create(:device, created_from: user) }
+
+      it_behaves_like 'a listable resource'
+      it_behaves_like 'a paginable resource'
+      it_behaves_like 'a searchable resource'
+      it_behaves_like 'a filterable list'
+    end
+    ```
+
   * <a name="incidental-state"></a>
     Avoid incidental state as much as possible.
     <sup>[[link](#incidental-state)]</sup>
