@@ -1047,6 +1047,22 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="built-in-matchers"></a>
+    Use built-in matchers.
+    <sup>[[link](#built-in-matchers)]</sup>
+
+    ```ruby
+    # bad
+    it 'includes a title' do
+      expect(article.title.include?('a lengthy title')).to be true
+    end
+
+    # good
+    it 'includes a title' do
+      expect(article.title).to include 'a lengthy title'
+    end
+    ```
+
   * <a name="be-matcher"></a>
     Avoid using `be` matcher without arguments. It is too generic, as it pass on
     everything that is not `nil` or `false`. If that is the exact intend, use
