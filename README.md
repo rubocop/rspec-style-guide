@@ -900,6 +900,29 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="stub-http-requests"></a>
+    Stub HTTP requests when the code is making them. Avoid hitting real
+    external services.
+    <sup>[[link](#stub-http-reuqests)]</sup>
+
+    Use [webmock](https://github.com/bblimke/webmock) and
+    [VCR](https://github.com/vcr/vcr) separately or
+    [together](http://marnen.github.com/webmock-presentation/webmock.html).
+
+    ```ruby
+    # good
+    context 'with unauthorized access' do
+      let(:uri) { 'http://api.lelylan.com/types' }
+
+      before { stub_request(:get, uri).to_return(status: 401, body: fixture('401.json')) }
+
+      it 'returns access denied' do
+        page.driver.get uri
+        expect(page).to have_content 'Access denied'
+      end
+    end
+    ```
+
 ## Naming
 
   * <a name="context-descriptions"></a>
