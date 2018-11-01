@@ -1229,6 +1229,18 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="integration"></a>
+    Test what you see.
+    Deeply test your models and your application behaviour (integration
+    tests). Do not add useless complexity testing controllers.
+    <sup>[[link](#integration)]</sup>
+
+    This is an open debate in the Ruby community and both sides have
+    good arguments supporting their idea. People supporting the need of
+    testing controllers will tell you that your integration tests don't
+    cover all use cases and that they are slow. Both are wrong. It is
+    possible to cover all use cases and it's possible to make them fast.
+
 ### Views
 
   * <a name="view-directory-structure"></a>
