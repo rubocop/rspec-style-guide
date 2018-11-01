@@ -1035,9 +1035,10 @@ meant to be able to change with it.
     ```
 
   * <a name="should-in-it"></a>
-    Do not write 'should' or 'should not' in the beginning of your `it`
-    blocks. The descriptions represent actual functionality - not what
-    might be happening.
+    Do not write 'should' or 'should not' in the beginning of your
+    example docstrings. The descriptions represent actual functionality
+    - not what might be happening. Use the third person in the present
+    tense.
     <sup>[[link](#should-in-it)]</sup>
 
     ```ruby
