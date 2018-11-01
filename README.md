@@ -1677,6 +1677,26 @@ meant to be able to change with it.
     *NOTE*: TDD workflow instead works best with a keybinding that runs
     just examples you want.
 
+  * <a name="format"></a>
+    Use a formatter that provides useful information about the test run
+    and fits your workflow.
+    [`fuubar`](https://github.com/thekompanee/fuubar) and
+    [`fivemat`](https://github.com/tpope/fivemat) are two alternative
+    formatters worth taking a look at.
+    <sup>[[link](#format)]</sup>
+
+    Add to the `Gemfile`:
+    ```ruby
+    group :test do
+      gem 'fuubar'
+    end
+    ```
+
+    `.rspec` global or project local configuration file:
+    ```
+    --format Fuubar
+    ```
+
 # Contributing
 
 Nothing written in this guide is set in stone. Everyone is welcome to
