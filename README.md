@@ -416,6 +416,23 @@ meant to be able to change with it.
     let(:article) { FactoryBot.create(:article) }
     ```
 
+  * <a name="subject"></a>
+    When several tests relate to the same subject, use `subject` to reduce
+    repetition.
+    <sup>[[link](#subject)]</sup>
+
+    ```ruby
+    # bad
+    it { expect(hero.equipment).to be_heavy }
+    it { expect(hero.equipment).to include 'sword' }
+
+    # good
+    subject(:equipment) { hero.equipment }
+
+    it { expect(equipment).to be_heavy }
+    it { expect(equipment).to include 'sword' }
+    ```
+
   * <a name="use-subject"></a>
     Use named `subject` when possible. Only use anonymous subject declaration
     when you don't reference it in any tests, e.g. when `is_expected` is used.
