@@ -1677,6 +1677,18 @@ meant to be able to change with it.
     *NOTE*: TDD workflow instead works best with a keybinding that runs
     just examples you want.
 
+  * <a name="preloading"></a>
+    To speed up initial loading time, preload the Rails app code with
+    tools like [`spring`](https://github.com/rails/spring) and
+    [`zeus`](https://github.com/burke/zeus).
+    Those solutions will preload all gems that do not change unless
+    `Gemfile` is updated, and reload models, view, factories etc if they
+    are updated between test runs.
+    <sup>[[link](#preloading)]</sup>
+
+    *NOTE*: Those tools are often criticised to be a band aid on a
+    problem that might be better solved through better design.
+
   * <a name="format"></a>
     Use a formatter that provides useful information about the test run
     and fits your workflow.
