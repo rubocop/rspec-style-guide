@@ -1747,3 +1747,11 @@ Inspiration was taken from the following:
 
 This guide was maintained by [ReachLocal](https://github.com/reachlocal)
 for a long while.
+
+This guide includes material originally present in
+[BetterSpecs](https://github.com/lelylan/betterspecs)
+([newer site](https://lelylan.github.io/betterspecs/) [older
+site](http://www.betterspecs.org/)), sponsored by
+[Lelylan](https://github.com/lelylan) and maintained by [Andrea
+Reginato](https://github.com/andreareginato) and [many
+others](https://github.com/lelylan/betterspecs/graphs/contributors) for a long while.
