@@ -900,6 +900,28 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="any_instance_of"></a>
+    Avoid using `allow_any_instance_of`/`expect_any_instance_of`. It
+    might be an indication that the object under test is too complex,
+    and is ambiguous when used with receive counts.
+    <sup>[[link](#any_instance_of)]</sup>
+
+    ```ruby
+    # bad
+    it 'has a name' do
+      allow_any_instance_of(User).to receive(:name).and_return('Tweedledee')
+      expect(account.name).to eq 'Tweedledee'
+    end
+
+    # good
+    let(:account) { Account.new(user) }
+
+    it 'has a name' do
+      allow(user).to receive(:name).and_return('Tweedledee')
+      expect(account.name).to eq 'Tweedledee'
+    end
+    ```
+
 ## Rails
 
   * <a name="matcher-libraries"></a>
