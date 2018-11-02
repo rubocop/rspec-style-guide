@@ -1034,7 +1034,7 @@ meant to be able to change with it.
     end
     ```
 
-    ```
+    ```ruby
     # bad
     describe Article do
       describe 'summary' do
