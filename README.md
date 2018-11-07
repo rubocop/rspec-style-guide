@@ -268,7 +268,7 @@ meant to be able to change with it.
   * <a name="one-expectation"></a><a name="expectations-per-example"></a>
     For examples two styles are considered acceptable. The first variant
     is separate example for each expectation, which comes with a cost of
-    duplicated context initialization. The second variant is multiple
+    repeated context initialization. The second variant is multiple
     expectations per example with `aggregate_failures` tag set for a
     group or example. Use your best judgement in each case, and apply
     your strategy consistently.
@@ -769,7 +769,7 @@ meant to be able to change with it.
   * <a name="dry"></a>
     Be careful not to focus on being 'DRY' by moving repeated expectations into a
     shared environment too early, as this can lead to brittle tests that rely too
-    much on one other.
+    much on one another.
     <sup>[[link](#dry)]</sup>
 
     It general it is best to start with doing everything directly in your `it`
