@@ -28,6 +28,7 @@ meant to be able to change with it.
       * [Controllers](#controllers)
       * [Models](#models)
       * [Mailers](#mailers)
+  * [Recommendations](#recommendations)
 
 ## Layout
 
@@ -307,6 +308,31 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="use-contexts"></a>
+    Use contexts to make the tests clear, well organized, and easy to
+    read.
+    <sup>[[link](#use-contexts)]</sup>
+
+    ```ruby
+    # bad
+    it 'has 200 status code if logged in' do
+      expect(response).to respond_with 200
+    end
+
+    it 'has 401 status code if not logged in' do
+      expect(response).to respond_with 401
+    end
+
+    # good
+    context 'when logged in' do
+      it { is_expected.to respond_with 200 }
+    end
+
+    context 'when logged out' do
+      it { is_expected.to respond_with 401 }
+    end
+    ```
+
   * <a name="context-cases"></a>
     `context` blocks should pretty much always have an opposite negative case. It
     should actually be a strong code smell if there is a single context (without a
@@ -389,6 +415,23 @@ meant to be able to change with it.
 
     # good
     let(:article) { FactoryBot.create(:article) }
+    ```
+
+  * <a name="subject"></a>
+    When several tests relate to the same subject, use `subject` to reduce
+    repetition.
+    <sup>[[link](#subject)]</sup>
+
+    ```ruby
+    # bad
+    it { expect(hero.equipment).to be_heavy }
+    it { expect(hero.equipment).to include 'sword' }
+
+    # good
+    subject(:equipment) { hero.equipment }
+
+    it { expect(equipment).to be_heavy }
+    it { expect(equipment).to include 'sword' }
     ```
 
   * <a name="use-subject"></a>
@@ -508,6 +551,55 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="let-and-let!"></a>
+    Use `let` and `let!` blocks instead of assigning values to instance
+    variables in `before` blocks.
+    <sup>[[link](#let-and-let!)]</sup>
+
+    ```ruby
+    # bad
+    describe '#type_id' do
+      before do
+        @resource = FactoryBot.create(:device)
+        @type = Type.find(@resource.type_id)
+      end
+
+      it 'sets the type_id field' do
+        expect(@resource.type_id).to equal(@type.id)
+      end
+    end
+
+    # good
+    describe '#type_id' do
+      let(:resource) { FactoryBot.create(:device) }
+      let(:type) { Type.find resource.type_id }
+
+      it 'sets the type_id field' do
+        expect(resource.type_id).to equal(type.id)
+      end
+    end
+    ```
+
+    Use `let` to initialize actions that are lazy loaded to test your specs.
+
+    ```ruby
+    context 'when updates a non-existent property value' do
+      let(:properties) { { id: 1, slected: 'on'} }
+
+      def update
+        resource.properties = properties
+      end
+
+      it 'raises an error' do
+        expect { update }.to raise_error InvalidProperty, '`slected` is not a property'
+      end
+    end
+    ```
+
+    Use `let!` to define variables even if they are not referenced in
+    examples. This can be useful to populate your database to test
+    negative cases.
+
   * <a name="it-and-specify"></a>
     Use `specify` if the example doesn't have a description, use `it` for
     examples with descriptions. An exception is one-line example, where
@@ -587,6 +679,73 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="shared-examples"></a>
+    Use shared examples to reduce code duplication.
+    <sup>[[link](#shared-examples)]</sup>
+
+    ```ruby
+    # bad
+    describe 'GET /articles' do
+      let(:article) { FactoryBot.create(:article, owner: owner) }
+
+      before { page.driver.get '/articles' }
+
+      context 'when user is the owner' do
+        let(:user) { owner }
+
+        it 'shows all owned articles' do
+          expect(page.status_code).to be(200)
+          contains_resource resource
+        end
+      end
+
+      context 'when user is an admin' do
+        let(:user) { FactoryBot.create(:user, :admin) }
+
+        it 'shows all resources' do
+          expect(page.status_code).to be(200)
+          contains_resource resource
+        end
+      end
+    end
+
+    # good
+    describe 'GET /articles' do
+      let(:article) { FactoryBot.create(:article, owner: owner) }
+
+      before { page.driver.get '/articles' }
+
+      shared_examples 'shows articles' do
+        it 'shows all related articles' do
+          expect(page.status_code).to be(200)
+          contains_resource resource
+        end
+      end
+
+      context 'when user is the owner' do
+        let(:user) { owner }
+
+        include_examples 'shows articles'
+      end
+
+      context 'when user is an admin' do
+        let(:user) { FactoryBot.create(:user, :admin) }
+
+        include_examples 'shows articles'
+      end
+    end
+
+    # good
+    describe 'GET /devices' do
+      let(:resource) { FactoryBot.create(:device, created_from: user) }
+
+      it_behaves_like 'a listable resource'
+      it_behaves_like 'a paginable resource'
+      it_behaves_like 'a searchable resource'
+      it_behaves_like 'a filterable list'
+    end
+    ```
+
   * <a name="incidental-state"></a>
     Avoid incidental state as much as possible.
     <sup>[[link](#incidental-state)]</sup>
@@ -620,14 +779,48 @@ meant to be able to change with it.
     easier understanding and reading of a test.
 
   * <a name="factories"></a>
-    Use [Factory Bot](https://github.com/thoughtbot/factory_bot) to create test
-    objects in integration tests. You should very rarely have to use
-    `ModelName.create` within an integration spec. Do **not** use fixtures as they
-    are not nearly as maintainable as factories.
+    Use [Factory Bot](https://github.com/thoughtbot/factory_bot) to
+    create test data in integration tests. You should very rarely
+    have to use `ModelName.create` within an integration spec. Do
+    **not** use fixtures as they are not nearly as maintainable as
+    factories.
     <sup>[[link](#factories)]</sup>
 
     ```ruby
-    subject(:article) { FactoryBot.create(:some_article) }
+    # bad
+    subject(:article) do
+      Article.create(
+        title: 'Piccolina',
+        author: 'John Archer',
+        published_at: '17 August 2172',
+        approved: true
+      )
+    end
+
+    # good
+    subject(:article) { FactoryBot.create(:article) }
+    ```
+
+    *NOTE*: When talking about unit tests the best practice would be to
+    use neither fixtures nor factories. Put as much of your domain logic
+    in libraries that can be tested without needing complex, time
+    consuming setup with either factories or fixtures.
+
+  * <a name="needed-data"></a>
+    Do not load more data than needed to test your code.
+    <sup>[[link](#needed-data)]</sup>
+
+    ```ruby
+    # good
+    RSpec.describe User do
+      describe ".top" do
+        subject { described_class.top(2) }
+
+        before { FactoryBot.create_list(:user, 3) }
+
+        it { is_expected.to have(2).items }
+      end
+    end
     ```
 
   * <a name="doubles"></a>
@@ -689,6 +882,29 @@ meant to be able to change with it.
     it 'offsets the time 2 days into the future' do
       Timecop.freeze(Time.now) do
         expect(subject.get_offset_time).to eq 2.days.from_now
+      end
+    end
+    ```
+
+  * <a name="stub-http-requests"></a>
+    Stub HTTP requests when the code is making them. Avoid hitting real
+    external services.
+    <sup>[[link](#stub-http-reuqests)]</sup>
+
+    Use [webmock](https://github.com/bblimke/webmock) and
+    [VCR](https://github.com/vcr/vcr) separately or
+    [together](http://marnen.github.com/webmock-presentation/webmock.html).
+
+    ```ruby
+    # good
+    context 'with unauthorized access' do
+      let(:uri) { 'http://api.lelylan.com/types' }
+
+      before { stub_request(:get, uri).to_return(status: 401, body: fixture('401.json')) }
+
+      it 'returns access denied' do
+        page.driver.get uri
+        expect(page).to have_content 'Access denied'
       end
     end
     ```
@@ -758,6 +974,32 @@ meant to be able to change with it.
     end
     ```
 
+  * <a name="keep-example-descriptions-short"></a>
+    Keep example description shorter than 60 characters.
+    <sup>[[link](#keep-example-descriptions-short)]</sup>
+
+    Write the example that documents itself, and generates proper
+    documentation format output.
+
+    ```ruby
+    # bad
+    it 'rewrites "should not return something" as "does not return something"' do
+      # ...
+    end
+
+    # good
+    it 'rewrites "should not return something"' do
+      expect(rewrite('should not return something')).to
+        eq 'does not return something'
+    end
+
+    # good - self-documenting
+    specify do
+      expect(rewrite('should not return something')).to
+        eq 'does not return something'
+    end
+    ```
+
   * <a name="example-group-naming"></a>
     Prefix `describe` description with a hash for instance methods, with a
     dot for class methods.
@@ -777,7 +1019,7 @@ meant to be able to change with it.
     end
     ```
 
-    ```
+    ```ruby
     # bad
     describe Article do
       describe 'summary' do
@@ -802,9 +1044,10 @@ meant to be able to change with it.
     ```
 
   * <a name="should-in-it"></a>
-    Do not write 'should' or 'should not' in the beginning of your `it`
-    blocks. The descriptions represent actual functionality - not what
-    might be happening.
+    Do not write 'should' or 'should not' in the beginning of your
+    example docstrings. The descriptions represent actual functionality
+    - not what might be happening. Use the third person in the present
+    tense.
     <sup>[[link](#should-in-it)]</sup>
 
     ```ruby
@@ -816,6 +1059,50 @@ meant to be able to change with it.
     # good
     it 'returns the summary' do
       # ...
+    end
+    ```
+
+  * <a name="describe-the-methods"></a>
+    Be clear about what method you are describing. Use the Ruby
+    documentation convention of `.` when referring to a class method's
+    name and `#` when referring to an instance method's name.
+    <sup>[[link](#describe-the-methods)]</sup>
+
+    ```ruby
+    # bad
+    describe 'the authenticate method for User' do
+      # ...
+    end
+
+    describe 'if the user is an admin' do
+      # ...
+    end
+
+    # good
+    describe '.authenticate' do
+      # ...
+    end
+
+    describe '#admin?' do
+      # ...
+    end
+    ```
+
+  * <a name="use-expect"></a>
+    On new projects always use the new `expect` syntax.
+    <sup>[[link](#use-expect)]</sup>
+
+    Configure RSpec to only accept the new `expect` syntax.
+
+    ```ruby
+    # bad
+    it 'creates a resource' do
+      response.should respond_with_content_type(:json)
+    end
+
+    # good
+    it 'creates a resource' do
+      expect(response).to respond_with_content_type(:json)
     end
     ```
 
@@ -834,6 +1121,22 @@ meant to be able to change with it.
     # good
     it 'is published' do
       expect(subject).to be_published
+    end
+    ```
+
+  * <a name="built-in-matchers"></a>
+    Use built-in matchers.
+    <sup>[[link](#built-in-matchers)]</sup>
+
+    ```ruby
+    # bad
+    it 'includes a title' do
+      expect(article.title.include?('a lengthy title')).to be true
+    end
+
+    # good
+    it 'includes a title' do
+      expect(article.title).to include 'a lengthy title'
     end
     ```
 
@@ -935,6 +1238,18 @@ meant to be able to change with it.
       end
     end
     ```
+
+  * <a name="integration"></a>
+    Test what you see.
+    Deeply test your models and your application behaviour (integration
+    tests). Do not add useless complexity testing controllers.
+    <sup>[[link](#integration)]</sup>
+
+    This is an open debate in the Ruby community and both sides have
+    good arguments supporting their idea. People supporting the need of
+    testing controllers will tell you that your integration tests don't
+    cover all use cases and that they are slow. Both are wrong. It is
+    possible to cover all use cases and it's possible to make them fast.
 
 ### Views
 
@@ -1305,6 +1620,80 @@ meant to be able to change with it.
     end
     ```
 
+## Recommendations
+
+  * <a name="use-guard"></a>
+    Running the whole suite on every change your can be very time
+    consuming and may break the flow.
+    [`guard-rspec`](https://github.com/guard/guard-rspec) continuously
+    runs tests related to changed files only and may optionally notify
+    if a failure happens.
+    <sup>[[link](#use-guard)]</sup>
+
+    Run `guard` in a separate shell.
+    ```
+    bundle exec guard
+    ```
+
+    Example `Guardfile`:
+
+    ```
+    guard 'rspec', cmd: 'bundle exec rspec' do
+      # run every updated spec file
+      watch(%r{^spec/.+_spec\.rb$})
+
+      # run lib specs when a file in lib/ changes
+      watch(%r{^lib/(.+)\.rb$}) { |_, name| "spec/lib/#{name}_spec.rb" }
+
+      # run model specs related to the changed model
+      watch(%r{^app/(.+)\.rb$}) { |_, name| "spec/#{name}_spec.rb" }
+
+      # run view specs related to the changed view
+      watch(%r{^app/(.*\.erb|haml))$}) { |_, name| "spec/#{name}_spec.rb" }
+
+      # run integration specs related to the changed controller
+      watch(%r{^app/controllers/(.+)\.rb}) { |_, name| "spec/requests/#{name}_spec.rb" }
+
+      # run all integration tests when application controller change
+      watch('app/controllers/application_controller.rb') { "spec/requests" }
+    end
+    ```
+
+    *NOTE*: TDD workflow instead works best with a keybinding that runs
+    just examples you want.
+
+  * <a name="preloading"></a>
+    To speed up initial loading time, preload the Rails app code with
+    tools like [`spring`](https://github.com/rails/spring) and
+    [`zeus`](https://github.com/burke/zeus).
+    Those solutions will preload all gems that do not change unless
+    `Gemfile` is updated, and reload models, view, factories etc if they
+    are updated between test runs.
+    <sup>[[link](#preloading)]</sup>
+
+    *NOTE*: Those tools are often criticised to be a band aid on a
+    problem that might be better solved through better design.
+
+  * <a name="format"></a>
+    Use a formatter that provides useful information about the test run
+    and fits your workflow.
+    [`fuubar`](https://github.com/thekompanee/fuubar) and
+    [`fivemat`](https://github.com/tpope/fivemat) are two alternative
+    formatters worth taking a look at.
+    <sup>[[link](#format)]</sup>
+
+    Add to the `Gemfile`:
+    ```ruby
+    group :test do
+      gem 'fuubar'
+    end
+    ```
+
+    `.rspec` global or project local configuration file:
+    ```
+    --format Fuubar
+    ```
+
 # Contributing
 
 Nothing written in this guide is set in stone. Everyone is welcome to
@@ -1343,3 +1732,11 @@ Inspiration was taken from the following:
 
 This guide was maintained by [ReachLocal](https://github.com/reachlocal)
 for a long while.
+
+This guide includes material originally present in
+[BetterSpecs](https://github.com/lelylan/betterspecs)
+([newer site](https://lelylan.github.io/betterspecs/) [older
+site](http://www.betterspecs.org/)), sponsored by
+[Lelylan](https://github.com/lelylan) and maintained by [Andrea
+Reginato](https://github.com/andreareginato) and [many
+others](https://github.com/lelylan/betterspecs/graphs/contributors) for a long while.
