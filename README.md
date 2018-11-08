@@ -889,7 +889,7 @@ meant to be able to change with it.
   * <a name="stub-http-requests"></a>
     Stub HTTP requests when the code is making them. Avoid hitting real
     external services.
-    <sup>[[link](#stub-http-reuqests)]</sup>
+    <sup>[[link](#stub-http-requests)]</sup>
 
     Use [webmock](https://github.com/bblimke/webmock) and
     [VCR](https://github.com/vcr/vcr) separately or
