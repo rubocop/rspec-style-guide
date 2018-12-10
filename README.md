@@ -1461,7 +1461,7 @@ meant to be able to change with it.
             expect(assigns[:article]).to eq(article)
           end
 
-          it 're-renders the 'new' template' do
+          it "re-renders the 'new' template" do
             post :create
             expect(response).to render_template('new')
           end
