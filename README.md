@@ -242,26 +242,59 @@ meant to be able to change with it.
     ```
 
   * <a name="redundant-before-each"></a>
-    Don't specify `(:each)` for `before`/`after` blocks, as it is
-    the default functionality. There are almost zero cases to use `before(:all)`
-    anymore, but if you do find one - just write it out like `before(:all)`
+    Don't specify `:each`/`:example` scope for `before`/`after`/`around` blocks,
+    as it is the default. Prefer `:example` when explictly indicating the scope.
     <sup>[[link](#redundant-before-each)]</sup>
 
     ```ruby
     # bad
     describe '#summary' do
-      before(:each) do
-        subject.summary = 'something'
+      before(:example) do
+        # ...
       end
+
+      # ...
     end
 
     # good
     describe '#summary' do
       before do
-        subject.summary = 'something'
+        # ...
       end
+
+      # ...
     end
     ```
+
+  * <a name="ambiguous-hook-scope"></a>
+    Use `:context` instead of the ambiguous `:all` scope in `before`/`after`
+    hooks.
+    <sup>[[link](#ambiguous-hook-scope)]</sup>
+
+    ```ruby
+    # bad
+    describe '#summary' do
+      before(:all) do
+        # ...
+      end
+
+      # ...
+    end
+
+    # good
+    describe '#summary' do
+      before(:context) do
+        # ...
+      end
+
+      # ...
+    end
+    ```
+
+  * <a name="avoid-before-with-context-scope"></a>
+    Avoid using `before`/`after` with `:context` scope. Beware of the
+    state leakage between the examples.
+    <sup>[[link](#avoid-before-with-context-scope)]</sup>
 
 ## Example Structure
 
