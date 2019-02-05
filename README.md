@@ -1265,10 +1265,6 @@ meant to be able to change with it.
     corresponding spec `_form.html.erb_spec.rb`.
     <sup>[[link](#view-spec-file-name)]</sup>
 
-  * <a name="view-require-spec-helper"></a>
-    `spec_helper.rb` needs to be required in each view spec file.
-    <sup>[[link](#view-require-spec-helper)]</sup>
-
   * <a name="view-outer-describe"></a>
     The outer `describe` block uses the path to the view without the
     `app/views` part. This is used by the `render` method when it is
@@ -1277,8 +1273,6 @@ meant to be able to change with it.
 
     ```ruby
     # spec/views/articles/new.html.erb_spec.rb
-    require 'spec_helper'
-
     describe 'articles/new.html.erb' do
       # ...
     end
