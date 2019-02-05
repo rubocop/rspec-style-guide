@@ -1616,6 +1616,22 @@ meant to be able to change with it.
 
 ## Recommendations
 
+  * <a name="correct-setup"></a>
+    Correctly set up RSpec configration globally (`~/.rspec`), per project
+    (`.rspec`), and in project override file that is supposed to be kept out of
+    version control (`.rspec-local`). Use `rspec --init` to generate `.rspec`
+    and `spec/spec_helper.rb` files.
+    <sup>[[link](#correct-setup)]</sup>
+
+    ```
+    # .rspec
+    --color
+    --require spec_helper
+
+    # .rspec-local
+    --profile 2
+    ```
+
   * <a name="use-guard"></a>
     Running the whole suite on every change your can be very time
     consuming and may break the flow.
