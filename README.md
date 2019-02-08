@@ -432,24 +432,6 @@ meant to be able to change with it.
     end
     ```
 
-  * <a name="let-blocks"></a>
-    Use `let` blocks instead of `before` blocks to create data for the spec
-    examples. `let` blocks get lazily evaluated. It also removes the instance
-    variables from the test suite (which don't look as nice as local variables).
-    <sup>[[link](#let-blocks)]</sup>
-
-    These should primarily be used when you have duplication among a number of
-    `it` blocks within a `context` but not all of them. Be careful with overuse of
-    `let` as it makes the test suite much more difficult to read.
-
-    ```ruby
-    # bad
-    before { @article = FactoryBot.create(:article) }
-
-    # good
-    let(:article) { FactoryBot.create(:article) }
-    ```
-
   * <a name="subject"></a>
     When several tests relate to the same subject, use `subject` to reduce
     repetition.
@@ -584,54 +566,57 @@ meant to be able to change with it.
     end
     ```
 
-  * <a name="let-and-let!"></a>
-    Use `let` and `let!` blocks instead of assigning values to instance
-    variables in `before` blocks.
-    <sup>[[link](#let-and-let!)]</sup>
+  * <a name="let-blocks"></a>
+    Use `let` and `let!` for data that is used across several examples in an
+    example group. Use `let!` to define variables even if they are not
+    referenced in some of the examples, e.g. when testing balancing negative
+    cases. Do not overuse `let`s for primitive data, find the balance between
+    frequency of use and complexity of the definition.
+    <sup>[[link](#let-blocks)]</sup>
 
     ```ruby
     # bad
-    describe '#type_id' do
-      before do
-        @resource = FactoryBot.create(:device)
-        @type = Type.find(@resource.type_id)
-      end
+    it 'finds shortest path' do
+      tree = Tree.new(1 => 2, 2 => 3, 2 => 6, 3 => 4, 4 => 5, 5 => 6)
+      expect(dijkstra.shortest_path(tree, from: 1, to: 6)).to eq([1, 2, 6])
+    end
+    
+    it 'finds longest path' do
+      tree = Tree.new(1 => 2, 2 => 3, 2 => 6, 3 => 4, 4 => 5, 5 => 6)
+      expect(dijkstra.longest_path(tree, from: 1, to: 6)).to eq([1, 2, 3, 4, 5, 6])
+    end
+    
+    # good
+    let(:tree) { Tree.new(1 => 2, 2 => 3, 2 => 6, 3 => 4, 4 => 5, 5 => 6) }
+    
+    it 'finds shortest path' do
+      expect(dijkstra.shortest_path(tree, from: 1, to: 6)).to eq([1, 2, 6])
+    end
+    
+    it 'finds longest path' do
+      expect(dijkstra.longest_path(tree, from: 1, to: 6)).to eq([1, 2, 3, 4, 5, 6])
+    end
+    ```
 
-      it 'sets the type_id field' do
-        expect(@resource.type_id).to equal(@type.id)
-      end
+  * <a name="instance-variables"></a>
+    Use `let` definitions instead of instance variables.
+    <sup>[[link](#instance-variables)]</sup>
+
+    ```ruby
+    # bad
+    before { @name = 'John Wayne' }
+
+    it 'reverses a name' do
+      expect(reverser.reverse(@name)).to eq('enyaW nhoJ')
     end
 
     # good
-    describe '#type_id' do
-      let(:resource) { FactoryBot.create(:device) }
-      let(:type) { Type.find resource.type_id }
+    let(:name) { 'John Wayne' }
 
-      it 'sets the type_id field' do
-        expect(resource.type_id).to equal(type.id)
-      end
+    it 'reverses a name' do
+      expect(reverser.reverse(name)).to eq('enyaW nhoJ')
     end
     ```
-
-    Use `let` to initialize actions that are lazy loaded to test your specs.
-
-    ```ruby
-    context 'when updates a non-existent property value' do
-      let(:properties) { { id: 1, slected: 'on'} }
-
-      def update
-        resource.properties = properties
-      end
-
-      it 'raises an error' do
-        expect { update }.to raise_error InvalidProperty, '`slected` is not a property'
-      end
-    end
-    ```
-
-    Use `let!` to define variables even if they are not referenced in
-    examples. This can be useful to populate your database to test
-    negative cases.
 
   * <a name="it-and-specify"></a>
     Use `specify` if the example doesn't have a description, use `it` for
