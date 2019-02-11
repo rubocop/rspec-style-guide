@@ -243,7 +243,7 @@ meant to be able to change with it.
 
   * <a name="redundant-before-each"></a>
     Don't specify `:each`/`:example` scope for `before`/`after`/`around` blocks,
-    as it is the default. Prefer `:example` when explictly indicating the scope.
+    as it is the default. Prefer `:example` when explicitly indicating the scope.
     <sup>[[link](#redundant-before-each)]</sup>
 
     ```ruby
@@ -1650,7 +1650,7 @@ meant to be able to change with it.
 ## Recommendations
 
   * <a name="correct-setup"></a>
-    Correctly set up RSpec configration globally (`~/.rspec`), per project
+    Correctly set up RSpec configuration globally (`~/.rspec`), per project
     (`.rspec`), and in project override file that is supposed to be kept out of
     version control (`.rspec-local`). Use `rspec --init` to generate `.rspec`
     and `spec/spec_helper.rb` files.
