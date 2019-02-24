@@ -21,6 +21,7 @@ meant to be able to change with it.
 
   * [Layout](#layout)
   * [Example Structure](#example-structure)
+  * [Example Group Structure](#example-group-structure)
   * [Naming](#naming)
   * [Matchers](#matchers)
   * [Rails](#rails)
@@ -241,105 +242,7 @@ meant to be able to change with it.
     end
     ```
 
-  * <a name="redundant-before-each"></a>
-    Don't specify `:each`/`:example` scope for `before`/`after`/`around` blocks,
-    as it is the default. Prefer `:example` when explicitly indicating the scope.
-    <sup>[[link](#redundant-before-each)]</sup>
-
-    ```ruby
-    # bad
-    describe '#summary' do
-      before(:example) do
-        # ...
-      end
-
-      # ...
-    end
-
-    # good
-    describe '#summary' do
-      before do
-        # ...
-      end
-
-      # ...
-    end
-    ```
-
-  * <a name="ambiguous-hook-scope"></a>
-    Use `:context` instead of the ambiguous `:all` scope in `before`/`after`
-    hooks.
-    <sup>[[link](#ambiguous-hook-scope)]</sup>
-
-    ```ruby
-    # bad
-    describe '#summary' do
-      before(:all) do
-        # ...
-      end
-
-      # ...
-    end
-
-    # good
-    describe '#summary' do
-      before(:context) do
-        # ...
-      end
-
-      # ...
-    end
-    ```
-
-  * <a name="avoid-before-with-context-scope"></a>
-    Avoid using `before`/`after` with `:context` scope. Beware of the
-    state leakage between the examples.
-    <sup>[[link](#avoid-before-with-context-scope)]</sup>
-
-## Example Structure
-
-  * <a name="one-expectation"></a><a name="expectations-per-example"></a>
-    For examples two styles are considered acceptable. The first variant
-    is separate example for each expectation, which comes with a cost of
-    repeated context initialization. The second variant is multiple
-    expectations per example with `aggregate_failures` tag set for a
-    group or example. Use your best judgement in each case, and apply
-    your strategy consistently.
-    <sup>[[link](#expectations-per-example)]</sup>
-
-    ```ruby
-    # good - one expectation per example
-    describe ArticlesController do
-      #...
-
-      describe 'GET new' do
-        it 'assigns a new article' do
-          get :new
-          expect(assigns[:article]).to be_a(Article)
-        end
-
-        it 'renders the new article template' do
-          get :new
-          expect(response).to render_template :new
-        end
-      end
-    end
-
-    # good - multiple expectations with aggregated failures
-    describe ArticlesController do
-      #...
-
-      describe 'GET new', :aggregate_failures do
-        it 'assigns new article and renders the new article template' do
-          get :new
-          expect(assigns[:article]).to be_a(Article)
-          expect(response).to render_template :new
-        end
-      end
-
-      # ...
-    end
-    ```
+## Example Group Structure
 
   * <a name="use-contexts"></a>
     Use contexts to make the tests clear, well organized, and easy to
@@ -367,9 +270,9 @@ meant to be able to change with it.
     ```
 
   * <a name="context-cases"></a>
-    `context` blocks should pretty much always have an opposite negative case. It
-    should actually be a strong code smell if there is a single context (without a
-    matching negative case) that it needs refactoring, or may have no purpose.
+    `context` blocks should pretty much always have an opposite negative case.
+    It is a code smell if there is a single context (without a matching
+    negative case), and this code needs refactoring, or may have no purpose.
     <sup>[[link](#context-cases)]</sup>
 
     ```ruby
@@ -429,6 +332,225 @@ meant to be able to change with it.
           # ...
         end
       end
+    end
+    ```
+
+  * <a name="let-blocks"></a>
+    Use `let` and `let!` for data that is used across several examples in an
+    example group. Use `let!` to define variables even if they are not
+    referenced in some of the examples, e.g. when testing balancing negative
+    cases. Do not overuse `let`s for primitive data, find the balance between
+    frequency of use and complexity of the definition.
+    <sup>[[link](#let-blocks)]</sup>
+
+    ```ruby
+    # bad
+    it 'finds shortest path' do
+      tree = Tree.new(1 => 2, 2 => 3, 2 => 6, 3 => 4, 4 => 5, 5 => 6)
+      expect(dijkstra.shortest_path(tree, from: 1, to: 6)).to eq([1, 2, 6])
+    end
+    
+    it 'finds longest path' do
+      tree = Tree.new(1 => 2, 2 => 3, 2 => 6, 3 => 4, 4 => 5, 5 => 6)
+      expect(dijkstra.longest_path(tree, from: 1, to: 6)).to eq([1, 2, 3, 4, 5, 6])
+    end
+    
+    # good
+    let(:tree) { Tree.new(1 => 2, 2 => 3, 2 => 6, 3 => 4, 4 => 5, 5 => 6) }
+    
+    it 'finds shortest path' do
+      expect(dijkstra.shortest_path(tree, from: 1, to: 6)).to eq([1, 2, 6])
+    end
+    
+    it 'finds longest path' do
+      expect(dijkstra.longest_path(tree, from: 1, to: 6)).to eq([1, 2, 3, 4, 5, 6])
+    end
+    ```
+
+  * <a name="instance-variables"></a>
+    Use `let` definitions instead of instance variables.
+    <sup>[[link](#instance-variables)]</sup>
+
+    ```ruby
+    # bad
+    before { @name = 'John Wayne' }
+
+    it 'reverses a name' do
+      expect(reverser.reverse(@name)).to eq('enyaW nhoJ')
+    end
+
+    # good
+    let(:name) { 'John Wayne' }
+
+    it 'reverses a name' do
+      expect(reverser.reverse(name)).to eq('enyaW nhoJ')
+    end
+    ```
+
+  * <a name="shared-examples"></a>
+    Use shared examples to reduce code duplication.
+    <sup>[[link](#shared-examples)]</sup>
+
+    ```ruby
+    # bad
+    describe 'GET /articles' do
+      let(:article) { FactoryBot.create(:article, owner: owner) }
+
+      before { page.driver.get '/articles' }
+
+      context 'when user is the owner' do
+        let(:user) { owner }
+
+        it 'shows all owned articles' do
+          expect(page.status_code).to be(200)
+          contains_resource resource
+        end
+      end
+
+      context 'when user is an admin' do
+        let(:user) { FactoryBot.create(:user, :admin) }
+
+        it 'shows all resources' do
+          expect(page.status_code).to be(200)
+          contains_resource resource
+        end
+      end
+    end
+
+    # good
+    describe 'GET /articles' do
+      let(:article) { FactoryBot.create(:article, owner: owner) }
+
+      before { page.driver.get '/articles' }
+
+      shared_examples 'shows articles' do
+        it 'shows all related articles' do
+          expect(page.status_code).to be(200)
+          contains_resource resource
+        end
+      end
+
+      context 'when user is the owner' do
+        let(:user) { owner }
+
+        include_examples 'shows articles'
+      end
+
+      context 'when user is an admin' do
+        let(:user) { FactoryBot.create(:user, :admin) }
+
+        include_examples 'shows articles'
+      end
+    end
+
+    # good
+    describe 'GET /devices' do
+      let(:resource) { FactoryBot.create(:device, created_from: user) }
+
+      it_behaves_like 'a listable resource'
+      it_behaves_like 'a paginable resource'
+      it_behaves_like 'a searchable resource'
+      it_behaves_like 'a filterable list'
+    end
+    ```
+
+  * <a name="redundant-before-each"></a>
+    Don't specify `:each`/`:example` scope for `before`/`after`/`around` blocks,
+    as it is the default. Prefer `:example` when explicitly indicating the scope.
+    <sup>[[link](#redundant-before-each)]</sup>
+
+    ```ruby
+    # bad
+    describe '#summary' do
+      before(:example) do
+        # ...
+      end
+
+      # ...
+    end
+
+    # good
+    describe '#summary' do
+      before do
+        # ...
+      end
+
+      # ...
+    end
+    ```
+
+  * <a name="ambiguous-hook-scope"></a>
+    Use `:context` instead of the ambiguous `:all` scope in `before`/`after`
+    hooks.
+    <sup>[[link](#ambiguous-hook-scope)]</sup>
+
+    ```ruby
+    # bad
+    describe '#summary' do
+      before(:all) do
+        # ...
+      end
+
+      # ...
+    end
+
+    # good
+    describe '#summary' do
+      before(:context) do
+        # ...
+      end
+
+      # ...
+    end
+    ```
+
+  * <a name="avoid-hooks-with-context-scope"></a>
+    Avoid using `before`/`after` with `:context` scope. Beware of the state
+    leakage between the examples.
+    <sup>[[link](#avoid-hooks-with-context-scope)]</sup>
+
+## Example Structure
+
+  * <a name="one-expectation"></a><a name="expectations-per-example"></a>
+    For examples two styles are considered acceptable. The first variant
+    is separate example for each expectation, which comes with a cost of
+    repeated context initialization. The second variant is multiple
+    expectations per example with `aggregate_failures` tag set for a
+    group or example. Use your best judgement in each case, and apply
+    your strategy consistently.
+    <sup>[[link](#expectations-per-example)]</sup>
+
+    ```ruby
+    # good - one expectation per example
+    describe ArticlesController do
+      #...
+
+      describe 'GET new' do
+        it 'assigns a new article' do
+          get :new
+          expect(assigns[:article]).to be_a(Article)
+        end
+
+        it 'renders the new article template' do
+          get :new
+          expect(response).to render_template :new
+        end
+      end
+    end
+
+    # good - multiple expectations with aggregated failures
+    describe ArticlesController do
+      #...
+
+      describe 'GET new', :aggregate_failures do
+        it 'assigns new article and renders the new article template' do
+          get :new
+          expect(assigns[:article]).to be_a(Article)
+          expect(response).to render_template :new
+        end
+      end
+
+      # ...
     end
     ```
 
@@ -566,58 +688,6 @@ meant to be able to change with it.
     end
     ```
 
-  * <a name="let-blocks"></a>
-    Use `let` and `let!` for data that is used across several examples in an
-    example group. Use `let!` to define variables even if they are not
-    referenced in some of the examples, e.g. when testing balancing negative
-    cases. Do not overuse `let`s for primitive data, find the balance between
-    frequency of use and complexity of the definition.
-    <sup>[[link](#let-blocks)]</sup>
-
-    ```ruby
-    # bad
-    it 'finds shortest path' do
-      tree = Tree.new(1 => 2, 2 => 3, 2 => 6, 3 => 4, 4 => 5, 5 => 6)
-      expect(dijkstra.shortest_path(tree, from: 1, to: 6)).to eq([1, 2, 6])
-    end
-    
-    it 'finds longest path' do
-      tree = Tree.new(1 => 2, 2 => 3, 2 => 6, 3 => 4, 4 => 5, 5 => 6)
-      expect(dijkstra.longest_path(tree, from: 1, to: 6)).to eq([1, 2, 3, 4, 5, 6])
-    end
-    
-    # good
-    let(:tree) { Tree.new(1 => 2, 2 => 3, 2 => 6, 3 => 4, 4 => 5, 5 => 6) }
-    
-    it 'finds shortest path' do
-      expect(dijkstra.shortest_path(tree, from: 1, to: 6)).to eq([1, 2, 6])
-    end
-    
-    it 'finds longest path' do
-      expect(dijkstra.longest_path(tree, from: 1, to: 6)).to eq([1, 2, 3, 4, 5, 6])
-    end
-    ```
-
-  * <a name="instance-variables"></a>
-    Use `let` definitions instead of instance variables.
-    <sup>[[link](#instance-variables)]</sup>
-
-    ```ruby
-    # bad
-    before { @name = 'John Wayne' }
-
-    it 'reverses a name' do
-      expect(reverser.reverse(@name)).to eq('enyaW nhoJ')
-    end
-
-    # good
-    let(:name) { 'John Wayne' }
-
-    it 'reverses a name' do
-      expect(reverser.reverse(name)).to eq('enyaW nhoJ')
-    end
-    ```
-
   * <a name="it-and-specify"></a>
     Use `specify` if the example doesn't have a description, use `it` for
     examples with descriptions. An exception is one-line example, where
@@ -694,73 +764,6 @@ meant to be able to change with it.
         get :index
         expect(response).to be_ok
       end
-    end
-    ```
-
-  * <a name="shared-examples"></a>
-    Use shared examples to reduce code duplication.
-    <sup>[[link](#shared-examples)]</sup>
-
-    ```ruby
-    # bad
-    describe 'GET /articles' do
-      let(:article) { FactoryBot.create(:article, owner: owner) }
-
-      before { page.driver.get '/articles' }
-
-      context 'when user is the owner' do
-        let(:user) { owner }
-
-        it 'shows all owned articles' do
-          expect(page.status_code).to be(200)
-          contains_resource resource
-        end
-      end
-
-      context 'when user is an admin' do
-        let(:user) { FactoryBot.create(:user, :admin) }
-
-        it 'shows all resources' do
-          expect(page.status_code).to be(200)
-          contains_resource resource
-        end
-      end
-    end
-
-    # good
-    describe 'GET /articles' do
-      let(:article) { FactoryBot.create(:article, owner: owner) }
-
-      before { page.driver.get '/articles' }
-
-      shared_examples 'shows articles' do
-        it 'shows all related articles' do
-          expect(page.status_code).to be(200)
-          contains_resource resource
-        end
-      end
-
-      context 'when user is the owner' do
-        let(:user) { owner }
-
-        include_examples 'shows articles'
-      end
-
-      context 'when user is an admin' do
-        let(:user) { FactoryBot.create(:user, :admin) }
-
-        include_examples 'shows articles'
-      end
-    end
-
-    # good
-    describe 'GET /devices' do
-      let(:resource) { FactoryBot.create(:device, created_from: user) }
-
-      it_behaves_like 'a listable resource'
-      it_behaves_like 'a paginable resource'
-      it_behaves_like 'a searchable resource'
-      it_behaves_like 'a filterable list'
     end
     ```
 
