@@ -730,8 +730,8 @@ meant to be able to change with it.
 
   * <a name="it-in-iterators"></a>
     Do not write iterators to generate tests. When another developer adds a
-    feature to one of the items in the iteration, he must then break it out into a
-    separate test - he is forced to edit code that has nothing to do with his pull
+    feature to one of the items in the iteration, they must then break it out into a
+    separate test - they are forced to edit code that has nothing to do with their pull
     request.
     <sup>[[link](#it-in-iterators)]</sup>
 
