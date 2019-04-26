@@ -708,7 +708,7 @@ meant to be able to change with it.
 
     specify { is_expected.to be_truthy }
 
-    it '#do_something is deprecated` do
+    it '#do_something is deprecated' do
       ...
     end
 
@@ -723,7 +723,7 @@ meant to be able to change with it.
 
     it { is_expected.to be_truthy }
 
-    specify '#do_something is deprecated` do
+    specify '#do_something is deprecated' do
       ...
     end
     ```
