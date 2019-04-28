@@ -1672,26 +1672,6 @@ meant to be able to change with it.
     *NOTE*: Those tools are often criticised to be a band aid on a
     problem that might be better solved through better design.
 
-  * <a name="format"></a>
-    Use a formatter that provides useful information about the test run
-    and fits your workflow.
-    [`fuubar`](https://github.com/thekompanee/fuubar) and
-    [`fivemat`](https://github.com/tpope/fivemat) are two alternative
-    formatters worth taking a look at.
-    <sup>[[link](#format)]</sup>
-
-    Add to the `Gemfile`:
-    ```ruby
-    group :test do
-      gem 'fuubar'
-    end
-    ```
-
-    `.rspec` global or project local configuration file:
-    ```
-    --format Fuubar
-    ```
-
 # Contributing
 
 Nothing written in this guide is set in stone. Everyone is welcome to
