@@ -1613,7 +1613,7 @@ meant to be able to change with it.
     <sup>[[link](#mailer-expectations)]</sup>
 
       * the subject is correct
-      * the receiver e-mail is correct
+      * the sender e-mail is correct
       * the e-mail is sent to the right e-mail address
       * the e-mail contains the required information
 
