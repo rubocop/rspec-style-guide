@@ -4,6 +4,11 @@ This RSpec style guide outlines the recommended best practices for real-world
 programmers to write code that can be maintained by other real-world
 programmers.
 
+[RuboCop](https://github.com/rubocop-hq/rubocop), a static code analyzer
+(linter) and formatter, has a
+[`rubocop-rspec`](https://github.com/rubocop-hq/rubocop-rspec) extension,
+provides a way to enforce the rules outlined in this guide.
+
 ## How to Read This Guide
 
 The guide is separated into sections based on the different pieces of an entire
