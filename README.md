@@ -9,6 +9,8 @@ programmers.
 [`rubocop-rspec`](https://github.com/rubocop-hq/rubocop-rspec) extension,
 provides a way to enforce the rules outlined in this guide.
 
+This guide assumes you are using RSpec 3 or later.
+
 ## How to Read This Guide
 
 The guide is separated into sections based on the different pieces of an entire
@@ -1115,7 +1117,7 @@ meant to be able to change with it.
     ```
 
   * <a name="use-expect"></a>
-    On new projects always use the new `expect` syntax.
+    Always use the newer `expect` syntax.
     <sup>[[link](#use-expect)]</sup>
 
     Configure RSpec to only accept the new `expect` syntax.
