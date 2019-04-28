@@ -489,6 +489,7 @@ meant to be able to change with it.
   * <a name="ambiguous-hook-scope"></a>
     Use `:context` instead of the ambiguous `:all` scope in `before`/`after`
     hooks.
+    <a href="#etwr3">[etwr3, Ch 7]</a>
     <sup>[[link](#ambiguous-hook-scope)]</sup>
 
     ```ruby
@@ -1659,6 +1660,10 @@ meant to be able to change with it.
     # .rspec-local
     --profile 2
     ```
+
+# References
+
+* <a name="etwr3"></a> [etwr3] Myron Marston, Ian Dees. Effective Testing with RSpec 3. Pragmatic Bookshelf, 2017. ISBN 9781680501988.
 
 # Contributing
 
