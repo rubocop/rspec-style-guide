@@ -1621,7 +1621,7 @@ meant to be able to change with it.
 
       * the subject is correct
       * the sender e-mail is correct
-      * the e-mail is sent to the right e-mail address
+      * the e-mail is sent to the correct recipient
       * the e-mail contains the required information
 
     ```ruby
