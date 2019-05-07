@@ -13,7 +13,7 @@ https://github.com/rubocop-hq/rubocop[RuboCop], a static code analyzer (linter) 
 
 This guide assumes you are using RSpec 3 or later.
 
-You can generate a PDF or an HTML copy of this guide using https://asciidoctor.org/docs/asciidoctor-pdf/[AsciiDoctor PDF].
+You can generate a PDF copy of this guide using https://asciidoctor.org/docs/asciidoctor-pdf/[AsciiDoctor PDF], and an HTML copy https://asciidoctor.org/docs/convert-documents/#converting-a-document-to-html[with] https://asciidoctor.org/#installation[AsciiDoctor].
 
 == How to Read This Guide
 
