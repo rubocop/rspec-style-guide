@@ -1551,7 +1551,7 @@ describe '#title' do
 end
 ----
 
-=== Sepaate example group for attribute validations[[model-separate-describe-for-attribute-validations]]
+=== Separate example group for attribute validations[[model-separate-describe-for-attribute-validations]]
 
 Add a separate `describe` for each attribute which has validations.
 
