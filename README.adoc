@@ -569,7 +569,7 @@ it { expect(equipment).to be_heavy }
 it { expect(equipment).to include 'sword' }
 ----
 
-=== Use subject
+=== Named subject [[use-subject]]
 
 Use named `subject` when possible.
 Only use anonymous subject declaration when you don't reference it in any tests, e.g. when `is_expected` is used.
