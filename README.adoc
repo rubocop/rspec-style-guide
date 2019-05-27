@@ -5,7 +5,9 @@
 :sectlinks:
 :toc: preamble
 :toclevels: 1
+ifndef::backend-pdf[]
 :toc-title: pass:[<h2>Table of Contents</h2>]
+endif::[]
 
 This RSpec style guide outlines the recommended best practices for real-world programmers to write code that can be maintained by other real-world programmers.
 
@@ -13,7 +15,16 @@ https://github.com/rubocop-hq/rubocop[RuboCop], a static code analyzer (linter) 
 
 This guide assumes you are using RSpec 3 or later.
 
-You can generate a PDF copy of this guide using https://asciidoctor.org/docs/asciidoctor-pdf/[AsciiDoctor PDF], and an HTML copy https://asciidoctor.org/docs/convert-documents/#converting-a-document-to-html[with] https://asciidoctor.org/#installation[AsciiDoctor].
+You can generate a PDF copy of this guide using https://asciidoctor.org/docs/asciidoctor-pdf/[AsciiDoctor PDF], and an HTML copy https://asciidoctor.org/docs/convert-documents/#converting-a-document-to-html[with] https://asciidoctor.org/#installation[AsciiDoctor] using the following commands:
+
+[source,shell]
+----
+# Generates README.pdf
+asciidoctor-pdf -a allow-uri-read README.adoc
+
+# Generates README.html
+asciidoctor
+----
 
 == How to Read This Guide
 
@@ -1664,7 +1675,7 @@ It's easy, just follow the contribution guidelines below:
 
 == License
 
-image:http://i.creativecommons.org/l/by/3.0/88x31.png[Creative Commons License]
+image:https://i.creativecommons.org/l/by/3.0/88x31.png[Creative Commons License]
 This work is licensed under a http://creativecommons.org/licenses/by/3.0/deed.en_US[Creative Commons Attribution 3.0 Unported License]
 
 == Credit
