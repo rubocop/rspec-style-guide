@@ -27,6 +27,16 @@ asciidoctor-pdf -a allow-uri-read README.adoc
 asciidoctor
 ----
 
+[TIP]
+====
+Install the `rouge` gem to get nice syntax highlighting in the generated document.
+
+[source,shell]
+----
+gem install rouge
+----
+====
+
 == How to Read This Guide
 
 The guide is separated into sections based on the different pieces of an entire spec file. There was an attempt to omit all obvious information, if anything is unclear, feel free to open an issue asking for further clarity.
