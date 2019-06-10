@@ -575,10 +575,10 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-shell" data-lang="shell"># Generates README.pdf
-asciidoctor-pdf -a allow-uri-read README.adoc
+<pre class="rouge highlight"><code data-lang="shell"><span class="c"># Generates README.pdf</span>
+asciidoctor-pdf <span class="nt">-a</span> allow-uri-read README.adoc
 
-# Generates README.html
+<span class="c"># Generates README.html</span>
 asciidoctor</code></pre>
 </div>
 </div>
@@ -612,30 +612,30 @@ It doesn&#8217;t make the code more readable and lowers the value of logical chu
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe Article do
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
 
-  describe '#summary' do
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
 
-    context 'when there is a summary' do
+    <span class="n">context</span> <span class="s1">'when there is a summary'</span> <span class="k">do</span>
 
-      it 'returns the summary' do
-        # ...
-      end
-    end
-  end
-end
+      <span class="n">it</span> <span class="s1">'returns the summary'</span> <span class="k">do</span>
+        <span class="c1"># ...</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe Article do
-  describe '#summary' do
-    context 'when there is a summary' do
-      it 'returns the summary' do
-        # ...
-      end
-    end
-  end
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="n">context</span> <span class="s1">'when there is a summary'</span> <span class="k">do</span>
+      <span class="n">it</span> <span class="s1">'returns the summary'</span> <span class="k">do</span>
+        <span class="c1"># ...</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -647,38 +647,38 @@ Do not leave empty line after the last such block in a group.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe Article do
-  describe '#summary' do
-    context 'when there is a summary' do
-      # ...
-    end
-    context 'when there is no summary' do
-      # ...
-    end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="n">context</span> <span class="s1">'when there is a summary'</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
+    <span class="n">context</span> <span class="s1">'when there is no summary'</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
 
-  end
-  describe '#comments' do
-    # ...
-  end
-end
+  <span class="k">end</span>
+  <span class="n">describe</span> <span class="s1">'#comments'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe Article do
-  describe '#summary' do
-    context 'when there is a summary' do
-      # ...
-    end
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="n">context</span> <span class="s1">'when there is a summary'</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
 
-    context 'when there is no summary' do
-      # ...
-    end
-  end
+    <span class="n">context</span> <span class="s1">'when there is no summary'</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  describe '#comments' do
-    # ...
-  end
-end</code></pre>
+  <span class="n">describe</span> <span class="s1">'#comments'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -689,22 +689,22 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe Article do
-  subject { FactoryBot.create(:some_article) }
-  describe '#summary' do
-    # ...
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:some_article</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe Article do
-  subject { FactoryBot.create(:some_article) }
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:some_article</span><span class="p">)</span> <span class="p">}</span>
 
-  describe '#summary' do
-    # ...
-  end
-end</code></pre>
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -716,38 +716,38 @@ It makes the code much more readable.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe Article do
-  subject { FactoryBot.create(:some_article) }
-  let(:user) { FactoryBot.create(:user) }
-  before do
-    # ...
-  end
-  after do
-    # ...
-  end
-  describe '#summary' do
-    # ...
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:some_article</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+  <span class="n">after</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe Article do
-  subject { FactoryBot.create(:some_article) }
-  let(:user) { FactoryBot.create(:user) }
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:some_article</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">}</span>
 
-  before do
-    # ...
-  end
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  after do
-    # ...
-  end
+  <span class="n">after</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  describe '#summary' do
-    # ...
-  end
-end</code></pre>
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -758,37 +758,37 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe '#summary' do
-  let(:item) { double('something') }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:item</span><span class="p">)</span> <span class="p">{</span> <span class="n">double</span><span class="p">(</span><span class="s1">'something'</span><span class="p">)</span> <span class="p">}</span>
 
-  it 'returns the summary' do
-    # ...
-  end
-  it 'does something else' do
-    # ...
-  end
-  it 'does another thing' do
-    # ...
-  end
-end
+  <span class="n">it</span> <span class="s1">'returns the summary'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+  <span class="n">it</span> <span class="s1">'does something else'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+  <span class="n">it</span> <span class="s1">'does another thing'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe '#summary' do
-  let(:item) { double('something') }
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:item</span><span class="p">)</span> <span class="p">{</span> <span class="n">double</span><span class="p">(</span><span class="s1">'something'</span><span class="p">)</span> <span class="p">}</span>
 
-  it 'returns the summary' do
-    # ...
-  end
+  <span class="n">it</span> <span class="s1">'returns the summary'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  it 'does something else' do
-    # ...
-  end
+  <span class="n">it</span> <span class="s1">'does something else'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  it 'does another thing' do
-    # ...
-  end
-end</code></pre>
+  <span class="n">it</span> <span class="s1">'does another thing'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -799,33 +799,33 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe Article do
-  before do
-    # ...
-  end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  let(:user) { FactoryBot.create(:user) }
-  subject { FactoryBot.create(:some_article) }
+  <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:some_article</span><span class="p">)</span> <span class="p">}</span>
 
-  describe '#summary' do
-    # ...
-  end
-end
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe Article do
-  subject { FactoryBot.create(:some_article) }
-  let(:user) { FactoryBot.create(:user) }
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:some_article</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">}</span>
 
-  before do
-    # ...
-  end
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  describe '#summary' do
-    # ...
-  end
-end</code></pre>
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -841,23 +841,23 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'has 200 status code if logged in' do
-  expect(response).to respond_with 200
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'has 200 status code if logged in'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">respond_with</span> <span class="mi">200</span>
+<span class="k">end</span>
 
-it 'has 401 status code if not logged in' do
-  expect(response).to respond_with 401
-end
+<span class="n">it</span> <span class="s1">'has 401 status code if not logged in'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">respond_with</span> <span class="mi">401</span>
+<span class="k">end</span>
 
-# good
-context 'when logged in' do
-  it { is_expected.to respond_with 200 }
-end
+<span class="c1"># good</span>
+<span class="n">context</span> <span class="s1">'when logged in'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">respond_with</span> <span class="mi">200</span> <span class="p">}</span>
+<span class="k">end</span>
 
-context 'when logged out' do
-  it { is_expected.to respond_with 401 }
-end</code></pre>
+<span class="n">context</span> <span class="s1">'when logged out'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">respond_with</span> <span class="mi">401</span> <span class="p">}</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -869,63 +869,63 @@ It is a code smell if there is a single context (without a matching negative cas
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad - needs refactoring
-describe '#attributes' do
-  context 'the returned hash' do
-    it 'includes the display name' do
-      # ...
-    end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - needs refactoring</span>
+<span class="n">describe</span> <span class="s1">'#attributes'</span> <span class="k">do</span>
+  <span class="n">context</span> <span class="s1">'the returned hash'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'includes the display name'</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
 
-    it 'includes the creation time' do
-      # ...
-    end
-  end
-end
+    <span class="n">it</span> <span class="s1">'includes the creation time'</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# bad - the negative case needs to be tested, but isn't
-describe '#attributes' do
-  context 'when display name is present' do
-    before do
-      subject.display_name = 'something'
-    end
+<span class="c1"># bad - the negative case needs to be tested, but isn't</span>
+<span class="n">describe</span> <span class="s1">'#attributes'</span> <span class="k">do</span>
+  <span class="n">context</span> <span class="s1">'when display name is present'</span> <span class="k">do</span>
+    <span class="n">before</span> <span class="k">do</span>
+      <span class="n">subject</span><span class="p">.</span><span class="nf">display_name</span> <span class="o">=</span> <span class="s1">'something'</span>
+    <span class="k">end</span>
 
-    it 'includes the display name' do
-      # ...
-    end
-  end
-end
+    <span class="n">it</span> <span class="s1">'includes the display name'</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe '#attributes' do
-  subject { FactoryBot.create(:article) }
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="s1">'#attributes'</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
 
-  specify do
-    expect(subject.attributes).to include subject.display_name
-    expect(subject.attributes).to include subject.created_at
-  end
-end
+  <span class="n">specify</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">attributes</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span> <span class="n">subject</span><span class="p">.</span><span class="nf">display_name</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">attributes</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span> <span class="n">subject</span><span class="p">.</span><span class="nf">created_at</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-describe '#attributes' do
-  context 'when display name is present' do
-    before do
-      subject.display_name = 'something'
-    end
+<span class="n">describe</span> <span class="s1">'#attributes'</span> <span class="k">do</span>
+  <span class="n">context</span> <span class="s1">'when display name is present'</span> <span class="k">do</span>
+    <span class="n">before</span> <span class="k">do</span>
+      <span class="n">subject</span><span class="p">.</span><span class="nf">display_name</span> <span class="o">=</span> <span class="s1">'something'</span>
+    <span class="k">end</span>
 
-    it 'includes the display name' do
-      # ...
-    end
-  end
+    <span class="n">it</span> <span class="s1">'includes the display name'</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  context 'when display name is not present' do
-    before do
-      subject.display_name = nil
-    end
+  <span class="n">context</span> <span class="s1">'when display name is not present'</span> <span class="k">do</span>
+    <span class="n">before</span> <span class="k">do</span>
+      <span class="n">subject</span><span class="p">.</span><span class="nf">display_name</span> <span class="o">=</span> <span class="kp">nil</span>
+    <span class="k">end</span>
 
-    it 'does not include the display name' do
-      # ...
-    end
-  end
-end</code></pre>
+    <span class="n">it</span> <span class="s1">'does not include the display name'</span> <span class="k">do</span>
+      <span class="c1"># ...</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -938,27 +938,27 @@ Do not overuse <code>let</code>s for primitive data, find the balance between fr
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'finds shortest path' do
-  tree = Tree.new(1 =&gt; 2, 2 =&gt; 3, 2 =&gt; 6, 3 =&gt; 4, 4 =&gt; 5, 5 =&gt; 6)
-  expect(dijkstra.shortest_path(tree, from: 1, to: 6)).to eq([1, 2, 6])
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'finds shortest path'</span> <span class="k">do</span>
+  <span class="n">tree</span> <span class="o">=</span> <span class="no">Tree</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">1</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span> <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">dijkstra</span><span class="p">.</span><span class="nf">shortest_path</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="ss">from: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">to: </span><span class="mi">6</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="k">end</span>
 
-it 'finds longest path' do
-  tree = Tree.new(1 =&gt; 2, 2 =&gt; 3, 2 =&gt; 6, 3 =&gt; 4, 4 =&gt; 5, 5 =&gt; 6)
-  expect(dijkstra.longest_path(tree, from: 1, to: 6)).to eq([1, 2, 3, 4, 5, 6])
-end
+<span class="n">it</span> <span class="s1">'finds longest path'</span> <span class="k">do</span>
+  <span class="n">tree</span> <span class="o">=</span> <span class="no">Tree</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">1</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span> <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">dijkstra</span><span class="p">.</span><span class="nf">longest_path</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="ss">from: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">to: </span><span class="mi">6</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="k">end</span>
 
-# good
-let(:tree) { Tree.new(1 =&gt; 2, 2 =&gt; 3, 2 =&gt; 6, 3 =&gt; 4, 4 =&gt; 5, 5 =&gt; 6) }
+<span class="c1"># good</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:tree</span><span class="p">)</span> <span class="p">{</span> <span class="no">Tree</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">1</span> <span class="o">=&gt;</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span> <span class="o">=&gt;</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span> <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">3</span> <span class="o">=&gt;</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span> <span class="o">=&gt;</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">5</span> <span class="o">=&gt;</span> <span class="mi">6</span><span class="p">)</span> <span class="p">}</span>
 
-it 'finds shortest path' do
-  expect(dijkstra.shortest_path(tree, from: 1, to: 6)).to eq([1, 2, 6])
-end
+<span class="n">it</span> <span class="s1">'finds shortest path'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">dijkstra</span><span class="p">.</span><span class="nf">shortest_path</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="ss">from: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">to: </span><span class="mi">6</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="k">end</span>
 
-it 'finds longest path' do
-  expect(dijkstra.longest_path(tree, from: 1, to: 6)).to eq([1, 2, 3, 4, 5, 6])
-end</code></pre>
+<span class="n">it</span> <span class="s1">'finds longest path'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">dijkstra</span><span class="p">.</span><span class="nf">longest_path</span><span class="p">(</span><span class="n">tree</span><span class="p">,</span> <span class="ss">from: </span><span class="mi">1</span><span class="p">,</span> <span class="ss">to: </span><span class="mi">6</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -969,19 +969,19 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-before { @name = 'John Wayne' }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">before</span> <span class="p">{</span> <span class="vi">@name</span> <span class="o">=</span> <span class="s1">'John Wayne'</span> <span class="p">}</span>
 
-it 'reverses a name' do
-  expect(reverser.reverse(@name)).to eq('enyaW nhoJ')
-end
+<span class="n">it</span> <span class="s1">'reverses a name'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">reverser</span><span class="p">.</span><span class="nf">reverse</span><span class="p">(</span><span class="vi">@name</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s1">'enyaW nhoJ'</span><span class="p">)</span>
+<span class="k">end</span>
 
-# good
-let(:name) { 'John Wayne' }
+<span class="c1"># good</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:name</span><span class="p">)</span> <span class="p">{</span> <span class="s1">'John Wayne'</span> <span class="p">}</span>
 
-it 'reverses a name' do
-  expect(reverser.reverse(name)).to eq('enyaW nhoJ')
-end</code></pre>
+<span class="n">it</span> <span class="s1">'reverses a name'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">reverser</span><span class="p">.</span><span class="nf">reverse</span><span class="p">(</span><span class="nb">name</span><span class="p">)).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s1">'enyaW nhoJ'</span><span class="p">)</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -992,66 +992,66 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe 'GET /articles' do
-  let(:article) { FactoryBot.create(:article, owner: owner) }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="s1">'GET /articles'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="ss">owner: </span><span class="n">owner</span><span class="p">)</span> <span class="p">}</span>
 
-  before { page.driver.get '/articles' }
+  <span class="n">before</span> <span class="p">{</span> <span class="n">page</span><span class="p">.</span><span class="nf">driver</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/articles'</span> <span class="p">}</span>
 
-  context 'when user is the owner' do
-    let(:user) { owner }
+  <span class="n">context</span> <span class="s1">'when user is the owner'</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="n">owner</span> <span class="p">}</span>
 
-    it 'shows all owned articles' do
-      expect(page.status_code).to be(200)
-      contains_resource resource
-    end
-  end
+    <span class="n">it</span> <span class="s1">'shows all owned articles'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">.</span><span class="nf">status_code</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+      <span class="n">contains_resource</span> <span class="n">resource</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  context 'when user is an admin' do
-    let(:user) { FactoryBot.create(:user, :admin) }
+  <span class="n">context</span> <span class="s1">'when user is an admin'</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">:admin</span><span class="p">)</span> <span class="p">}</span>
 
-    it 'shows all resources' do
-      expect(page.status_code).to be(200)
-      contains_resource resource
-    end
-  end
-end
+    <span class="n">it</span> <span class="s1">'shows all resources'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">.</span><span class="nf">status_code</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+      <span class="n">contains_resource</span> <span class="n">resource</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe 'GET /articles' do
-  let(:article) { FactoryBot.create(:article, owner: owner) }
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="s1">'GET /articles'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="ss">owner: </span><span class="n">owner</span><span class="p">)</span> <span class="p">}</span>
 
-  before { page.driver.get '/articles' }
+  <span class="n">before</span> <span class="p">{</span> <span class="n">page</span><span class="p">.</span><span class="nf">driver</span><span class="p">.</span><span class="nf">get</span> <span class="s1">'/articles'</span> <span class="p">}</span>
 
-  shared_examples 'shows articles' do
-    it 'shows all related articles' do
-      expect(page.status_code).to be(200)
-      contains_resource resource
-    end
-  end
+  <span class="n">shared_examples</span> <span class="s1">'shows articles'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'shows all related articles'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">.</span><span class="nf">status_code</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+      <span class="n">contains_resource</span> <span class="n">resource</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  context 'when user is the owner' do
-    let(:user) { owner }
+  <span class="n">context</span> <span class="s1">'when user is the owner'</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="n">owner</span> <span class="p">}</span>
 
-    include_examples 'shows articles'
-  end
+    <span class="n">include_examples</span> <span class="s1">'shows articles'</span>
+  <span class="k">end</span>
 
-  context 'when user is an admin' do
-    let(:user) { FactoryBot.create(:user, :admin) }
+  <span class="n">context</span> <span class="s1">'when user is an admin'</span> <span class="k">do</span>
+    <span class="n">let</span><span class="p">(</span><span class="ss">:user</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="ss">:admin</span><span class="p">)</span> <span class="p">}</span>
 
-    include_examples 'shows articles'
-  end
-end
+    <span class="n">include_examples</span> <span class="s1">'shows articles'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe 'GET /devices' do
-  let(:resource) { FactoryBot.create(:device, created_from: user) }
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="s1">'GET /devices'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:resource</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:device</span><span class="p">,</span> <span class="ss">created_from: </span><span class="n">user</span><span class="p">)</span> <span class="p">}</span>
 
-  it_behaves_like 'a listable resource'
-  it_behaves_like 'a paginable resource'
-  it_behaves_like 'a searchable resource'
-  it_behaves_like 'a filterable list'
-end</code></pre>
+  <span class="n">it_behaves_like</span> <span class="s1">'a listable resource'</span>
+  <span class="n">it_behaves_like</span> <span class="s1">'a paginable resource'</span>
+  <span class="n">it_behaves_like</span> <span class="s1">'a searchable resource'</span>
+  <span class="n">it_behaves_like</span> <span class="s1">'a filterable list'</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1063,23 +1063,23 @@ Prefer <code>:example</code> when explicitly indicating the scope.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe '#summary' do
-  before(:example) do
-    # ...
-  end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+  <span class="n">before</span><span class="p">(</span><span class="ss">:example</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  # ...
-end
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-# good
-describe '#summary' do
-  before do
-    # ...
-  end
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  # ...
-end</code></pre>
+  <span class="c1"># ...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1090,23 +1090,23 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe '#summary' do
-  before(:all) do
-    # ...
-  end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+  <span class="n">before</span><span class="p">(</span><span class="ss">:all</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  # ...
-end
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-# good
-describe '#summary' do
-  before(:context) do
-    # ...
-  end
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+  <span class="n">before</span><span class="p">(</span><span class="ss">:context</span><span class="p">)</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  # ...
-end</code></pre>
+  <span class="c1"># ...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1132,37 +1132,37 @@ Use your best judgement in each case, and apply your strategy consistently.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># good - one expectation per example
-describe ArticlesController do
-  #...
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># good - one expectation per example</span>
+<span class="n">describe</span> <span class="no">ArticlesController</span> <span class="k">do</span>
+  <span class="c1">#...</span>
 
-  describe 'GET new' do
-    it 'assigns a new article' do
-      get :new
-      expect(assigns[:article]).to be_a(Article)
-    end
+  <span class="n">describe</span> <span class="s1">'GET new'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'assigns a new article'</span> <span class="k">do</span>
+      <span class="n">get</span> <span class="ss">:new</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">assigns</span><span class="p">[</span><span class="ss">:article</span><span class="p">]).</span><span class="nf">to</span> <span class="n">be_a</span><span class="p">(</span><span class="no">Article</span><span class="p">)</span>
+    <span class="k">end</span>
 
-    it 'renders the new article template' do
-      get :new
-      expect(response).to render_template :new
-    end
-  end
-end
+    <span class="n">it</span> <span class="s1">'renders the new article template'</span> <span class="k">do</span>
+      <span class="n">get</span> <span class="ss">:new</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">render_template</span> <span class="ss">:new</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good - multiple expectations with aggregated failures
-describe ArticlesController do
-  #...
+<span class="c1"># good - multiple expectations with aggregated failures</span>
+<span class="n">describe</span> <span class="no">ArticlesController</span> <span class="k">do</span>
+  <span class="c1">#...</span>
 
-  describe 'GET new', :aggregate_failures do
-    it 'assigns new article and renders the new article template' do
-      get :new
-      expect(assigns[:article]).to be_a(Article)
-      expect(response).to render_template :new
-    end
-  end
+  <span class="n">describe</span> <span class="s1">'GET new'</span><span class="p">,</span> <span class="ss">:aggregate_failures</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'assigns new article and renders the new article template'</span> <span class="k">do</span>
+      <span class="n">get</span> <span class="ss">:new</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">assigns</span><span class="p">[</span><span class="ss">:article</span><span class="p">]).</span><span class="nf">to</span> <span class="n">be_a</span><span class="p">(</span><span class="no">Article</span><span class="p">)</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">render_template</span> <span class="ss">:new</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  # ...
-end</code></pre>
+  <span class="c1"># ...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1173,15 +1173,15 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it { expect(hero.equipment).to be_heavy }
-it { expect(hero.equipment).to include 'sword' }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="n">hero</span><span class="p">.</span><span class="nf">equipment</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_heavy</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="n">hero</span><span class="p">.</span><span class="nf">equipment</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span> <span class="s1">'sword'</span> <span class="p">}</span>
 
-# good
-subject(:equipment) { hero.equipment }
+<span class="c1"># good</span>
+<span class="n">subject</span><span class="p">(</span><span class="ss">:equipment</span><span class="p">)</span> <span class="p">{</span> <span class="n">hero</span><span class="p">.</span><span class="nf">equipment</span> <span class="p">}</span>
 
-it { expect(equipment).to be_heavy }
-it { expect(equipment).to include 'sword' }</code></pre>
+<span class="n">it</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="n">equipment</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_heavy</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="n">equipment</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span> <span class="s1">'sword'</span> <span class="p">}</span></code></pre>
 </div>
 </div>
 </div>
@@ -1193,32 +1193,32 @@ Only use anonymous subject declaration when you don&#8217;t reference it in any 
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe Article do
-  subject { FactoryBot.create(:article) }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
 
-  it 'is not published on creation' do
-    expect(subject).not_to be_published
-  end
-end
+  <span class="n">it</span> <span class="s1">'is not published on creation'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">).</span><span class="nf">not_to</span> <span class="n">be_published</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe Article do
-  subject { FactoryBot.create(:article) }
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
 
-  it 'is not published on creation' do
-    is_expected.not_to be_published
-  end
-end
+  <span class="n">it</span> <span class="s1">'is not published on creation'</span> <span class="k">do</span>
+    <span class="n">is_expected</span><span class="p">.</span><span class="nf">not_to</span> <span class="n">be_published</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# even better
-describe Article do
-  subject(:article) { FactoryBot.create(:article) }
+<span class="c1"># even better</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
 
-  it 'is not published on creation' do
-    expect(article).not_to be_published
-  end
-end</code></pre>
+  <span class="n">it</span> <span class="s1">'is not published on creation'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">not_to</span> <span class="n">be_published</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1229,43 +1229,43 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe Article do
-  context 'when there is an author' do
-    subject(:article) { FactoryBot.create(:article, author: user) }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">context</span> <span class="s1">'when there is an author'</span> <span class="k">do</span>
+    <span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="ss">author: </span><span class="n">user</span><span class="p">)</span> <span class="p">}</span>
 
-    it 'shows other articles by the same author' do
-      expect(article.related_stories).to include(story1, story2)
-    end
-  end
+    <span class="n">it</span> <span class="s1">'shows other articles by the same author'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">related_stories</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="n">story1</span><span class="p">,</span> <span class="n">story2</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  context 'when the author is anonymous' do
-    subject(:article) { FactoryBot.create(:article, author: nil) }
+  <span class="n">context</span> <span class="s1">'when the author is anonymous'</span> <span class="k">do</span>
+    <span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="ss">author: </span><span class="kp">nil</span><span class="p">)</span> <span class="p">}</span>
 
-    it 'matches stories by title' do
-      expect(article.related_stories).to include(story3, story4)
-    end
-  end
-end
+    <span class="n">it</span> <span class="s1">'matches stories by title'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">related_stories</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="n">story3</span><span class="p">,</span> <span class="n">story4</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe Article do
-  context 'when article has an author' do
-    subject(:article) { FactoryBot.create(:article, author: user) }
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">context</span> <span class="s1">'when article has an author'</span> <span class="k">do</span>
+    <span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="ss">author: </span><span class="n">user</span><span class="p">)</span> <span class="p">}</span>
 
-    it 'shows other articles by the same author' do
-      expect(article.related_stories).to include(story1, story2)
-    end
-  end
+    <span class="n">it</span> <span class="s1">'shows other articles by the same author'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">related_stories</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="n">story1</span><span class="p">,</span> <span class="n">story2</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
 
-  context 'when the author is anonymous' do
-    subject(:guest_article) { FactoryBot.create(:article, author: nil) }
+  <span class="n">context</span> <span class="s1">'when the author is anonymous'</span> <span class="k">do</span>
+    <span class="n">subject</span><span class="p">(</span><span class="ss">:guest_article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="ss">author: </span><span class="kp">nil</span><span class="p">)</span> <span class="p">}</span>
 
-    it 'matches stories by title' do
-      expect(guest_article.related_stories).to include(story3, story4)
-    end
-  end
-end</code></pre>
+    <span class="n">it</span> <span class="s1">'matches stories by title'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">guest_article</span><span class="p">.</span><span class="nf">related_stories</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="n">story3</span><span class="p">,</span> <span class="n">story4</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1276,35 +1276,35 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe 'Article' do
-  subject(:article) { Article.new }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="s1">'Article'</span> <span class="k">do</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">Article</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
 
-  it 'indicates that the author is unknown' do
-    allow(article).to receive(:author).and_return(nil)
-    expect(article.description).to include('by an unknown author')
-  end
-end
+  <span class="n">it</span> <span class="s1">'indicates that the author is unknown'</span> <span class="k">do</span>
+    <span class="n">allow</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:author</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="kp">nil</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">description</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s1">'by an unknown author'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good - with correct subject initialization
-describe 'Article' do
-  subject(:article) { Article.new(author: nil) }
+<span class="c1"># good - with correct subject initialization</span>
+<span class="n">describe</span> <span class="s1">'Article'</span> <span class="k">do</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">Article</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="ss">author: </span><span class="kp">nil</span><span class="p">)</span> <span class="p">}</span>
 
-  it 'indicates that the author is unknown' do
-    expect(article.description).to include('by an unknown author')
-  end
-end
+  <span class="n">it</span> <span class="s1">'indicates that the author is unknown'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">description</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s1">'by an unknown author'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good - with better object design
-describe 'Article' do
-  subject(:presenter) { ArticlePresenter.new(article) }
-  let(:article) { Article.new }
+<span class="c1"># good - with better object design</span>
+<span class="n">describe</span> <span class="s1">'Article'</span> <span class="k">do</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:presenter</span><span class="p">)</span> <span class="p">{</span> <span class="no">ArticlePresenter</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">article</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">Article</span><span class="p">.</span><span class="nf">new</span> <span class="p">}</span>
 
-  it 'indicates that the author is unknown' do
-    allow(article).to receive(:author).and_return(nil)
-    expect(presenter.description).to include('by an unknown author')
-  end
-end</code></pre>
+  <span class="n">it</span> <span class="s1">'indicates that the author is unknown'</span> <span class="k">do</span>
+    <span class="n">allow</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:author</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="kp">nil</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">presenter</span><span class="p">.</span><span class="nf">description</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s1">'by an unknown author'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1317,35 +1317,35 @@ An exception is one-line example, where <code>it</code> is preferable.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it do
-  # ...
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-specify 'it sends an email' do
-  # ...
-end
+<span class="n">specify</span> <span class="s1">'it sends an email'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-specify { is_expected.to be_truthy }
+<span class="n">specify</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">be_truthy</span> <span class="p">}</span>
 
-it '#do_something is deprecated' do
-  ...
-end
+<span class="n">it</span> <span class="s1">'#do_something is deprecated'</span> <span class="k">do</span>
+  <span class="o">...</span>
+<span class="k">end</span>
 
-# good
-specify do
-  # ...
-end
+<span class="c1"># good</span>
+<span class="n">specify</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-it 'sends an email' do
-  # ...
-end
+<span class="n">it</span> <span class="s1">'sends an email'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-it { is_expected.to be_truthy }
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">be_truthy</span> <span class="p">}</span>
 
-specify '#do_something is deprecated' do
-  ...
-end</code></pre>
+<span class="n">specify</span> <span class="s1">'#do_something is deprecated'</span> <span class="k">do</span>
+  <span class="o">...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1357,35 +1357,35 @@ When another developer adds a feature to one of the items in the iteration, they
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-[:new, :show, :index].each do |action|
-  it 'returns 200' do
-    get action
-    expect(response).to be_ok
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="p">[</span><span class="ss">:new</span><span class="p">,</span> <span class="ss">:show</span><span class="p">,</span> <span class="ss">:index</span><span class="p">].</span><span class="nf">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">action</span><span class="o">|</span>
+  <span class="n">it</span> <span class="s1">'returns 200'</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="n">action</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good - more verbose, but better for the future development
-describe 'GET new' do
-  it 'returns 200' do
-    get :new
-    expect(response).to be_ok
-  end
-end
+<span class="c1"># good - more verbose, but better for the future development</span>
+<span class="n">describe</span> <span class="s1">'GET new'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'returns 200'</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="ss">:new</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-describe 'GET show' do
-  it 'returns 200' do
-    get :show
-    expect(response).to be_ok
-  end
-end
+<span class="n">describe</span> <span class="s1">'GET show'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'returns 200'</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="ss">:show</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_ok</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-describe 'GET index' do
-  it 'returns 200' do
-    get :index
-    expect(response).to be_ok
-  end
-end</code></pre>
+<span class="n">describe</span> <span class="s1">'GET index'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'returns 200'</span> <span class="k">do</span>
+    <span class="n">get</span> <span class="ss">:index</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_ok</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1396,19 +1396,19 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'publishes the article' do
-  article.publish
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'publishes the article'</span> <span class="k">do</span>
+  <span class="n">article</span><span class="p">.</span><span class="nf">publish</span>
 
-  # Creating another shared Article test object above would cause this
-  # test to break
-  expect(Article.count).to eq(2)
-end
+  <span class="c1"># Creating another shared Article test object above would cause this</span>
+  <span class="c1"># test to break</span>
+  <span class="n">expect</span><span class="p">(</span><span class="no">Article</span><span class="p">.</span><span class="nf">count</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="k">end</span>
 
-# good
-it 'publishes the article' do
-  expect { article.publish }.to change(Article, :count).by(1)
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'publishes the article'</span> <span class="k">do</span>
+  <span class="n">expect</span> <span class="p">{</span> <span class="n">article</span><span class="p">.</span><span class="nf">publish</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span><span class="p">(</span><span class="no">Article</span><span class="p">,</span> <span class="ss">:count</span><span class="p">).</span><span class="nf">by</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1431,18 +1431,18 @@ Do <strong>not</strong> use fixtures as they are not nearly as maintainable as f
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-subject(:article) do
-  Article.create(
-    title: 'Piccolina',
-    author: 'John Archer',
-    published_at: '17 August 2172',
-    approved: true
-  )
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">Article</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span>
+    <span class="ss">title: </span><span class="s1">'Piccolina'</span><span class="p">,</span>
+    <span class="ss">author: </span><span class="s1">'John Archer'</span><span class="p">,</span>
+    <span class="ss">published_at: </span><span class="s1">'17 August 2172'</span><span class="p">,</span>
+    <span class="ss">approved: </span><span class="kp">true</span>
+  <span class="p">)</span>
+<span class="k">end</span>
 
-# good
-subject(:article) { FactoryBot.create(:article) }</code></pre>
+<span class="c1"># good</span>
+<span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span></code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1466,16 +1466,16 @@ Put as much of your domain logic in libraries that can be tested without needing
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># good
-RSpec.describe User do
-  describe ".top" do
-    subject { described_class.top(2) }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># good</span>
+<span class="no">RSpec</span><span class="p">.</span><span class="nf">describe</span> <span class="no">User</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s2">".top"</span> <span class="k">do</span>
+    <span class="n">subject</span> <span class="p">{</span> <span class="n">described_class</span><span class="p">.</span><span class="nf">top</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="p">}</span>
 
-    before { FactoryBot.create_list(:user, 3) }
+    <span class="n">before</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create_list</span><span class="p">(</span><span class="ss">:user</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span> <span class="p">}</span>
 
-    it { is_expected.to have(2).items }
-  end
-end</code></pre>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">have</span><span class="p">(</span><span class="mi">2</span><span class="p">).</span><span class="nf">items</span> <span class="p">}</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1505,26 +1505,26 @@ That will significantly reduce the confidence in partial doubles.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># good - verifying instance double
-article = instance_double('Article')
-allow(article).to receive(:author).and_return(nil)
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># good - verifying instance double</span>
+<span class="n">article</span> <span class="o">=</span> <span class="n">instance_double</span><span class="p">(</span><span class="s1">'Article'</span><span class="p">)</span>
+<span class="n">allow</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:author</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="kp">nil</span><span class="p">)</span>
 
-presenter = described_class.new(article)
-expect(presenter.title).to include('by an unknown author')
-
-
-# good - verifying object double
-article = object_double(Article.new, valid?: true)
-expect(article.save).to be true
+<span class="n">presenter</span> <span class="o">=</span> <span class="n">described_class</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">presenter</span><span class="p">.</span><span class="nf">title</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="s1">'by an unknown author'</span><span class="p">)</span>
 
 
-# good - verifying partial double
-allow(Article).to receive(:find).with(5).and_return(article)
+<span class="c1"># good - verifying object double</span>
+<span class="n">article</span> <span class="o">=</span> <span class="n">object_double</span><span class="p">(</span><span class="no">Article</span><span class="p">.</span><span class="nf">new</span><span class="p">,</span> <span class="ss">valid?: </span><span class="kp">true</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">save</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="kp">true</span>
 
 
-# good - verifying class double
-notifier = class_double('Notifier')
-expect(notifier).to receive(:notify).with('suspended as')</code></pre>
+<span class="c1"># good - verifying partial double</span>
+<span class="n">allow</span><span class="p">(</span><span class="no">Article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:find</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="mi">5</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+
+
+<span class="c1"># good - verifying class double</span>
+<span class="n">notifier</span> <span class="o">=</span> <span class="n">class_double</span><span class="p">(</span><span class="s1">'Notifier'</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">notifier</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:notify</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="s1">'suspended as'</span><span class="p">)</span></code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1547,19 +1547,19 @@ If you stub a method that could give a false-positive test result, you have gone
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'offsets the time 2 days into the future' do
-  current_time = Time.now
-  allow(Time).to receive(:now).and_return(current_time)
-  expect(subject.get_offset_time).to eq(current_time + 2.days)
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'offsets the time 2 days into the future'</span> <span class="k">do</span>
+  <span class="n">current_time</span> <span class="o">=</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
+  <span class="n">allow</span><span class="p">(</span><span class="no">Time</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:now</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">current_time</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">get_offset_time</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">current_time</span> <span class="o">+</span> <span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">)</span>
+<span class="k">end</span>
 
-# good
-it 'offsets the time 2 days into the future' do
-  Timecop.freeze(Time.now) do
-    expect(subject.get_offset_time).to eq 2.days.from_now
-  end
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'offsets the time 2 days into the future'</span> <span class="k">do</span>
+  <span class="no">Timecop</span><span class="p">.</span><span class="nf">freeze</span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">get_offset_time</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span> <span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">from_now</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1574,17 +1574,17 @@ Avoid hitting real external services.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># good
-context 'with unauthorized access' do
-  let(:uri) { 'http://api.lelylan.com/types' }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># good</span>
+<span class="n">context</span> <span class="s1">'with unauthorized access'</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:uri</span><span class="p">)</span> <span class="p">{</span> <span class="s1">'http://api.lelylan.com/types'</span> <span class="p">}</span>
 
-  before { stub_request(:get, uri).to_return(status: 401, body: fixture('401.json')) }
+  <span class="n">before</span> <span class="p">{</span> <span class="n">stub_request</span><span class="p">(</span><span class="ss">:get</span><span class="p">,</span> <span class="n">uri</span><span class="p">).</span><span class="nf">to_return</span><span class="p">(</span><span class="ss">status: </span><span class="mi">401</span><span class="p">,</span> <span class="ss">body: </span><span class="n">fixture</span><span class="p">(</span><span class="s1">'401.json'</span><span class="p">))</span> <span class="p">}</span>
 
-  it 'returns access denied' do
-    page.driver.get uri
-    expect(page).to have_content 'Access denied'
-  end
-end</code></pre>
+  <span class="n">it</span> <span class="s1">'returns access denied'</span> <span class="k">do</span>
+    <span class="n">page</span><span class="p">.</span><span class="nf">driver</span><span class="p">.</span><span class="nf">get</span> <span class="n">uri</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_content</span> <span class="s1">'Access denied'</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1600,33 +1600,33 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-context 'the display name not present' do
-  # ...
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">context</span> <span class="s1">'the display name not present'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-context 'the display name has utf8 characters' do
-  # ...
-end
+<span class="n">context</span> <span class="s1">'the display name has utf8 characters'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-context 'the display name has no utf8 characters' do
-  # ...
-end
+<span class="n">context</span> <span class="s1">'the display name has no utf8 characters'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-# good
-context 'when the display name is not present' do
-  it 'raises an error' do
-    # ...
-  end
-end
+<span class="c1"># good</span>
+<span class="n">context</span> <span class="s1">'when the display name is not present'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'raises an error'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-context 'with utf8 characters in the display name' do
-  # ...
-end
+<span class="n">context</span> <span class="s1">'with utf8 characters in the display name'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-context 'without utf8 characters in the display name' do
-  # ...
-end</code></pre>
+<span class="n">context</span> <span class="s1">'without utf8 characters in the display name'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1638,25 +1638,25 @@ This is a code smell that the <code>it</code> most likely needs to be wrapped in
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'returns the display name if it is present' do
-  # ...
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'returns the display name if it is present'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-# good
-context 'when display name is present' do
-  it 'returns the display name' do
-    # ...
-  end
-end
+<span class="c1"># good</span>
+<span class="n">context</span> <span class="s1">'when display name is present'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'returns the display name'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# This encourages the addition of negative test cases that might have
-# been overlooked
-context 'when display name is not present' do
-  it 'returns nil' do
-    # ...
-  end
-end</code></pre>
+<span class="c1"># This encourages the addition of negative test cases that might have</span>
+<span class="c1"># been overlooked</span>
+<span class="n">context</span> <span class="s1">'when display name is not present'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'returns nil'</span> <span class="k">do</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1671,22 +1671,22 @@ documentation format output.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'rewrites "should not return something" as "does not return something"' do
-  # ...
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'rewrites "should not return something" as "does not return something"'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-# good
-it 'rewrites "should not return something"' do
-  expect(rewrite('should not return something')).to
-    eq 'does not return something'
-end
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'rewrites "should not return something"'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">rewrite</span><span class="p">(</span><span class="s1">'should not return something'</span><span class="p">)).</span><span class="nf">to</span>
+    <span class="n">eq</span> <span class="s1">'does not return something'</span>
+<span class="k">end</span>
 
-# good - self-documenting
-specify do
-  expect(rewrite('should not return something')).to
-    eq 'does not return something'
-end</code></pre>
+<span class="c1"># good - self-documenting</span>
+<span class="n">specify</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">rewrite</span><span class="p">(</span><span class="s1">'should not return something'</span><span class="p">)).</span><span class="nf">to</span>
+    <span class="n">eq</span> <span class="s1">'does not return something'</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1700,40 +1700,40 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">class Article
-  def summary
-    # ...
-  end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">Article</span>
+  <span class="k">def</span> <span class="nf">summary</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
 
-  def self.latest
-    # ...
-  end
-end</code></pre>
+  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">latest</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe Article do
-  describe 'summary' do
-    #...
-  end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s1">'summary'</span> <span class="k">do</span>
+    <span class="c1">#...</span>
+  <span class="k">end</span>
 
-  describe 'latest' do
-    #...
-  end
-end
+  <span class="n">describe</span> <span class="s1">'latest'</span> <span class="k">do</span>
+    <span class="c1">#...</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe Article do
-  describe '#summary' do
-    #...
-  end
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
+    <span class="c1">#...</span>
+  <span class="k">end</span>
 
-  describe '.latest' do
-    #...
-  end
-end</code></pre>
+  <span class="n">describe</span> <span class="s1">'.latest'</span> <span class="k">do</span>
+    <span class="c1">#...</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1746,15 +1746,15 @@ Use the third person in the present tense.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'should return the summary' do
-  # ...
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'should return the summary'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-# good
-it 'returns the summary' do
-  # ...
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'returns the summary'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1766,23 +1766,23 @@ Use the Ruby documentation convention of <code>.</code> when referring to a clas
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe 'the authenticate method for User' do
-  # ...
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="s1">'the authenticate method for User'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-describe 'if the user is an admin' do
-  # ...
-end
+<span class="n">describe</span> <span class="s1">'if the user is an admin'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-# good
-describe '.authenticate' do
-  # ...
-end
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="s1">'.authenticate'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span>
 
-describe '#admin?' do
-  # ...
-end</code></pre>
+<span class="n">describe</span> <span class="s1">'#admin?'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1796,15 +1796,15 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'creates a resource' do
-  response.should respond_with_content_type(:json)
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'creates a resource'</span> <span class="k">do</span>
+  <span class="n">response</span><span class="p">.</span><span class="nf">should</span> <span class="n">respond_with_content_type</span><span class="p">(</span><span class="ss">:json</span><span class="p">)</span>
+<span class="k">end</span>
 
-# good
-it 'creates a resource' do
-  expect(response).to respond_with_content_type(:json)
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'creates a resource'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">respond_with_content_type</span><span class="p">(</span><span class="ss">:json</span><span class="p">)</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1820,15 +1820,15 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'is published' do
-  expect(subject.published?).to be true
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'is published'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">published?</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="kp">true</span>
+<span class="k">end</span>
 
-# good
-it 'is published' do
-  expect(subject).to be_published
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'is published'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_published</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1839,15 +1839,15 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'includes a title' do
-  expect(article.title.include?('a lengthy title')).to be true
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'includes a title'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">title</span><span class="p">.</span><span class="nf">include?</span><span class="p">(</span><span class="s1">'a lengthy title'</span><span class="p">)).</span><span class="nf">to</span> <span class="n">be</span> <span class="kp">true</span>
+<span class="k">end</span>
 
-# good
-it 'includes a title' do
-  expect(article.title).to include 'a lengthy title'
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'includes a title'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">title</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span> <span class="s1">'a lengthy title'</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1861,17 +1861,17 @@ In all other cases it&#8217;s better to specify what exactly is the expected val
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'has author' do
-  expect(article.author).to be
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'has author'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">author</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span>
+<span class="k">end</span>
 
-# good
-it 'has author' do
-  expect(article.author).to be_truthy # same as the original
-  expect(article.author).not_to be_nil # `be` is often used to check for non-nil value
-  expect(article.author).to be_an(Author) # explicit check for the type of the value
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'has author'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">author</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_truthy</span> <span class="c1"># same as the original</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">author</span><span class="p">).</span><span class="nf">not_to</span> <span class="n">be_nil</span> <span class="c1"># `be` is often used to check for non-nil value</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">author</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_an</span><span class="p">(</span><span class="no">Author</span><span class="p">)</span> <span class="c1"># explicit check for the type of the value</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1882,25 +1882,25 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'returns JSON with temperature in Celsius' do
-  json = JSON.parse(response.body).with_indifferent_access
-  expect(json[:celsius]).to eq 30
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'returns JSON with temperature in Celsius'</span> <span class="k">do</span>
+  <span class="n">json</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">).</span><span class="nf">with_indifferent_access</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="ss">:celsius</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span> <span class="mi">30</span>
+<span class="k">end</span>
 
-it 'returns JSON with temperature in Farenheit' do
-  json = JSON.parse(response.body).with_indifferent_access
-  expect(json[:farenheit]).to eq 86
-end
+<span class="n">it</span> <span class="s1">'returns JSON with temperature in Farenheit'</span> <span class="k">do</span>
+  <span class="n">json</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">).</span><span class="nf">with_indifferent_access</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="ss">:farenheit</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span> <span class="mi">86</span>
+<span class="k">end</span>
 
-# good
-it 'returns JSON with temperature in Celsius' do
-  expect(response).to include_json(celsius: 30)
-end
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'returns JSON with temperature in Celsius'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">include_json</span><span class="p">(</span><span class="ss">celsius: </span><span class="mi">30</span><span class="p">)</span>
+<span class="k">end</span>
 
-it 'returns JSON with temperature in Farenheit' do
-  expect(response).to include_json(farenheit: 86)
-end</code></pre>
+<span class="n">it</span> <span class="s1">'returns JSON with temperature in Farenheit'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">include_json</span><span class="p">(</span><span class="ss">farenheit: </span><span class="mi">86</span><span class="p">)</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1912,19 +1912,19 @@ It might be an indication that the object under test is too complex, and is ambi
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-it 'has a name' do
-  allow_any_instance_of(User).to receive(:name).and_return('Tweedledee')
-  expect(account.name).to eq 'Tweedledee'
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">it</span> <span class="s1">'has a name'</span> <span class="k">do</span>
+  <span class="n">allow_any_instance_of</span><span class="p">(</span><span class="no">User</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="s1">'Tweedledee'</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">account</span><span class="p">.</span><span class="nf">name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span> <span class="s1">'Tweedledee'</span>
+<span class="k">end</span>
 
-# good
-let(:account) { Account.new(user) }
+<span class="c1"># good</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:account</span><span class="p">)</span> <span class="p">{</span> <span class="no">Account</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">user</span><span class="p">)</span> <span class="p">}</span>
 
-it 'has a name' do
-  allow(user).to receive(:name).and_return('Tweedledee')
-  expect(account.name).to eq 'Tweedledee'
-end</code></pre>
+<span class="n">it</span> <span class="s1">'has a name'</span> <span class="k">do</span>
+  <span class="n">allow</span><span class="p">(</span><span class="n">user</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:name</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="s1">'Tweedledee'</span><span class="p">)</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">account</span><span class="p">.</span><span class="nf">name</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span> <span class="s1">'Tweedledee'</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1935,24 +1935,24 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe '#title' do
-  it 'is required' do
-    article.title = nil
-    article.valid?
-    expect(article.errors[:title])
-      .to contain_exactly('Article has no title')
-    not
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="s1">'#title'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'is required'</span> <span class="k">do</span>
+    <span class="n">article</span><span class="p">.</span><span class="nf">title</span> <span class="o">=</span> <span class="kp">nil</span>
+    <span class="n">article</span><span class="p">.</span><span class="nf">valid?</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">errors</span><span class="p">[</span><span class="ss">:title</span><span class="p">])</span>
+      <span class="p">.</span><span class="nf">to</span> <span class="n">contain_exactly</span><span class="p">(</span><span class="s1">'Article has no title'</span><span class="p">)</span>
+    <span class="n">not</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# good
-describe '#title' do
-  it 'is required' do
-    expect(article).to validate_presence_of(:title)
-      .with_message('Article has no title')
-  end
-end</code></pre>
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="s1">'#title'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'is required'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">validate_presence_of</span><span class="p">(</span><span class="ss">:title</span><span class="p">)</span>
+      <span class="p">.</span><span class="nf">with_message</span><span class="p">(</span><span class="s1">'Article has no title'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -1998,10 +1998,10 @@ This is used by the <code>render</code> method when it is called without argumen
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># spec/views/articles/new.html.erb_spec.rb
-describe 'articles/new.html.erb' do
-  # ...
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># spec/views/articles/new.html.erb_spec.rb</span>
+<span class="n">describe</span> <span class="s1">'articles/new.html.erb'</span> <span class="k">do</span>
+  <span class="c1"># ...</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2019,19 +2019,19 @@ The purpose of the view is only to display information.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># spec/views/articles/edit.html.erb_spec.rb
-describe 'articles/edit.html.erb' do
-  it 'renders the form for a new article creation' do
-    assign(:article, double(Article).as_null_object)
-    render
-    expect(rendered).to have_selector('form',
-      method: 'post',
-      action: articles_path
-    ) do |form|
-      expect(form).to have_selector('input', type: 'submit')
-    end
-  end
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># spec/views/articles/edit.html.erb_spec.rb</span>
+<span class="n">describe</span> <span class="s1">'articles/edit.html.erb'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'renders the form for a new article creation'</span> <span class="k">do</span>
+    <span class="n">assign</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="n">double</span><span class="p">(</span><span class="no">Article</span><span class="p">).</span><span class="nf">as_null_object</span><span class="p">)</span>
+    <span class="n">render</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">rendered</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">'form'</span><span class="p">,</span>
+      <span class="ss">method: </span><span class="s1">'post'</span><span class="p">,</span>
+      <span class="ss">action: </span><span class="n">articles_path</span>
+    <span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">form</span><span class="o">|</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">form</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">'input'</span><span class="p">,</span> <span class="ss">type: </span><span class="s1">'submit'</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2042,13 +2042,13 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-expect(page).to_not have_selector('input', type: 'submit')
-expect(page).to_not have_xpath('tr')
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">).</span><span class="nf">to_not</span> <span class="n">have_selector</span><span class="p">(</span><span class="s1">'input'</span><span class="p">,</span> <span class="ss">type: </span><span class="s1">'submit'</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">).</span><span class="nf">to_not</span> <span class="n">have_xpath</span><span class="p">(</span><span class="s1">'tr'</span><span class="p">)</span>
 
-# good
-expect(page).to have_no_selector('input', type: 'submit')
-expect(page).to have_no_xpath('tr')</code></pre>
+<span class="c1"># good</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_no_selector</span><span class="p">(</span><span class="s1">'input'</span><span class="p">,</span> <span class="ss">type: </span><span class="s1">'submit'</span><span class="p">)</span>
+<span class="n">expect</span><span class="p">(</span><span class="n">page</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_no_xpath</span><span class="p">(</span><span class="s1">'tr'</span><span class="p">)</span></code></pre>
 </div>
 </div>
 </div>
@@ -2060,34 +2060,34 @@ Stubbing the helper methods is done on the <code>template</code> object:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># app/helpers/articles_helper.rb
-class ArticlesHelper
-  def formatted_date(date)
-    # ...
-  end
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># app/helpers/articles_helper.rb</span>
+<span class="k">class</span> <span class="nc">ArticlesHelper</span>
+  <span class="k">def</span> <span class="nf">formatted_date</span><span class="p">(</span><span class="n">date</span><span class="p">)</span>
+    <span class="c1"># ...</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-Rails" data-lang="Rails"># app/views/articles/show.html.erb
+<pre class="rouge highlight"><code data-lang="Rails"># app/views/articles/show.html.erb
 &lt;%= 'Published at: #{formatted_date(@article.published_at)}' %&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># spec/views/articles/show.html.erb_spec.rb
-describe 'articles/show.html.erb' do
-  it 'displays the formatted date of article publishing' do
-    article = double(Article, published_at: Date.new(2012, 01, 01))
-    assign(:article, article)
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># spec/views/articles/show.html.erb_spec.rb</span>
+<span class="n">describe</span> <span class="s1">'articles/show.html.erb'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'displays the formatted date of article publishing'</span> <span class="k">do</span>
+    <span class="n">article</span> <span class="o">=</span> <span class="n">double</span><span class="p">(</span><span class="no">Article</span><span class="p">,</span> <span class="ss">published_at: </span><span class="no">Date</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="mi">2012</span><span class="p">,</span> <span class="mo">01</span><span class="p">,</span> <span class="mo">01</span><span class="p">))</span>
+    <span class="n">assign</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="n">article</span><span class="p">)</span>
 
-    allow(template).to_receive(:formatted_date).with(article.published_at).and_return('01.01.2012')
+    <span class="n">allow</span><span class="p">(</span><span class="n">template</span><span class="p">).</span><span class="nf">to_receive</span><span class="p">(</span><span class="ss">:formatted_date</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">published_at</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="s1">'01.01.2012'</span><span class="p">)</span>
 
-    render
-    expect(rendered).to have_content('Published at: 01.01.2012')
-  end
-end</code></pre>
+    <span class="n">render</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">rendered</span><span class="p">).</span><span class="nf">to</span> <span class="n">have_content</span><span class="p">(</span><span class="s1">'Published at: 01.01.2012'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2129,36 +2129,36 @@ Testing the controller should not depend on the model creation.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># Example of a commonly used controller spec
-# spec/controllers/articles_controller_spec.rb
-# We are interested only in the actions the controller should perform
-# So we are mocking the model creation and stubbing its methods
-# And we concentrate only on the things the controller should do
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># Example of a commonly used controller spec</span>
+<span class="c1"># spec/controllers/articles_controller_spec.rb</span>
+<span class="c1"># We are interested only in the actions the controller should perform</span>
+<span class="c1"># So we are mocking the model creation and stubbing its methods</span>
+<span class="c1"># And we concentrate only on the things the controller should do</span>
 
-describe ArticlesController do
-  # The model will be used in the specs for all methods of the controller
-  let(:article) { double(Article) }
+<span class="n">describe</span> <span class="no">ArticlesController</span> <span class="k">do</span>
+  <span class="c1"># The model will be used in the specs for all methods of the controller</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="n">double</span><span class="p">(</span><span class="no">Article</span><span class="p">)</span> <span class="p">}</span>
 
-  describe 'POST create' do
-    before { allow(Article).to receive(:new).and_return(article) }
+  <span class="n">describe</span> <span class="s1">'POST create'</span> <span class="k">do</span>
+    <span class="n">before</span> <span class="p">{</span> <span class="n">allow</span><span class="p">(</span><span class="no">Article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:new</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">article</span><span class="p">)</span> <span class="p">}</span>
 
-    it 'creates a new article with the given attributes' do
-      expect(Article).to receive(:new).with(title: 'The New Article Title').and_return(article)
-      post :create, message: { title: 'The New Article Title' }
-    end
+    <span class="n">it</span> <span class="s1">'creates a new article with the given attributes'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="no">Article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:new</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="ss">title: </span><span class="s1">'The New Article Title'</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+      <span class="n">post</span> <span class="ss">:create</span><span class="p">,</span> <span class="ss">message: </span><span class="p">{</span> <span class="ss">title: </span><span class="s1">'The New Article Title'</span> <span class="p">}</span>
+    <span class="k">end</span>
 
-    it 'saves the article' do
-      expect(article).to receive(:save)
-      post :create
-    end
+    <span class="n">it</span> <span class="s1">'saves the article'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:save</span><span class="p">)</span>
+      <span class="n">post</span> <span class="ss">:create</span>
+    <span class="k">end</span>
 
-    it 'redirects to the Articles index' do
-      allow(article).to receive(:save)
-      post :create
-      expect(response).to redirect_to(action: 'index')
-    end
-  end
-end</code></pre>
+    <span class="n">it</span> <span class="s1">'redirects to the Articles index'</span> <span class="k">do</span>
+      <span class="n">allow</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:save</span><span class="p">)</span>
+      <span class="n">post</span> <span class="ss">:create</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">redirect_to</span><span class="p">(</span><span class="ss">action: </span><span class="s1">'index'</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2169,57 +2169,57 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># A classic example for use of contexts in a controller spec is creation or update when the object saves successfully or not.
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># A classic example for use of contexts in a controller spec is creation or update when the object saves successfully or not.</span>
 
-describe ArticlesController do
-  let(:article) { double(Article) }
+<span class="n">describe</span> <span class="no">ArticlesController</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="n">double</span><span class="p">(</span><span class="no">Article</span><span class="p">)</span> <span class="p">}</span>
 
-  describe 'POST create' do
-    before { allow(Article).to receive(:new).and_return(article) }
+  <span class="n">describe</span> <span class="s1">'POST create'</span> <span class="k">do</span>
+    <span class="n">before</span> <span class="p">{</span> <span class="n">allow</span><span class="p">(</span><span class="no">Article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:new</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">article</span><span class="p">)</span> <span class="p">}</span>
 
-    it 'creates a new article with the given attributes' do
-      expect(Article).to receive(:new).with(title: 'The New Article Title').and_return(article)
-      post :create, article: { title: 'The New Article Title' }
-    end
+    <span class="n">it</span> <span class="s1">'creates a new article with the given attributes'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="no">Article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:new</span><span class="p">).</span><span class="nf">with</span><span class="p">(</span><span class="ss">title: </span><span class="s1">'The New Article Title'</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+      <span class="n">post</span> <span class="ss">:create</span><span class="p">,</span> <span class="ss">article: </span><span class="p">{</span> <span class="ss">title: </span><span class="s1">'The New Article Title'</span> <span class="p">}</span>
+    <span class="k">end</span>
 
-    it 'saves the article' do
-      expect(article).to receive(:save)
-      post :create
-    end
+    <span class="n">it</span> <span class="s1">'saves the article'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:save</span><span class="p">)</span>
+      <span class="n">post</span> <span class="ss">:create</span>
+    <span class="k">end</span>
 
-    context 'when the article saves successfully' do
-      before do
-        allow(article).to receive(:save).and_return(true)
-      end
+    <span class="n">context</span> <span class="s1">'when the article saves successfully'</span> <span class="k">do</span>
+      <span class="n">before</span> <span class="k">do</span>
+        <span class="n">allow</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:save</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span>
+      <span class="k">end</span>
 
-      it 'sets a flash[:notice] message' do
-        post :create
-        expect(flash[:notice]).to eq('The article was saved successfully.')
-      end
+      <span class="n">it</span> <span class="s1">'sets a flash[:notice] message'</span> <span class="k">do</span>
+        <span class="n">post</span> <span class="ss">:create</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">flash</span><span class="p">[</span><span class="ss">:notice</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="s1">'The article was saved successfully.'</span><span class="p">)</span>
+      <span class="k">end</span>
 
-      it 'redirects to the Articles index' do
-        post :create
-        expect(response).to redirect_to(action: 'index')
-      end
-    end
+      <span class="n">it</span> <span class="s1">'redirects to the Articles index'</span> <span class="k">do</span>
+        <span class="n">post</span> <span class="ss">:create</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">redirect_to</span><span class="p">(</span><span class="ss">action: </span><span class="s1">'index'</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
 
-    context 'when the article fails to save' do
-      before do
-        allow(article).to receive(:save).and_return(false)
-      end
+    <span class="n">context</span> <span class="s1">'when the article fails to save'</span> <span class="k">do</span>
+      <span class="n">before</span> <span class="k">do</span>
+        <span class="n">allow</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:save</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="kp">false</span><span class="p">)</span>
+      <span class="k">end</span>
 
-      it 'assigns @article' do
-        post :create
-        expect(assigns[:article]).to eq(article)
-      end
+      <span class="n">it</span> <span class="s1">'assigns @article'</span> <span class="k">do</span>
+        <span class="n">post</span> <span class="ss">:create</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">assigns</span><span class="p">[</span><span class="ss">:article</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">article</span><span class="p">)</span>
+      <span class="k">end</span>
 
-      it "re-renders the 'new' template" do
-        post :create
-        expect(response).to render_template('new')
-      end
-    end
-  end
-end</code></pre>
+      <span class="n">it</span> <span class="s2">"re-renders the 'new' template"</span> <span class="k">do</span>
+        <span class="n">post</span> <span class="ss">:create</span>
+        <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">render_template</span><span class="p">(</span><span class="s1">'new'</span><span class="p">)</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2241,18 +2241,18 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">describe Article do
-  let(:article) { FactoryBot.create(:article) }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
 
-  # Currently, 'subject' is the same as 'Article.new'
-  it 'is an instance of Article' do
-    expect(subject).to be_an Article
-  end
+  <span class="c1"># Currently, 'subject' is the same as 'Article.new'</span>
+  <span class="n">it</span> <span class="s1">'is an instance of Article'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_an</span> <span class="no">Article</span>
+  <span class="k">end</span>
 
-  it 'is not persisted' do
-    expect(subject).to_not be_persisted
-  end
-end</code></pre>
+  <span class="n">it</span> <span class="s1">'is not persisted'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">).</span><span class="nf">to_not</span> <span class="n">be_persisted</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2269,9 +2269,9 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">describe Article do
-  let(:article) { FactoryBot.create(:article) }
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2282,11 +2282,11 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">describe Article do
-  it 'is valid with valid attributes' do
-    expect(article).to be_valid
-  end
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'is valid with valid attributes'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_valid</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2298,22 +2298,22 @@ Using <code>be_valid</code> does not guarantee that the problem is in the intend
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby"># bad
-describe '#title' do
-  it 'is required' do
-    article.title = nil
-    expect(article).to_not be_valid
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="s1">'#title'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'is required'</span> <span class="k">do</span>
+    <span class="n">article</span><span class="p">.</span><span class="nf">title</span> <span class="o">=</span> <span class="kp">nil</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to_not</span> <span class="n">be_valid</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-# preferred
-describe '#title' do
-  it 'is required' do
-    article.title = nil
-    article.valid?
-    expect(article.errors[:title].size).to eq(1)
-  end
-end</code></pre>
+<span class="c1"># preferred</span>
+<span class="n">describe</span> <span class="s1">'#title'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'is required'</span> <span class="k">do</span>
+    <span class="n">article</span><span class="p">.</span><span class="nf">title</span> <span class="o">=</span> <span class="kp">nil</span>
+    <span class="n">article</span><span class="p">.</span><span class="nf">valid?</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">errors</span><span class="p">[</span><span class="ss">:title</span><span class="p">].</span><span class="nf">size</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2324,21 +2324,21 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">describe '#title' do
-  it 'is required' do
-    article.title = nil
-    article.valid?
-    expect(article.errors[:title].size).to eq(1)
-  end
-end
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">describe</span> <span class="s1">'#title'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'is required'</span> <span class="k">do</span>
+    <span class="n">article</span><span class="p">.</span><span class="nf">title</span> <span class="o">=</span> <span class="kp">nil</span>
+    <span class="n">article</span><span class="p">.</span><span class="nf">valid?</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">errors</span><span class="p">[</span><span class="ss">:title</span><span class="p">].</span><span class="nf">size</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
 
-describe '#name' do
-  it 'is required' do
-    article.name = nil
-    article.valid?
-    expect(article.errors[:name].size).to eq(1)
-  end
-end</code></pre>
+<span class="n">describe</span> <span class="s1">'#name'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'is required'</span> <span class="k">do</span>
+    <span class="n">article</span><span class="p">.</span><span class="nf">name</span> <span class="o">=</span> <span class="kp">nil</span>
+    <span class="n">article</span><span class="p">.</span><span class="nf">valid?</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">errors</span><span class="p">[</span><span class="ss">:name</span><span class="p">].</span><span class="nf">size</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2349,15 +2349,15 @@ end</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">describe Article do
-  describe '#title' do
-    it 'is unique' do
-      another_article = FactoryBot.create(:article, title: article.title)
-      article.valid?
-      expect(article.errors[:title].size).to eq(1)
-    end
-  end
-end</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">describe</span> <span class="s1">'#title'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'is unique'</span> <span class="k">do</span>
+      <span class="n">another_article</span> <span class="o">=</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">,</span> <span class="ss">title: </span><span class="n">article</span><span class="p">.</span><span class="nf">title</span><span class="p">)</span>
+      <span class="n">article</span><span class="p">.</span><span class="nf">valid?</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">errors</span><span class="p">[</span><span class="ss">:title</span><span class="p">].</span><span class="nf">size</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2396,21 +2396,21 @@ The mailer should not depend on the model creation.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlight"><code class="language-ruby" data-lang="ruby">describe SubscriberMailer do
-  let(:subscriber) { double(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">describe</span> <span class="no">SubscriberMailer</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:subscriber</span><span class="p">)</span> <span class="p">{</span> <span class="n">double</span><span class="p">(</span><span class="no">Subscription</span><span class="p">,</span> <span class="ss">email: </span><span class="s1">'johndoe@test.com'</span><span class="p">,</span> <span class="ss">name: </span><span class="s1">'John Doe'</span><span class="p">)</span> <span class="p">}</span>
 
-  describe 'successful registration email' do
-    subject { SubscriptionMailer.successful_registration_email(subscriber) }
+  <span class="n">describe</span> <span class="s1">'successful registration email'</span> <span class="k">do</span>
+    <span class="n">subject</span> <span class="p">{</span> <span class="no">SubscriptionMailer</span><span class="p">.</span><span class="nf">successful_registration_email</span><span class="p">(</span><span class="n">subscriber</span><span class="p">)</span> <span class="p">}</span>
 
-    its(:subject) { should == 'Successful Registration!' }
-    its(:from) { should == ['info@your_site.com'] }
-    its(:to) { should == [subscriber.email] }
+    <span class="n">its</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="o">==</span> <span class="s1">'Successful Registration!'</span> <span class="p">}</span>
+    <span class="n">its</span><span class="p">(</span><span class="ss">:from</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="o">==</span> <span class="p">[</span><span class="s1">'info@your_site.com'</span><span class="p">]</span> <span class="p">}</span>
+    <span class="n">its</span><span class="p">(</span><span class="ss">:to</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="o">==</span> <span class="p">[</span><span class="n">subscriber</span><span class="p">.</span><span class="nf">email</span><span class="p">]</span> <span class="p">}</span>
 
-    it 'contains the subscriber name' do
-      expect(subject.body.encoded).to match(subscriber.name)
-    end
-  end
-end</code></pre>
+    <span class="n">it</span> <span class="s1">'contains the subscriber name'</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">body</span><span class="p">.</span><span class="nf">encoded</span><span class="p">).</span><span class="nf">to</span> <span class="n">match</span><span class="p">(</span><span class="n">subscriber</span><span class="p">.</span><span class="nf">name</span><span class="p">)</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">end</span></code></pre>
 </div>
 </div>
 </div>
@@ -2511,8 +2511,219 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-06-10 15:32:58 UTC
+Last updated 2019-06-10 19:02:21 UTC
 </div>
 </div>
+<style>
+pre.rouge table td { padding: 5px; }
+pre.rouge table pre { margin: 0; }
+pre.rouge .cm {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cp {
+  color: #999999;
+  font-weight: bold;
+}
+pre.rouge .c1 {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .cs {
+  color: #999999;
+  font-weight: bold;
+  font-style: italic;
+}
+pre.rouge .c, pre.rouge .cd {
+  color: #999988;
+  font-style: italic;
+}
+pre.rouge .err {
+  color: #a61717;
+  background-color: #e3d2d2;
+}
+pre.rouge .gd {
+  color: #000000;
+  background-color: #ffdddd;
+}
+pre.rouge .ge {
+  color: #000000;
+  font-style: italic;
+}
+pre.rouge .gr {
+  color: #aa0000;
+}
+pre.rouge .gh {
+  color: #999999;
+}
+pre.rouge .gi {
+  color: #000000;
+  background-color: #ddffdd;
+}
+pre.rouge .go {
+  color: #888888;
+}
+pre.rouge .gp {
+  color: #555555;
+}
+pre.rouge .gs {
+  font-weight: bold;
+}
+pre.rouge .gu {
+  color: #aaaaaa;
+}
+pre.rouge .gt {
+  color: #aa0000;
+}
+pre.rouge .kc {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kd {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kn {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kp {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kr {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .kt {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .k, pre.rouge .kv {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .mf {
+  color: #009999;
+}
+pre.rouge .mh {
+  color: #009999;
+}
+pre.rouge .il {
+  color: #009999;
+}
+pre.rouge .mi {
+  color: #009999;
+}
+pre.rouge .mo {
+  color: #009999;
+}
+pre.rouge .m, pre.rouge .mb, pre.rouge .mx {
+  color: #009999;
+}
+pre.rouge .sb {
+  color: #d14;
+}
+pre.rouge .sc {
+  color: #d14;
+}
+pre.rouge .sd {
+  color: #d14;
+}
+pre.rouge .s2 {
+  color: #d14;
+}
+pre.rouge .se {
+  color: #d14;
+}
+pre.rouge .sh {
+  color: #d14;
+}
+pre.rouge .si {
+  color: #d14;
+}
+pre.rouge .sx {
+  color: #d14;
+}
+pre.rouge .sr {
+  color: #009926;
+}
+pre.rouge .s1 {
+  color: #d14;
+}
+pre.rouge .ss {
+  color: #990073;
+}
+pre.rouge .s {
+  color: #d14;
+}
+pre.rouge .na {
+  color: #008080;
+}
+pre.rouge .bp {
+  color: #999999;
+}
+pre.rouge .nb {
+  color: #0086B3;
+}
+pre.rouge .nc {
+  color: #445588;
+  font-weight: bold;
+}
+pre.rouge .no {
+  color: #008080;
+}
+pre.rouge .nd {
+  color: #3c5d5d;
+  font-weight: bold;
+}
+pre.rouge .ni {
+  color: #800080;
+}
+pre.rouge .ne {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nf {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nl {
+  color: #990000;
+  font-weight: bold;
+}
+pre.rouge .nn {
+  color: #555555;
+}
+pre.rouge .nt {
+  color: #000080;
+}
+pre.rouge .vc {
+  color: #008080;
+}
+pre.rouge .vg {
+  color: #008080;
+}
+pre.rouge .vi {
+  color: #008080;
+}
+pre.rouge .nv {
+  color: #008080;
+}
+pre.rouge .ow {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .o {
+  color: #000000;
+  font-weight: bold;
+}
+pre.rouge .w {
+  color: #bbbbbb;
+}
+pre.rouge {
+  background-color: #f8f8f8;
+}
+</style>
 </body>
 </html>
