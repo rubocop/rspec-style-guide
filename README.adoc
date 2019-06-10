@@ -14,7 +14,7 @@ This RSpec style guide outlines the recommended best practices for real-world pr
 
 https://github.com/rubocop-hq/rubocop[RuboCop], a static code analyzer (linter) and formatter, has a https://github.com/rubocop-hq/rubocop-rspec[`rubocop-rspec`] extension, provides a way to enforce the rules outlined in this guide.
 
-This guide assumes you are using RSpec 3 or later.
+NOTE: This guide assumes you are using RSpec 3 or later.
 
 You can generate a PDF copy of this guide using https://asciidoctor.org/docs/asciidoctor-pdf/[AsciiDoctor PDF], and an HTML copy https://asciidoctor.org/docs/convert-documents/#converting-a-document-to-html[with] https://asciidoctor.org/#installation[AsciiDoctor] using the following commands:
 
