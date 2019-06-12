@@ -10,6 +10,10 @@ ifndef::backend-pdf[]
 endif::[]
 :source-highlighter: rouge
 
+ifdef::env-github[]
+TIP: You can find a beautiful version of this guide with much improved navigation at https://rspec.rubystyle.guide.
+endif::[]
+
 This RSpec style guide outlines the recommended best practices for real-world programmers to write code that can be maintained by other real-world programmers.
 
 https://github.com/rubocop-hq/rubocop[RuboCop], a static code analyzer (linter) and formatter, has a https://github.com/rubocop-hq/rubocop-rspec[`rubocop-rspec`] extension, provides a way to enforce the rules outlined in this guide.
