@@ -10,6 +10,15 @@ ifndef::backend-pdf[]
 endif::[]
 :source-highlighter: rouge
 
+== Introduction
+
+[quote]
+____
+Role models are important.
+
+-- Officer Alex J. Murphy / RoboCop
+____
+
 ifdef::env-github[]
 TIP: You can find a beautiful version of this guide with much improved navigation at https://rspec.rubystyle.guide.
 endif::[]
