@@ -12,11 +12,9 @@ endif::[]
 
 == Introduction
 
-[quote]
+[quote, Officer Alex J. Murphy / RoboCop]
 ____
 Role models are important.
-
--- Officer Alex J. Murphy / RoboCop
 ____
 
 ifdef::env-github[]
