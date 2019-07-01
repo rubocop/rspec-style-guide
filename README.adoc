@@ -59,7 +59,7 @@ With that said, as the standard changes this guide is meant to be able to change
 
 == Layout
 
-=== Empty lines inside example group[[empty-lines-after-describe]]
+=== Empty Lines inside Example Group[[empty-lines-after-describe]]
 
 Do not leave empty lines after `feature`, `context` or `describe` descriptions.
 It doesn't make the code more readable and lowers the value of logical chunks.
@@ -92,7 +92,7 @@ describe Article do
 end
 ----
 
-=== Empty line between example groups [[empty-lines-between-describes]]
+=== Empty Line between Example Groups [[empty-lines-between-describes]]
 
 Leave one empty line between `feature`, `context` or `describe` blocks.
 Do not leave empty line after the last such block in a group.
@@ -133,7 +133,7 @@ describe Article do
 end
 ----
 
-=== Empty line after `let`[[empty-lines-after-let]]
+=== Empty Line After `let`[[empty-lines-after-let]]
 
 Leave one empty line after `let`, `subject`, and `before`/`after` blocks.
 
@@ -157,7 +157,7 @@ describe Article do
 end
 ----
 
-=== Let grouping
+=== Let Grouping
 
 Only group `let`, `subject` blocks and separate them from `before`/`after` blocks.
 It makes the code much more readable.
@@ -198,7 +198,7 @@ describe Article do
 end
 ----
 
-=== Empty lines around examples[[empty-lines-around-it]]
+=== Empty Lines around Examples[[empty-lines-around-it]]
 
 Leave one empty line around `it`/`specify` blocks. This helps to separate the expectations from their conditional logic (contexts for instance).
 
@@ -237,7 +237,7 @@ describe '#summary' do
 end
 ----
 
-=== Leading subject
+=== Leading `subject`
 
 When `subject` is used, it should be the first declaration in the example group.
 
@@ -274,7 +274,7 @@ end
 
 == Example Group Structure
 
-=== Use contexts
+=== Use Contexts
 
 Use contexts to make the tests clear, well organized, and easy to read.
 
@@ -299,7 +299,7 @@ context 'when logged out' do
 end
 ----
 
-=== Context cases
+=== Context Cases
 
 `context` blocks should pretty much always have an opposite negative case.
 It is a code smell if there is a single context (without a matching negative case), and this code needs refactoring, or may have no purpose.
@@ -365,7 +365,7 @@ describe '#attributes' do
 end
 ----
 
-=== Let blocks
+=== `let` Blocks
 
 Use `let` and `let!` for data that is used across several examples in an example group.
 Use `let!` to define variables even if they are not referenced in some of the examples, e.g. when testing balancing negative cases.
@@ -396,7 +396,7 @@ it 'finds longest path' do
 end
 ----
 
-=== Instance variables
+=== Instance Variables
 
 Use `let` definitions instead of instance variables.
 
@@ -417,7 +417,7 @@ it 'reverses a name' do
 end
 ----
 
-=== Shared examples
+=== Shared Examples
 
 Use shared examples to reduce code duplication.
 
@@ -511,7 +511,7 @@ describe '#summary' do
 end
 ----
 
-=== Ambiguous hook scope
+=== Ambiguous Hook Scope
 
 Use `:context` instead of the ambiguous `:all` scope in `before`/`after` hooks.
 
@@ -536,14 +536,14 @@ describe '#summary' do
 end
 ----
 
-=== Avoid hooks with `:context` scope
+=== Avoid Hooks with `:context` Scope
 
 Avoid using `before`/`after` with `:context` scope.
 Beware of the state leakage between the examples.
 
 == Example Structure
 
-=== Expectation per example[[one-expectation]]
+=== Expectation per Example[[one-expectation]]
 
 For examples two styles are considered acceptable.
 The first variant is separate example for each expectation, which comes with a cost of repeated context initialization.
@@ -602,7 +602,7 @@ it { expect(equipment).to be_heavy }
 it { expect(equipment).to include 'sword' }
 ----
 
-=== Named subject [[use-subject]]
+=== Named Subject [[use-subject]]
 
 Use named `subject` when possible.
 Only use anonymous subject declaration when you don't reference it in any tests, e.g. when `is_expected` is used.
@@ -637,7 +637,7 @@ describe Article do
 end
 ----
 
-=== Subject naming in context
+=== Subject Naming in Context
 
 When you reassign subject with different attributes in different contexts, give different names to the subject, so it's easier to see what the actual subject represents.
 
@@ -682,7 +682,7 @@ describe Article do
 end
 ----
 
-=== Don't stub subject
+=== Don't Stub Subject
 
 Don't stub methods of the object under test, it's a code smell and often indicates a bad design of the object itself.
 
@@ -758,7 +758,7 @@ specify '#do_something is deprecated' do
 end
 ----
 
-=== `it` in iterators
+=== `it` in Iterators
 
 Do not write iterators to generate tests.
 When another developer adds a feature to one of the items in the iteration, they must then break it out into a separate test - they are forced to edit code that has nothing to do with their pull request.
@@ -796,7 +796,7 @@ describe 'GET index' do
 end
 ----
 
-=== Incidental state
+=== Incidental State
 
 Avoid incidental state as much as possible.
 
@@ -849,7 +849,7 @@ subject(:article) { FactoryBot.create(:article) }
 NOTE: When talking about unit tests the best practice would be to use neither fixtures nor factories.
 Put as much of your domain logic in libraries that can be tested without needing complex, time consuming setup with either factories or fixtures.
 
-=== Needed data
+=== Needed Data
 
 Do not load more data than needed to test your code.
 
@@ -904,7 +904,7 @@ expect(notifier).to receive(:notify).with('suspended as')
 
 NOTE: If you stub a method that could give a false-positive test result, you have gone too far.
 
-=== Dealing with time
+=== Dealing with Time
 
 Always use https://github.com/travisjeffery/timecop[Timecop] instead of stubbing anything on Time or Date.
 
@@ -925,7 +925,7 @@ it 'offsets the time 2 days into the future' do
 end
 ----
 
-=== Stub HTTP requests
+=== Stub HTTP Requests
 
 Stub HTTP requests when the code is making them.
 Avoid hitting real external services.
@@ -949,7 +949,7 @@ end
 
 == Naming
 
-=== Context descriptions
+=== Context Descriptions
 
 `context` block descriptions should always start with 'when', 'with', or 'without' and be in the form of a sentence with proper grammar when composed with `it` block descriptions.
 
@@ -984,7 +984,7 @@ context 'without utf8 characters in the display name' do
 end
 ----
 
-=== Example descriptions
+=== Example Descriptions
 
 `it`/`specify` block descriptions should never end with a conditional.
 This is a code smell that the `it` most likely needs to be wrapped in a `context`.
@@ -1012,7 +1012,7 @@ context 'when display name is not present' do
 end
 ----
 
-=== Keep example descriptions short
+=== Keep Example Descriptions Short
 
 Keep example description shorter than 60 characters.
 
@@ -1039,7 +1039,7 @@ specify do
 end
 ----
 
-=== Example group naming
+=== Example Group Naming
 
 Prefix `describe` description with a hash for instance methods, with a dot for class methods.
 
@@ -1083,7 +1083,7 @@ describe Article do
 end
 ----
 
-=== "Should" in example docstrings[[should-in-it]]
+=== "Should" in Example Docstrings[[should-in-it]]
 
 Do not write 'should' or 'should not' in the beginning of your example docstrings.
 The descriptions represent actual functionality, not what might be happening.
@@ -1102,7 +1102,7 @@ it 'returns the summary' do
 end
 ----
 
-=== Describe the methods
+=== Describe the Methods
 
 Be clear about what method you are describing.
 Use the Ruby documentation convention of `.` when referring to a class method's name and `#` when referring to an instance method's name.
@@ -1149,7 +1149,7 @@ end
 
 == Matchers
 
-=== Predicate matchers
+=== Predicate Matchers
 
 Use RSpec's predicate matcher methods when possible.
 
@@ -1166,7 +1166,7 @@ it 'is published' do
 end
 ----
 
-=== Built in matchers
+=== Built in Matchers
 
 Use built-in matchers.
 
@@ -1183,7 +1183,7 @@ it 'includes a title' do
 end
 ----
 
-=== `be` matcher
+=== `be` Matcher
 
 Avoid using `be` matcher without arguments.
 It is too generic, as it pass on everything that is not `nil` or `false`.
@@ -1205,7 +1205,7 @@ it 'has author' do
 end
 ----
 
-=== Extract common expectation parts into matchers
+=== Extract Common Expectation Parts into Matchers
 
 Extract frequently used common logic from your examples into https://relishapp.com/rspec/rspec-expectations/docs/custom-matchers/define-a-custom-matcher[custom matchers].
 
@@ -1254,7 +1254,7 @@ it 'has a name' do
 end
 ----
 
-=== Matcher libraries
+=== Matcher Libraries
 
 Use third-party matcher libraries that provide convenience helpers that will significantly simplify the examples, https://github.com/thoughtbot/shoulda-matchers[Shoulda Matchers] are one worth mentioning.
 
@@ -1293,16 +1293,16 @@ It is possible to cover all use cases and it's possible to make them fast.
 
 == Rails: Views[[views]]
 
-=== View directory structure
+=== View Directory Structure
 
 The directory structure of the view specs `spec/views` matches the one in `app/views`.
 For example the specs for the views in `app/views/users` are placed in `spec/views/users`.
 
-=== View spec file name
+=== View Spec File Name
 
 The naming convention for the view specs is adding `_spec.rb` to the view name, for example the view `_form.html.erb` has a corresponding spec `_form.html.erb_spec.rb`.
 
-=== View outer `describe`
+=== View Outer `describe`
 
 The outer `describe` block uses the path to the view without the `app/views` part.
 This is used by the `render` method when it is called without arguments.
@@ -1315,7 +1315,7 @@ describe 'articles/new.html.erb' do
 end
 ----
 
-=== View mock models
+=== View Mock Models
 
 Always mock the models in the view specs.
 The purpose of the view is only to display information.
@@ -1341,7 +1341,7 @@ describe 'articles/edit.html.erb' do
 end
 ----
 
-=== Capybara negative selectors[[view-capybara-negative-selectors]]
+=== Capybara Negative Selectors[[view-capybara-negative-selectors]]
 
 Prefer capybara negative selectors over `to_not` with positive ones.
 
@@ -1356,7 +1356,7 @@ expect(page).to have_no_selector('input', type: 'submit')
 expect(page).to have_no_xpath('tr')
 ----
 
-=== View helper stub
+=== View Helper Stub
 
 When a view uses helper methods, these methods need to be stubbed.
 Stubbing the helper methods is done on the `template` object:
@@ -1393,18 +1393,18 @@ describe 'articles/show.html.erb' do
 end
 ----
 
-=== View helpers
+=== View Helpers
 
 The helpers specs are separated from the view specs in the `spec/helpers` directory.
 
 == Rails: Controllers[[controllers]]
 
-=== Controller models
+=== Controller Models
 
 Mock the models and stub their methods.
 Testing the controller should not depend on the model creation.
 
-=== Controller behaviour
+=== Controller Behaviour
 
 Test only the behaviour the controller should be responsible about:
 
@@ -1446,7 +1446,7 @@ describe ArticlesController do
 end
 ----
 
-=== Controller contexts
+=== Controller Contexts
 
 Use context when the controller action has different behaviour depending on the received params.
 
@@ -1507,11 +1507,11 @@ end
 
 == Rails: Models[[models]]
 
-=== Model mocks
+=== Model Mocks
 
 Do not mock the models in their own specs.
 
-=== Model objects
+=== Model Objects
 
 Use `FactoryBot.create` to make real objects, or just use a new (unsaved) instance with `subject`.
 
@@ -1531,11 +1531,11 @@ describe Article do
 end
 ----
 
-=== Model mock associations
+=== Model Mock Associations
 
 It is acceptable to mock other models or child objects.
 
-=== Avoid duplication in model tests[[model-avoid-duplication]]
+=== Avoid Duplication in Model Tests[[model-avoid-duplication]]
 
 Create the model for all examples in the spec to avoid duplication.
 
@@ -1546,7 +1546,7 @@ describe Article do
 end
 ----
 
-=== Check model validity[[model-check-validity]]
+=== Check Model Validity[[model-check-validity]]
 
 Add an example ensuring that the ``FactoryBot.create``d model is valid.
 
@@ -1559,7 +1559,7 @@ describe Article do
 end
 ----
 
-=== Model validations
+=== Model Validations
 
 When testing validations, use `expect(model.errors[:attribute].size).to eq(x)` to specify the attribute which should be validated.
 Using `be_valid` does not guarantee that the problem is in the intended attribute.
@@ -1584,7 +1584,7 @@ describe '#title' do
 end
 ----
 
-=== Separate example group for attribute validations[[model-separate-describe-for-attribute-validations]]
+=== Separate Example Group for Attribute Validations[[model-separate-describe-for-attribute-validations]]
 
 Add a separate `describe` for each attribute which has validations.
 
@@ -1607,7 +1607,7 @@ describe '#name' do
 end
 ----
 
-=== Naming another object[[model-name-another-object]]
+=== Naming Another Object[[model-name-another-object]]
 
 When testing uniqueness of a model attribute, name the other object `another_object`.
 
@@ -1626,12 +1626,12 @@ end
 
 == Rails: Mailers[[mailers]]
 
-=== Mailer mock model
+=== Mailer Mock Model
 
 The model in the mailer spec should be mocked.
 The mailer should not depend on the model creation.
 
-=== Mailer expectations
+=== Mailer Expectations
 
 The mailer spec should verify that:
 
@@ -1661,7 +1661,7 @@ end
 
 == Recommendations
 
-=== Correct setup
+=== Correct Setup
 
 Correctly set up RSpec configuration globally (`~/.rspec`), per project (`.rspec`), and in project override file that is supposed to be kept out of version control (`.rspec-local`).
 Use `rspec --init` to generate `.rspec` and `spec/spec_helper.rb` files.
