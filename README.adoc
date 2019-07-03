@@ -951,7 +951,8 @@ end
 
 === Context Descriptions
 
-`context` block descriptions should always start with 'when', 'with', or 'without' and be in the form of a sentence with proper grammar when composed with `it` block descriptions.
+When an example block description is composed with `context` block descriptions, it should result in a sentence with proper grammar.
+This typically means the `context` should start with a term such as 'when', 'with', or 'without'.
 
 [source,ruby]
 ----
