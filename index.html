@@ -483,6 +483,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#doubles">Doubles</a></li>
 <li><a href="#dealing-with-time">Dealing with Time</a></li>
 <li><a href="#stub-http-requests">Stub HTTP Requests</a></li>
+<li><a href="#declare-constants">Declare Constants</a></li>
 </ul>
 </li>
 <li><a href="#naming">Naming</a>
@@ -1628,6 +1629,75 @@ Avoid hitting real external services.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="declare-constants"><a class="anchor" href="#declare-constants"></a><a class="link" href="#declare-constants">Declare Constants</a></h3>
+<div class="paragraph">
+<p>Do not explicitly declare classes, modules, or constants is example groups.
+<a href="https://relishapp.com/rspec/rspec-mocks/docs/mutating-constants">Stub constants instead</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Constants, including classes and modules, when declared in a block scope, are defined in global namespace, and leak between examples.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">SomeClass</span> <span class="k">do</span>
+  <span class="no">CONSTANT_HERE</span> <span class="o">=</span> <span class="s1">'I leak into global namespace'</span>
+<span class="k">end</span>
+
+<span class="c1"># good</span>
+<span class="n">describe</span> <span class="no">SomeClass</span> <span class="k">do</span>
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="n">stub_const</span><span class="p">(</span><span class="s1">'CONSTANT_HERE'</span><span class="p">,</span> <span class="s1">'I only exist during this example'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="c1"># bad</span>
+<span class="n">describe</span> <span class="no">SomeClass</span> <span class="k">do</span>
+  <span class="k">class</span> <span class="nc">FooClass</span> <span class="o">&lt;</span> <span class="n">described_class</span>
+    <span class="k">def</span> <span class="nf">double_that</span>
+      <span class="n">some_base_method</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="no">FooClass</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">double_that</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="c1"># good - anonymous class, no constant needs to be defined</span>
+<span class="n">let</span><span class="p">(</span><span class="ss">:foo_class</span><span class="p">)</span> <span class="k">do</span>
+  <span class="no">Class</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">described_class</span><span class="p">)</span> <span class="k">do</span>
+    <span class="k">def</span> <span class="nf">double_that</span>
+      <span class="n">some_base_method</span> <span class="o">*</span> <span class="mi">2</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="n">foo_class</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">double_that</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span>
+
+<span class="c1"># good - constant is stubbed</span>
+<span class="n">describe</span> <span class="no">SomeClass</span> <span class="k">do</span>
+  <span class="n">before</span> <span class="k">do</span>
+    <span class="n">foo_class</span> <span class="o">=</span> <span class="no">Class</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">described_class</span><span class="p">)</span> <span class="k">do</span>
+                  <span class="k">def</span> <span class="nf">do_something</span>
+                  <span class="k">end</span>
+                <span class="k">end</span>
+    <span class="n">stub_const</span><span class="p">(</span><span class="s1">'FooClass'</span><span class="p">,</span> <span class="n">foo_class</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="n">it</span> <span class="p">{</span> <span class="n">expect</span><span class="p">(</span><span class="no">FooClass</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">double_that</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="p">}</span>
+<span class="k">end</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2552,7 +2622,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-03 22:56:37 UTC
+Last updated 2019-07-11 12:00:49 UTC
 </div>
 </div>
 <style>
