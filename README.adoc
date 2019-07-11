@@ -950,7 +950,7 @@ end
 [#declare-constants]
 === Declare Constants
 
-Do not explicitly declare classes, modules, or constants is example groups.
+Do not explicitly declare classes, modules, or constants in example groups.
 https://relishapp.com/rspec/rspec-mocks/docs/mutating-constants[Stub constants instead].
 
 NOTE: Constants, including classes and modules, when declared in a block scope, are defined in global namespace, and leak between examples.
@@ -981,10 +981,12 @@ describe SomeClass do
 end
 
 # good - anonymous class, no constant needs to be defined
-let(:foo_class) do
-  Class.new(described_class) do
-    def double_that
-      some_base_method * 2
+describe SomeClass do
+  let(:foo_class) do
+    Class.new(described_class) do
+      def double_that
+        some_base_method * 2
+      end
     end
   end
 
