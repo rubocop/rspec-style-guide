@@ -1007,6 +1007,23 @@ describe SomeClass do
 end
 ----
 
+[#implicit-block-expectations]
+=== Implicit Block Expectations
+
+Avoid using implicit block expectations.
+
+[source,ruby]
+----
+# bad
+subject { -> { do_something } }
+it { is_expected.to change(something).to(new_value) }
+
+# good
+it 'changes something to a new value' do
+  expect { do_something }.to change(something).to(new_value)
+end
+----
+
 == Naming
 
 === Context Descriptions
