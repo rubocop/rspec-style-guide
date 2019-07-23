@@ -1632,7 +1632,7 @@ Avoid hitting real external services.</p>
 <div class="sect2">
 <h3 id="declare-constants"><a class="anchor" href="#declare-constants"></a><a class="link" href="#declare-constants">Declare Constants</a></h3>
 <div class="paragraph">
-<p>Do not explicitly declare classes, modules, or constants is example groups.
+<p>Do not explicitly declare classes, modules, or constants in example groups.
 <a href="https://relishapp.com/rspec/rspec-mocks/docs/mutating-constants">Stub constants instead</a>.</p>
 </div>
 <div class="admonitionblock note">
@@ -1673,10 +1673,12 @@ Constants, including classes and modules, when declared in a block scope, are de
 <span class="k">end</span>
 
 <span class="c1"># good - anonymous class, no constant needs to be defined</span>
-<span class="n">let</span><span class="p">(</span><span class="ss">:foo_class</span><span class="p">)</span> <span class="k">do</span>
-  <span class="no">Class</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">described_class</span><span class="p">)</span> <span class="k">do</span>
-    <span class="k">def</span> <span class="nf">double_that</span>
-      <span class="n">some_base_method</span> <span class="o">*</span> <span class="mi">2</span>
+<span class="n">describe</span> <span class="no">SomeClass</span> <span class="k">do</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:foo_class</span><span class="p">)</span> <span class="k">do</span>
+    <span class="no">Class</span><span class="p">.</span><span class="nf">new</span><span class="p">(</span><span class="n">described_class</span><span class="p">)</span> <span class="k">do</span>
+      <span class="k">def</span> <span class="nf">double_that</span>
+        <span class="n">some_base_method</span> <span class="o">*</span> <span class="mi">2</span>
+      <span class="k">end</span>
     <span class="k">end</span>
   <span class="k">end</span>
 
@@ -2622,7 +2624,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-11 12:00:49 UTC
+Last updated 2019-07-23 21:01:58 UTC
 </div>
 </div>
 <style>
