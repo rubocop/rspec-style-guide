@@ -484,6 +484,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#dealing-with-time">Dealing with Time</a></li>
 <li><a href="#stub-http-requests">Stub HTTP Requests</a></li>
 <li><a href="#declare-constants">Declare Constants</a></li>
+<li><a href="#implicit-block-expectations">Implicit Block Expectations</a></li>
 </ul>
 </li>
 <li><a href="#naming">Naming</a>
@@ -1700,6 +1701,24 @@ Constants, including classes and modules, when declared in a block scope, are de
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="implicit-block-expectations"><a class="anchor" href="#implicit-block-expectations"></a><a class="link" href="#implicit-block-expectations">Implicit Block Expectations</a></h3>
+<div class="paragraph">
+<p>Avoid using implicit block expectations.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
+<span class="n">subject</span> <span class="p">{</span> <span class="o">-&gt;</span> <span class="p">{</span> <span class="n">do_something</span> <span class="p">}</span> <span class="p">}</span>
+<span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">change</span><span class="p">(</span><span class="n">something</span><span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span> <span class="p">}</span>
+
+<span class="c1"># good</span>
+<span class="n">it</span> <span class="s1">'changes something to a new value'</span> <span class="k">do</span>
+  <span class="n">expect</span> <span class="p">{</span> <span class="n">do_something</span> <span class="p">}.</span><span class="nf">to</span> <span class="n">change</span><span class="p">(</span><span class="n">something</span><span class="p">).</span><span class="nf">to</span><span class="p">(</span><span class="n">new_value</span><span class="p">)</span>
+<span class="k">end</span></code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -2624,7 +2643,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-07-23 21:01:58 UTC
+Last updated 2019-07-24 20:46:59 UTC
 </div>
 </div>
 <style>
