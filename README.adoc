@@ -1753,6 +1753,12 @@ Use `rspec --init` to generate `.rspec` and `spec/spec_helper.rb` files.
 --profile 2
 ----
 
+== Related Guides
+
+* https://rubystyle.guide[Ruby Style Guide]
+* https://rails.rubystyle.guide[Rails Style Guide]
+* https://minitest.rubystyle.guide[Minitest Style Guide]
+
 == Contributing
 
 Nothing written in this guide is set in stone.
