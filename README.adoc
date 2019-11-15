@@ -882,6 +882,7 @@ That will significantly reduce the confidence in partial doubles.
 ----
 # good - verifying instance double
 article = instance_double('Article')
+allow(Article).to receive(:new).and_return(article)
 allow(article).to receive(:author).and_return(nil)
 
 presenter = described_class.new(article)
@@ -1695,8 +1696,8 @@ describe Article do
   describe '#title' do
     it 'is unique' do
       another_article = FactoryBot.create(:article, title: article.title)
-      article.valid?
-      expect(article.errors[:title].size).to eq(1)
+      another_article.valid?
+      expect(another_article.errors[:title].size).to eq(1)
     end
   end
 end
