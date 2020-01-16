@@ -1028,37 +1028,30 @@ end
 
 === Context Descriptions
 
-When an example block description is composed with `context` block descriptions, it should result in a sentence with proper grammar.
-This typically means the `context` should start with a term such as 'when', 'with', or 'without'.
+Context descriptions should describe the conditions shared by all the examples within. Full example names (formed by concatenation of all nested block descriptions) should form a readable sentence.
+
+A typical description will be an adjunct phrase starting with 'when', 'with', 'without', or similar words.
 
 [source,ruby]
 ----
-# bad
-context 'the display name not present' do
-  # ...
+# bad - 'Summary user is logged in no display name shows a placeholder'
+describe 'Summary' do
+ context 'user logged in' do
+   context 'no display name' do
+     it 'shows a placeholder' do
+     end
+   end
+ end
 end
 
-context 'the display name has utf8 characters' do
-  # ...
-end
-
-context 'the display name has no utf8 characters' do
-  # ...
-end
-
-# good
-context 'when the display name is not present' do
-  it 'raises an error' do
-    # ...
-  end
-end
-
-context 'with utf8 characters in the display name' do
-  # ...
-end
-
-context 'without utf8 characters in the display name' do
-  # ...
+# good - 'Summary when the user is logged in when the display name is blank shows a placeholder'
+describe 'Summary' do
+ context 'when the user is logged in' do
+   context 'when the display name is blank' do
+     it 'shows a placeholder' do
+     end
+   end
+ end
 end
 ----
 
