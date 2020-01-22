@@ -1728,37 +1728,31 @@ Constants, including classes and modules, when declared in a block scope, are de
 <div class="sect2">
 <h3 id="context-descriptions"><a class="anchor" href="#context-descriptions"></a><a class="link" href="#context-descriptions">Context Descriptions</a></h3>
 <div class="paragraph">
-<p>When an example block description is composed with <code>context</code> block descriptions, it should result in a sentence with proper grammar.
-This typically means the <code>context</code> should start with a term such as 'when', 'with', or 'without'.</p>
+<p>Context descriptions should describe the conditions shared by all the examples within. Full example names (formed by concatenation of all nested block descriptions) should form a readable sentence.</p>
+</div>
+<div class="paragraph">
+<p>A typical description will be an adjunct phrase starting with 'when', 'with', 'without', or similar words.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
-<span class="n">context</span> <span class="s1">'the display name not present'</span> <span class="k">do</span>
-  <span class="c1"># ...</span>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad - 'Summary user is logged in no display name shows a placeholder'</span>
+<span class="n">describe</span> <span class="s1">'Summary'</span> <span class="k">do</span>
+ <span class="n">context</span> <span class="s1">'user logged in'</span> <span class="k">do</span>
+   <span class="n">context</span> <span class="s1">'no display name'</span> <span class="k">do</span>
+     <span class="n">it</span> <span class="s1">'shows a placeholder'</span> <span class="k">do</span>
+     <span class="k">end</span>
+   <span class="k">end</span>
+ <span class="k">end</span>
 <span class="k">end</span>
 
-<span class="n">context</span> <span class="s1">'the display name has utf8 characters'</span> <span class="k">do</span>
-  <span class="c1"># ...</span>
-<span class="k">end</span>
-
-<span class="n">context</span> <span class="s1">'the display name has no utf8 characters'</span> <span class="k">do</span>
-  <span class="c1"># ...</span>
-<span class="k">end</span>
-
-<span class="c1"># good</span>
-<span class="n">context</span> <span class="s1">'when the display name is not present'</span> <span class="k">do</span>
-  <span class="n">it</span> <span class="s1">'raises an error'</span> <span class="k">do</span>
-    <span class="c1"># ...</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="n">context</span> <span class="s1">'with utf8 characters in the display name'</span> <span class="k">do</span>
-  <span class="c1"># ...</span>
-<span class="k">end</span>
-
-<span class="n">context</span> <span class="s1">'without utf8 characters in the display name'</span> <span class="k">do</span>
-  <span class="c1"># ...</span>
+<span class="c1"># good - 'Summary when the user is logged in when the display name is blank shows a placeholder'</span>
+<span class="n">describe</span> <span class="s1">'Summary'</span> <span class="k">do</span>
+ <span class="n">context</span> <span class="s1">'when the user is logged in'</span> <span class="k">do</span>
+   <span class="n">context</span> <span class="s1">'when the display name is blank'</span> <span class="k">do</span>
+     <span class="n">it</span> <span class="s1">'shows a placeholder'</span> <span class="k">do</span>
+     <span class="k">end</span>
+   <span class="k">end</span>
+ <span class="k">end</span>
 <span class="k">end</span></code></pre>
 </div>
 </div>
@@ -2662,7 +2656,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-04 16:40:40 UTC
+Last updated 2020-01-22 23:29:44 UTC
 </div>
 </div>
 <style>
