@@ -1442,7 +1442,7 @@ class ArticlesHelper
 end
 ----
 
-[source,Rails]
+[source,ruby]
 ----
 # app/views/articles/show.html.erb
 <%= 'Published at: #{formatted_date(@article.published_at)}' %>
@@ -1619,7 +1619,7 @@ end
 
 === Check Model Validity[[model-check-validity]]
 
-Add an example ensuring that the ``FactoryBot.create``d model is valid.
+Add an example ensuring that the model created with ``FactoryBot.create`` is valid.
 
 [source,ruby]
 ----
