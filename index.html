@@ -2197,8 +2197,8 @@ Stubbing the helper methods is done on the <code>template</code> object:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="Rails"># app/views/articles/show.html.erb
-&lt;%= 'Published at: #{formatted_date(@article.published_at)}' %&gt;</code></pre>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># app/views/articles/show.html.erb</span>
+<span class="o">&lt;</span><span class="sx">%= 'Published at: #{formatted_date(@article.published_at)}' %&gt;</span></code></pre>
 </div>
 </div>
 <div class="listingblock">
@@ -2405,7 +2405,7 @@ Testing the controller should not depend on the model creation.</p>
 <div class="sect2">
 <h3 id="check-model-validity"><a class="anchor" href="#check-model-validity"></a><a class="link" href="#check-model-validity">Check Model Validity<a id="model-check-validity"></a></a></h3>
 <div class="paragraph">
-<p>Add an example ensuring that the <code>FactoryBot.create</code>d model is valid.</p>
+<p>Add an example ensuring that the model created with <code>FactoryBot.create</code> is valid.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2656,7 +2656,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-01-29 14:58:07 UTC
+Last updated 2020-02-05 16:18:10 UTC
 </div>
 </div>
 <style>
