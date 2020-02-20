@@ -2015,9 +2015,9 @@ In all other cases it&#8217;s better to specify what exactly is the expected val
   <span class="n">expect</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="ss">:celsius</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span> <span class="mi">30</span>
 <span class="k">end</span>
 
-<span class="n">it</span> <span class="s1">'returns JSON with temperature in Farenheit'</span> <span class="k">do</span>
+<span class="n">it</span> <span class="s1">'returns JSON with temperature in Fahrenheit'</span> <span class="k">do</span>
   <span class="n">json</span> <span class="o">=</span> <span class="no">JSON</span><span class="p">.</span><span class="nf">parse</span><span class="p">(</span><span class="n">response</span><span class="p">.</span><span class="nf">body</span><span class="p">).</span><span class="nf">with_indifferent_access</span>
-  <span class="n">expect</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="ss">:farenheit</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span> <span class="mi">86</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">json</span><span class="p">[</span><span class="ss">:fahrenheit</span><span class="p">]).</span><span class="nf">to</span> <span class="n">eq</span> <span class="mi">86</span>
 <span class="k">end</span>
 
 <span class="c1"># good</span>
@@ -2025,8 +2025,8 @@ In all other cases it&#8217;s better to specify what exactly is the expected val
   <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">include_json</span><span class="p">(</span><span class="ss">celsius: </span><span class="mi">30</span><span class="p">)</span>
 <span class="k">end</span>
 
-<span class="n">it</span> <span class="s1">'returns JSON with temperature in Farenheit'</span> <span class="k">do</span>
-  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">include_json</span><span class="p">(</span><span class="ss">farenheit: </span><span class="mi">86</span><span class="p">)</span>
+<span class="n">it</span> <span class="s1">'returns JSON with temperature in Fahrenheit'</span> <span class="k">do</span>
+  <span class="n">expect</span><span class="p">(</span><span class="n">response</span><span class="p">).</span><span class="nf">to</span> <span class="n">include_json</span><span class="p">(</span><span class="ss">fahrenheit: </span><span class="mi">86</span><span class="p">)</span>
 <span class="k">end</span></code></pre>
 </div>
 </div>
@@ -2656,7 +2656,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-02-05 16:18:10 UTC
+Last updated 2020-02-20 16:10:06 UTC
 </div>
 </div>
 <style>
