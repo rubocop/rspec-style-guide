@@ -1258,7 +1258,7 @@ end
 
 Avoid using `be` matcher without arguments.
 It is too generic, as it pass on everything that is not `nil` or `false`.
-If that is the exact intend, use `be_truthy`.
+If that is the exact intent, use `be_truthy`.
 In all other cases it's better to specify what exactly is the expected value.
 
 [source,ruby]
