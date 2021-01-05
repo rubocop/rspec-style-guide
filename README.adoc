@@ -1034,7 +1034,7 @@ A typical description will be an adjunct phrase starting with 'when', 'with', 'w
 
 [source,ruby]
 ----
-# bad - 'Summary user is logged in no display name shows a placeholder'
+# bad - 'Summary user logged in no display name shows a placeholder'
 describe 'Summary' do
  context 'user logged in' do
    context 'no display name' do
