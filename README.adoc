@@ -1325,6 +1325,32 @@ it 'has a name' do
 end
 ----
 
+=== Matcher reuse
+
+Matchers are not supposed to be reused in the same example.
+Do not use memoized helpers to extract matchers, use non-memoized methods.
+
+[source,ruby]
+----
+# bad
+let(:be_odd_and_positive) { be_odd.and be_positive }
+
+it 'only contains odd and positive values' do
+  expect(set.first).to be_odd_and_positive
+  expect(set.last).to be_odd_and_positive
+end
+
+# good - no matcher instance reuse
+def be_odd_and_positive
+  be_odd.and be_positive
+end
+
+it 'only contains odd and positive values' do
+  expect(set.first).to be_odd_and_positive
+  expect(set.last).to be_odd_and_positive
+end
+----
+
 === Matcher Libraries
 
 Use third-party matcher libraries that provide convenience helpers that will significantly simplify the examples, https://github.com/thoughtbot/shoulda-matchers[Shoulda Matchers] are one worth mentioning.
