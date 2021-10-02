@@ -1295,11 +1295,11 @@ end
 
 # good
 it 'returns JSON with temperature in Celsius' do
-  expect(response).to include_json(celsius: 30)
+  expect(body).to include_json(celsius: 30)
 end
 
 it 'returns JSON with temperature in Fahrenheit' do
-  expect(response).to include_json(fahrenheit: 86)
+  expect(body).to include_json(fahrenheit: 86)
 end
 ----
 
