@@ -1110,50 +1110,6 @@ specify do
 end
 ----
 
-=== Example Group Naming
-
-Prefix `describe` description with a hash for instance methods, with a dot for class methods.
-
-Given the following exists:
-
-[source,ruby]
-----
-class Article
-  def summary
-    # ...
-  end
-
-  def self.latest
-    # ...
-  end
-end
-----
-
-[source,ruby]
-----
-# bad
-describe Article do
-  describe 'summary' do
-    #...
-  end
-
-  describe 'latest' do
-    #...
-  end
-end
-
-# good
-describe Article do
-  describe '#summary' do
-    #...
-  end
-
-  describe '.latest' do
-    #...
-  end
-end
-----
-
 === "Should" in Example Docstrings[[should-in-it]]
 
 Do not write 'should' or 'should not' in the beginning of your example docstrings.
@@ -1173,7 +1129,7 @@ it 'returns the summary' do
 end
 ----
 
-=== Describe the Methods
+=== Describe the Methods [[example-group-naming]]
 
 Be clear about what method you are describing.
 Use the Ruby documentation convention of `.` when referring to a class method's name and `#` when referring to an instance method's name.
