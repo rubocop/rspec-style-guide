@@ -704,9 +704,8 @@ pre.rouge {
 <li><a href="#context-descriptions">Context Descriptions</a></li>
 <li><a href="#example-descriptions">Example Descriptions</a></li>
 <li><a href="#keep-example-descriptions-short">Keep Example Descriptions Short</a></li>
-<li><a href="#example-group-naming">Example Group Naming</a></li>
 <li><a href="#should-in-example-docstrings">"Should" in Example Docstrings</a></li>
-<li><a href="#describe-the-methods">Describe the Methods</a></li>
+<li><a href="#example-group-naming">Describe the Methods</a></li>
 <li><a href="#use-expect">Use <code>expect</code></a></li>
 </ul>
 </li>
@@ -2030,53 +2029,6 @@ documentation format output.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="example-group-naming"><a class="anchor" href="#example-group-naming"></a><a class="link" href="#example-group-naming">Example Group Naming</a></h3>
-<div class="paragraph">
-<p>Prefix <code>describe</code> description with a hash for instance methods, with a dot for class methods.</p>
-</div>
-<div class="paragraph">
-<p>Given the following exists:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="ruby"><span class="k">class</span> <span class="nc">Article</span>
-  <span class="k">def</span> <span class="nf">summary</span>
-    <span class="c1"># ...</span>
-  <span class="k">end</span>
-
-  <span class="k">def</span> <span class="nc">self</span><span class="o">.</span><span class="nf">latest</span>
-    <span class="c1"># ...</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
-<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
-  <span class="n">describe</span> <span class="s1">'summary'</span> <span class="k">do</span>
-    <span class="c1">#...</span>
-  <span class="k">end</span>
-
-  <span class="n">describe</span> <span class="s1">'latest'</span> <span class="k">do</span>
-    <span class="c1">#...</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="c1"># good</span>
-<span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
-  <span class="n">describe</span> <span class="s1">'#summary'</span> <span class="k">do</span>
-    <span class="c1">#...</span>
-  <span class="k">end</span>
-
-  <span class="n">describe</span> <span class="s1">'.latest'</span> <span class="k">do</span>
-    <span class="c1">#...</span>
-  <span class="k">end</span>
-<span class="k">end</span></code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
 <h3 id="should-in-example-docstrings"><a class="anchor" href="#should-in-example-docstrings"></a><a class="link" href="#should-in-example-docstrings">"Should" in Example Docstrings<a id="should-in-it"></a></a></h3>
 <div class="paragraph">
 <p>Do not write 'should' or 'should not' in the beginning of your example docstrings.
@@ -2098,7 +2050,7 @@ Use the third person in the present tense.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="describe-the-methods"><a class="anchor" href="#describe-the-methods"></a><a class="link" href="#describe-the-methods">Describe the Methods</a></h3>
+<h3 id="example-group-naming"><a class="anchor" href="#example-group-naming"></a><a class="link" href="#example-group-naming">Describe the Methods</a></h3>
 <div class="paragraph">
 <p>Be clear about what method you are describing.
 Use the Ruby documentation convention of <code>.</code> when referring to a class method&#8217;s name and <code>#</code> when referring to an instance method&#8217;s name.</p>
@@ -2868,7 +2820,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-11-27 08:34:24 UTC
+Last updated 2022-01-04 22:00:48 UTC
 </div>
 </div>
 </body>
