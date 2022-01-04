@@ -1129,7 +1129,7 @@ it 'returns the summary' do
 end
 ----
 
-=== Describe the Methods [[example-group-naming]]
+=== Describe the Methods[[example-group-naming]]
 
 Be clear about what method you are describing.
 Use the Ruby documentation convention of `.` when referring to a class method's name and `#` when referring to an instance method's name.
