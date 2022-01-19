@@ -1674,14 +1674,12 @@ describe SubscriberMailer do
   let(:subscriber) { double(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
   describe 'successful registration email' do
-    subject { SubscriptionMailer.successful_registration_email(subscriber) }
+    subject(:email) { SubscriptionMailer.successful_registration_email(subscriber) }
 
-    its(:subject) { should == 'Successful Registration!' }
-    its(:from) { should == ['info@your_site.com'] }
-    its(:to) { should == [subscriber.email] }
+    it { is_expected.to have_attributes(subject: 'Successful Registration!', from: ['infor@your_site.com'], to: [subscriber.email]) }
 
     it 'contains the subscriber name' do
-      expect(subject.body.encoded).to match(subscriber.name)
+      expect(email.body.encoded).to match(subscriber.name)
     end
   end
 end
