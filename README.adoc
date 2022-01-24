@@ -338,7 +338,7 @@ describe '#attributes' do
   subject { article.attributes }
 
   specify do
-    expect(subject).to include article.display_name
+    expect(subject).to include(display_name: article.display_name)
     expect(subject).to include article.created_at
   end
 end
