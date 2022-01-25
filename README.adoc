@@ -337,19 +337,12 @@ describe '#attributes' do
   let(:article) { FactoryBot.create(:article) }
   subject(:attributes) { article.attributes }
 
-  it { is_expected.to include(display_name: article.display_name) }
-  it { is_expected.to include(created_at: article.created_at) }
-end
-
-describe '#attributes' do
   context 'when display name is present' do
     before do
       article.display_name = 'something'
     end
 
-    it 'includes the display name' do
-      # ...
-    end
+    it { is_expected.to include(display_name: article.display_name) }
   end
 
   context 'when display name is not present' do
@@ -357,9 +350,7 @@ describe '#attributes' do
       article.display_name = nil
     end
 
-    it 'does not include the display name' do
-      # ...
-    end
+    it { is_expected.not_to include(:display_name) }
   end
 end
 ----
