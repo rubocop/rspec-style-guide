@@ -335,12 +335,10 @@ end
 # good
 describe '#attributes' do
   let(:article) { FactoryBot.create(:article) }
-  subject { article.attributes }
+  subject(:attributes) { article.attributes }
 
-  specify do
-    expect(subject).to include(display_name: article.display_name)
-    expect(subject).to include article.created_at
-  end
+  it { is_expected.to include(display_name: article.display_name) }
+  it { is_expected.to include(created_at: article.created_at) }
 end
 
 describe '#attributes' do
@@ -911,17 +909,21 @@ Always use https://github.com/travisjeffery/timecop[Timecop] instead of stubbing
 
 [source,ruby]
 ----
-# bad
-it 'offsets the time 2 days into the future' do
-  current_time = Time.now
-  allow(Time).to receive(:now).and_return(current_time)
-  expect(subject).to eq(current_time + 2.days)
-end
+describe InvoiceReminder do
+  subject(:time_with_offset) { described_class.new.get_offset_time }
 
-# good
-it 'offsets the time 2 days into the future' do
-  Timecop.freeze(Time.now) do
-    expect(subject).to eq 2.days.from_now
+  # bad
+  it 'offsets the time 2 days into the future' do
+    current_time = Time.now
+    allow(Time).to receive(:now).and_return(current_time)
+    expect(time_with_offset).to eq(current_time + 2.days)
+  end
+
+  # good
+  it 'offsets the time 2 days into the future' do
+    Timecop.freeze(Time.now) do
+      expect(time_with_offset).to eq 2.days.from_now
+    end
   end
 end
 ----
@@ -1183,14 +1185,21 @@ Use RSpec's predicate matcher methods when possible.
 
 [source,ruby]
 ----
-# bad
-it 'is published' do
-  expect(subject.published?).to be true
-end
+describe Article do
+  subject(:article) { FactoryBot.create(:article) }
 
-# good
-it 'is published' do
-  expect(subject).to be_published
+  # bad
+  it 'is published' do
+    expect(article.published?).to be true
+  end
+
+  # good
+  it 'is published' do
+    expect(article).to be_published
+  end
+
+  # even better
+  it { is_expected.to be_published }
 end
 ----
 
@@ -1546,16 +1555,10 @@ Use `FactoryBot.create` to make real objects, or just use a new (unsaved) instan
 [source,ruby]
 ----
 describe Article do
-  let(:article) { FactoryBot.create(:article) }
+  subject(:article) { FactoryBot.build(:article) }
 
-  # Currently, 'subject' is the same as 'Article.new'
-  it 'is an instance of Article' do
-    expect(subject).to be_an Article
-  end
-
-  it 'is not persisted' do
-    expect(subject).to_not be_persisted
-  end
+  it { is_expected.to be_an Article }
+  it { is_expected.to_not be_persisted }
 end
 ----
 
