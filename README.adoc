@@ -1546,10 +1546,10 @@ Use `FactoryBot.create` to make real objects, or just use a new (unsaved) instan
 [source,ruby]
 ----
 describe Article do
-  subject(:article) { FactoryBot.build(:article) }
+  subject(:article) { FactoryBot.create(:article) }
 
   it { is_expected.to be_an Article }
-  it { is_expected.to_not be_persisted }
+  it { is_expected.to be_persisted }
 end
 ----
 
