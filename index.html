@@ -1139,7 +1139,7 @@ It is a code smell if there is a single context (without a matching negative cas
 <span class="n">describe</span> <span class="s1">'#attributes'</span> <span class="k">do</span>
   <span class="n">context</span> <span class="s1">'when display name is present'</span> <span class="k">do</span>
     <span class="n">before</span> <span class="k">do</span>
-      <span class="n">subject</span><span class="p">.</span><span class="nf">display_name</span> <span class="o">=</span> <span class="s1">'something'</span>
+      <span class="n">article</span><span class="p">.</span><span class="nf">display_name</span> <span class="o">=</span> <span class="s1">'something'</span>
     <span class="k">end</span>
 
     <span class="n">it</span> <span class="s1">'includes the display name'</span> <span class="k">do</span>
@@ -1150,33 +1150,23 @@ It is a code smell if there is a single context (without a matching negative cas
 
 <span class="c1"># good</span>
 <span class="n">describe</span> <span class="s1">'#attributes'</span> <span class="k">do</span>
-  <span class="n">subject</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:attributes</span><span class="p">)</span> <span class="p">{</span> <span class="n">article</span><span class="p">.</span><span class="nf">attributes</span> <span class="p">}</span>
 
-  <span class="n">specify</span> <span class="k">do</span>
-    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">attributes</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span> <span class="n">subject</span><span class="p">.</span><span class="nf">display_name</span>
-    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">attributes</span><span class="p">).</span><span class="nf">to</span> <span class="kp">include</span> <span class="n">subject</span><span class="p">.</span><span class="nf">created_at</span>
-  <span class="k">end</span>
-<span class="k">end</span>
-
-<span class="n">describe</span> <span class="s1">'#attributes'</span> <span class="k">do</span>
   <span class="n">context</span> <span class="s1">'when display name is present'</span> <span class="k">do</span>
     <span class="n">before</span> <span class="k">do</span>
-      <span class="n">subject</span><span class="p">.</span><span class="nf">display_name</span> <span class="o">=</span> <span class="s1">'something'</span>
+      <span class="n">article</span><span class="p">.</span><span class="nf">display_name</span> <span class="o">=</span> <span class="s1">'something'</span>
     <span class="k">end</span>
 
-    <span class="n">it</span> <span class="s1">'includes the display name'</span> <span class="k">do</span>
-      <span class="c1"># ...</span>
-    <span class="k">end</span>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="kp">include</span><span class="p">(</span><span class="ss">display_name: </span><span class="n">article</span><span class="p">.</span><span class="nf">display_name</span><span class="p">)</span> <span class="p">}</span>
   <span class="k">end</span>
 
   <span class="n">context</span> <span class="s1">'when display name is not present'</span> <span class="k">do</span>
     <span class="n">before</span> <span class="k">do</span>
-      <span class="n">subject</span><span class="p">.</span><span class="nf">display_name</span> <span class="o">=</span> <span class="kp">nil</span>
+      <span class="n">article</span><span class="p">.</span><span class="nf">display_name</span> <span class="o">=</span> <span class="kp">nil</span>
     <span class="k">end</span>
 
-    <span class="n">it</span> <span class="s1">'does not include the display name'</span> <span class="k">do</span>
-      <span class="c1"># ...</span>
-    <span class="k">end</span>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">not_to</span> <span class="kp">include</span><span class="p">(</span><span class="ss">:display_name</span><span class="p">)</span> <span class="p">}</span>
   <span class="k">end</span>
 <span class="k">end</span></code></pre>
 </div>
@@ -1800,17 +1790,21 @@ If you stub a method that could give a false-positive test result, you have gone
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
-<span class="n">it</span> <span class="s1">'offsets the time 2 days into the future'</span> <span class="k">do</span>
-  <span class="n">current_time</span> <span class="o">=</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
-  <span class="n">allow</span><span class="p">(</span><span class="no">Time</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:now</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">current_time</span><span class="p">)</span>
-  <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">get_offset_time</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">current_time</span> <span class="o">+</span> <span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">)</span>
-<span class="k">end</span>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">describe</span> <span class="no">InvoiceReminder</span> <span class="k">do</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:time_with_offset</span><span class="p">)</span> <span class="p">{</span> <span class="n">described_class</span><span class="p">.</span><span class="nf">new</span><span class="p">.</span><span class="nf">get_offset_time</span> <span class="p">}</span>
 
-<span class="c1"># good</span>
-<span class="n">it</span> <span class="s1">'offsets the time 2 days into the future'</span> <span class="k">do</span>
-  <span class="no">Timecop</span><span class="p">.</span><span class="nf">freeze</span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span> <span class="k">do</span>
-    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">get_offset_time</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span> <span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">from_now</span>
+  <span class="c1"># bad</span>
+  <span class="n">it</span> <span class="s1">'offsets the time 2 days into the future'</span> <span class="k">do</span>
+    <span class="n">current_time</span> <span class="o">=</span> <span class="no">Time</span><span class="p">.</span><span class="nf">now</span>
+    <span class="n">allow</span><span class="p">(</span><span class="no">Time</span><span class="p">).</span><span class="nf">to</span> <span class="n">receive</span><span class="p">(</span><span class="ss">:now</span><span class="p">).</span><span class="nf">and_return</span><span class="p">(</span><span class="n">current_time</span><span class="p">)</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">time_with_offset</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span><span class="p">(</span><span class="n">current_time</span> <span class="o">+</span> <span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">)</span>
+  <span class="k">end</span>
+
+  <span class="c1"># good</span>
+  <span class="n">it</span> <span class="s1">'offsets the time 2 days into the future'</span> <span class="k">do</span>
+    <span class="no">Timecop</span><span class="p">.</span><span class="nf">freeze</span><span class="p">(</span><span class="no">Time</span><span class="p">.</span><span class="nf">now</span><span class="p">)</span> <span class="k">do</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">time_with_offset</span><span class="p">).</span><span class="nf">to</span> <span class="n">eq</span> <span class="mi">2</span><span class="p">.</span><span class="nf">days</span><span class="p">.</span><span class="nf">from_now</span>
+    <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span></code></pre>
 </div>
@@ -2110,14 +2104,21 @@ Use the Ruby documentation convention of <code>.</code> when referring to a clas
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="rouge highlight"><code data-lang="ruby"><span class="c1"># bad</span>
-<span class="n">it</span> <span class="s1">'is published'</span> <span class="k">do</span>
-  <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">published?</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="kp">true</span>
-<span class="k">end</span>
+<pre class="rouge highlight"><code data-lang="ruby"><span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
 
-<span class="c1"># good</span>
-<span class="n">it</span> <span class="s1">'is published'</span> <span class="k">do</span>
-  <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_published</span>
+  <span class="c1"># bad</span>
+  <span class="n">it</span> <span class="s1">'is published'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">.</span><span class="nf">published?</span><span class="p">).</span><span class="nf">to</span> <span class="n">be</span> <span class="kp">true</span>
+  <span class="k">end</span>
+
+  <span class="c1"># good</span>
+  <span class="n">it</span> <span class="s1">'is published'</span> <span class="k">do</span>
+    <span class="n">expect</span><span class="p">(</span><span class="n">article</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_published</span>
+  <span class="k">end</span>
+
+  <span class="c1"># even better</span>
+  <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">be_published</span> <span class="p">}</span>
 <span class="k">end</span></code></pre>
 </div>
 </div>
@@ -2532,16 +2533,10 @@ Testing the controller should not depend on the model creation.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="rouge highlight"><code data-lang="ruby"><span class="n">describe</span> <span class="no">Article</span> <span class="k">do</span>
-  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
+  <span class="n">subject</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
 
-  <span class="c1"># Currently, 'subject' is the same as 'Article.new'</span>
-  <span class="n">it</span> <span class="s1">'is an instance of Article'</span> <span class="k">do</span>
-    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">).</span><span class="nf">to</span> <span class="n">be_an</span> <span class="no">Article</span>
-  <span class="k">end</span>
-
-  <span class="n">it</span> <span class="s1">'is not persisted'</span> <span class="k">do</span>
-    <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">).</span><span class="nf">to_not</span> <span class="n">be_persisted</span>
-  <span class="k">end</span>
+  <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">be_an</span> <span class="no">Article</span> <span class="p">}</span>
+  <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">be_persisted</span> <span class="p">}</span>
 <span class="k">end</span></code></pre>
 </div>
 </div>
@@ -2690,14 +2685,12 @@ The mailer should not depend on the model creation.</p>
   <span class="n">let</span><span class="p">(</span><span class="ss">:subscriber</span><span class="p">)</span> <span class="p">{</span> <span class="n">double</span><span class="p">(</span><span class="no">Subscription</span><span class="p">,</span> <span class="ss">email: </span><span class="s1">'johndoe@test.com'</span><span class="p">,</span> <span class="ss">name: </span><span class="s1">'John Doe'</span><span class="p">)</span> <span class="p">}</span>
 
   <span class="n">describe</span> <span class="s1">'successful registration email'</span> <span class="k">do</span>
-    <span class="n">subject</span> <span class="p">{</span> <span class="no">SubscriptionMailer</span><span class="p">.</span><span class="nf">successful_registration_email</span><span class="p">(</span><span class="n">subscriber</span><span class="p">)</span> <span class="p">}</span>
+    <span class="n">subject</span><span class="p">(</span><span class="ss">:email</span><span class="p">)</span> <span class="p">{</span> <span class="no">SubscriptionMailer</span><span class="p">.</span><span class="nf">successful_registration_email</span><span class="p">(</span><span class="n">subscriber</span><span class="p">)</span> <span class="p">}</span>
 
-    <span class="n">its</span><span class="p">(</span><span class="ss">:subject</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="o">==</span> <span class="s1">'Successful Registration!'</span> <span class="p">}</span>
-    <span class="n">its</span><span class="p">(</span><span class="ss">:from</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="o">==</span> <span class="p">[</span><span class="s1">'info@your_site.com'</span><span class="p">]</span> <span class="p">}</span>
-    <span class="n">its</span><span class="p">(</span><span class="ss">:to</span><span class="p">)</span> <span class="p">{</span> <span class="n">should</span> <span class="o">==</span> <span class="p">[</span><span class="n">subscriber</span><span class="p">.</span><span class="nf">email</span><span class="p">]</span> <span class="p">}</span>
+    <span class="n">it</span> <span class="p">{</span> <span class="n">is_expected</span><span class="p">.</span><span class="nf">to</span> <span class="n">have_attributes</span><span class="p">(</span><span class="ss">subject: </span><span class="s1">'Successful Registration!'</span><span class="p">,</span> <span class="ss">from: </span><span class="p">[</span><span class="s1">'infor@your_site.com'</span><span class="p">],</span> <span class="ss">to: </span><span class="p">[</span><span class="n">subscriber</span><span class="p">.</span><span class="nf">email</span><span class="p">])</span> <span class="p">}</span>
 
     <span class="n">it</span> <span class="s1">'contains the subscriber name'</span> <span class="k">do</span>
-      <span class="n">expect</span><span class="p">(</span><span class="n">subject</span><span class="p">.</span><span class="nf">body</span><span class="p">.</span><span class="nf">encoded</span><span class="p">).</span><span class="nf">to</span> <span class="n">match</span><span class="p">(</span><span class="n">subscriber</span><span class="p">.</span><span class="nf">name</span><span class="p">)</span>
+      <span class="n">expect</span><span class="p">(</span><span class="n">email</span><span class="p">.</span><span class="nf">body</span><span class="p">.</span><span class="nf">encoded</span><span class="p">).</span><span class="nf">to</span> <span class="n">match</span><span class="p">(</span><span class="n">subscriber</span><span class="p">.</span><span class="nf">name</span><span class="p">)</span>
     <span class="k">end</span>
   <span class="k">end</span>
 <span class="k">end</span></code></pre>
@@ -2819,7 +2812,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2022-02-05 13:15:47 UTC
+Last updated 2022-06-21 16:51:43 UTC
 </div>
 </div>
 </body>
