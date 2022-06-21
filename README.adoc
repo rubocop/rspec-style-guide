@@ -323,7 +323,7 @@ end
 describe '#attributes' do
   context 'when display name is present' do
     before do
-      subject.display_name = 'something'
+      article.display_name = 'something'
     end
 
     it 'includes the display name' do
@@ -334,33 +334,23 @@ end
 
 # good
 describe '#attributes' do
-  subject { FactoryBot.create(:article) }
+  let(:article) { FactoryBot.create(:article) }
+  subject(:attributes) { article.attributes }
 
-  specify do
-    expect(subject.attributes).to include subject.display_name
-    expect(subject.attributes).to include subject.created_at
-  end
-end
-
-describe '#attributes' do
   context 'when display name is present' do
     before do
-      subject.display_name = 'something'
+      article.display_name = 'something'
     end
 
-    it 'includes the display name' do
-      # ...
-    end
+    it { is_expected.to include(display_name: article.display_name) }
   end
 
   context 'when display name is not present' do
     before do
-      subject.display_name = nil
+      article.display_name = nil
     end
 
-    it 'does not include the display name' do
-      # ...
-    end
+    it { is_expected.not_to include(:display_name) }
   end
 end
 ----
@@ -910,17 +900,21 @@ Always use https://github.com/travisjeffery/timecop[Timecop] instead of stubbing
 
 [source,ruby]
 ----
-# bad
-it 'offsets the time 2 days into the future' do
-  current_time = Time.now
-  allow(Time).to receive(:now).and_return(current_time)
-  expect(subject.get_offset_time).to eq(current_time + 2.days)
-end
+describe InvoiceReminder do
+  subject(:time_with_offset) { described_class.new.get_offset_time }
 
-# good
-it 'offsets the time 2 days into the future' do
-  Timecop.freeze(Time.now) do
-    expect(subject.get_offset_time).to eq 2.days.from_now
+  # bad
+  it 'offsets the time 2 days into the future' do
+    current_time = Time.now
+    allow(Time).to receive(:now).and_return(current_time)
+    expect(time_with_offset).to eq(current_time + 2.days)
+  end
+
+  # good
+  it 'offsets the time 2 days into the future' do
+    Timecop.freeze(Time.now) do
+      expect(time_with_offset).to eq 2.days.from_now
+    end
   end
 end
 ----
@@ -1182,14 +1176,21 @@ Use RSpec's predicate matcher methods when possible.
 
 [source,ruby]
 ----
-# bad
-it 'is published' do
-  expect(subject.published?).to be true
-end
+describe Article do
+  subject(:article) { FactoryBot.create(:article) }
 
-# good
-it 'is published' do
-  expect(subject).to be_published
+  # bad
+  it 'is published' do
+    expect(article.published?).to be true
+  end
+
+  # good
+  it 'is published' do
+    expect(article).to be_published
+  end
+
+  # even better
+  it { is_expected.to be_published }
 end
 ----
 
@@ -1545,16 +1546,10 @@ Use `FactoryBot.create` to make real objects, or just use a new (unsaved) instan
 [source,ruby]
 ----
 describe Article do
-  let(:article) { FactoryBot.create(:article) }
+  subject(:article) { FactoryBot.create(:article) }
 
-  # Currently, 'subject' is the same as 'Article.new'
-  it 'is an instance of Article' do
-    expect(subject).to be_an Article
-  end
-
-  it 'is not persisted' do
-    expect(subject).to_not be_persisted
-  end
+  it { is_expected.to be_an Article }
+  it { is_expected.to be_persisted }
 end
 ----
 
@@ -1673,14 +1668,12 @@ describe SubscriberMailer do
   let(:subscriber) { double(Subscription, email: 'johndoe@test.com', name: 'John Doe') }
 
   describe 'successful registration email' do
-    subject { SubscriptionMailer.successful_registration_email(subscriber) }
+    subject(:email) { SubscriptionMailer.successful_registration_email(subscriber) }
 
-    its(:subject) { should == 'Successful Registration!' }
-    its(:from) { should == ['info@your_site.com'] }
-    its(:to) { should == [subscriber.email] }
+    it { is_expected.to have_attributes(subject: 'Successful Registration!', from: ['infor@your_site.com'], to: [subscriber.email]) }
 
     it 'contains the subscriber name' do
-      expect(subject.body.encoded).to match(subscriber.name)
+      expect(email.body.encoded).to match(subscriber.name)
     end
   end
 end
