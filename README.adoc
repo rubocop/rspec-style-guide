@@ -1,4 +1,4 @@
-= The RSpec Style Guide
+= RSpec Style Guide
 :idprefix:
 :idseparator: -
 :sectanchors:
