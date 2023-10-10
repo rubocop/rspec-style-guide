@@ -237,6 +237,8 @@ describe '#summary' do
 end
 ----
 
+== Example Group Structure
+
 === Leading `subject`
 
 When `subject` is used, it should be the first declaration in the example group.
@@ -272,7 +274,52 @@ describe Article do
 end
 ----
 
-== Example Group Structure
+=== Declaring `subject`, `let!`/`let` and `before`/`after` hooks
+
+When declaring `subject`, `let!`/`let` and `before`/`after` hooks they should be in the following order:
+
+* `subject`
+* `let!`/`let`
+* `before`/`after`
+
+[source,ruby]
+----
+# bad
+describe Article do
+  before do
+    # ...
+  end
+
+  after do
+    # ...
+  end
+
+  let(:user) { FactoryBot.create(:user) }
+  subject { FactoryBot.create(:some_article) }
+
+  describe '#summary' do
+    # ...
+  end
+end
+
+# good
+describe Article do
+  subject { FactoryBot.create(:some_article) }
+  let(:user) { FactoryBot.create(:user) }
+
+  before do
+    # ...
+  end
+
+  after do
+    # ...
+  end
+
+  describe '#summary' do
+    # ...
+  end
+end
+----
 
 === Use Contexts
 
