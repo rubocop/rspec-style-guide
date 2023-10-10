@@ -274,13 +274,13 @@ describe Article do
 end
 ----
 
-=== Declaring `subject`, `let!`/`let` and `before/`after` hooks
+=== Declaring `subject`, `let!`/`let` and `before`/`after` hooks
 
-When declaring `subject`, `let!`/`let` and `before/`after` hooks they should be in the following order:
+When declaring `subject`, `let!`/`let` and `before`/`after` hooks they should be in the following order:
 
 * `subject`
 * `let!`/`let`
-* `before/`after`
+* `before`/`after`
 
 [source,ruby]
 ----
