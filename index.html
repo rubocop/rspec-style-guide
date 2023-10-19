@@ -1206,8 +1206,8 @@ It is a code smell if there is a single context (without a matching negative cas
 
 <span class="c1"># good</span>
 <span class="n">describe</span> <span class="s1">'#attributes'</span> <span class="k">do</span>
-  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
   <span class="n">subject</span><span class="p">(</span><span class="ss">:attributes</span><span class="p">)</span> <span class="p">{</span> <span class="n">article</span><span class="p">.</span><span class="nf">attributes</span> <span class="p">}</span>
+  <span class="n">let</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">{</span> <span class="no">FactoryBot</span><span class="p">.</span><span class="nf">create</span><span class="p">(</span><span class="ss">:article</span><span class="p">)</span> <span class="p">}</span>
 
   <span class="n">context</span> <span class="s1">'when display name is present'</span> <span class="k">do</span>
     <span class="n">before</span> <span class="k">do</span>
@@ -2868,7 +2868,7 @@ This work is licensed under a <a href="http://creativecommons.org/licenses/by/3.
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2023-10-10 21:33:30 UTC
+Last updated 2023-10-19 15:56:49 UTC
 </div>
 </div>
 </body>
