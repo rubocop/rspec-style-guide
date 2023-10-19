@@ -381,8 +381,8 @@ end
 
 # good
 describe '#attributes' do
-  let(:article) { FactoryBot.create(:article) }
   subject(:attributes) { article.attributes }
+  let(:article) { FactoryBot.create(:article) }
 
   context 'when display name is present' do
     before do
