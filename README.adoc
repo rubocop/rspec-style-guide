@@ -966,6 +966,35 @@ describe InvoiceReminder do
 end
 ----
 
+=== Time unit format
+
+Specify the format explicitly for `ActiveSupport::Duration` handling.
+
+[source,ruby]
+----
+# good
+1.day.ago - 1.minute
+Time.zone.now + 2.hours
+
+
+# bad
+1.day.ago - 1
+# good
+1.day.ago - 1.second
+
+# bad
+Time.zone.now + 2
+# good
+Time.zone.now + 2.seconds
+
+# bad
+expect(withdrawal_option.confirmation_sent_at).to \
+  be_within(3).of(Time.now.utc)
+# good
+expect(withdrawal_option.confirmation_sent_at).to \
+  be_within(3.seconds).of(Time.now.utc)
+----
+
 === Stub HTTP Requests
 
 Stub HTTP requests when the code is making them.
