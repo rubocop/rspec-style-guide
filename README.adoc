@@ -971,7 +971,7 @@ end
 Stub HTTP requests when the code is making them.
 Avoid hitting real external services.
 
-Use https://github.com/bblimke/webmock[webmock] and https://github.com/vcr/vcr[VCR] separately or http://marnen.github.io/webmock-presentation/webmock.html[together].
+Use https://github.com/bblimke/webmock[webmock] and https://github.com/vcr/vcr[VCR] separately or https://marnen.github.io/webmock-presentation/webmock.html[together].
 
 [source,ruby]
 ----
