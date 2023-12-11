@@ -23,7 +23,7 @@ endif::[]
 
 This RSpec style guide outlines the recommended best practices for real-world programmers to write code that can be maintained by other real-world programmers.
 
-https://github.com/rubocop-hq/rubocop[RuboCop], a static code analyzer (linter) and formatter, has a https://github.com/rubocop-hq/rubocop-rspec[`rubocop-rspec`] extension, provides a way to enforce the rules outlined in this guide.
+https://github.com/rubocop/rubocop[RuboCop], a static code analyzer (linter) and formatter, has a https://github.com/rubocop/rubocop-rspec[`rubocop-rspec`] extension, provides a way to enforce the rules outlined in this guide.
 
 NOTE: This guide assumes you are using RSpec 3 or later.
 
@@ -971,7 +971,7 @@ end
 Stub HTTP requests when the code is making them.
 Avoid hitting real external services.
 
-Use https://github.com/bblimke/webmock[webmock] and https://github.com/vcr/vcr[VCR] separately or http://marnen.github.com/webmock-presentation/webmock.html[together].
+Use https://github.com/bblimke/webmock[webmock] and https://github.com/vcr/vcr[VCR] separately or http://marnen.github.io/webmock-presentation/webmock.html[together].
 
 [source,ruby]
 ----
@@ -992,7 +992,7 @@ end
 === Declare Constants
 
 Do not explicitly declare classes, modules, or constants in example groups.
-https://relishapp.com/rspec/rspec-mocks/docs/mutating-constants[Stub constants instead].
+https://rspec.info/features/3-12/rspec-mocks/mutating-constants/[Stub constants instead].
 
 NOTE: Constants, including classes and modules, when declared in a block scope, are defined in global namespace, and leak between examples.
 
@@ -1282,7 +1282,7 @@ end
 
 === Extract Common Expectation Parts into Matchers
 
-Extract frequently used common logic from your examples into https://relishapp.com/rspec/rspec-expectations/docs/custom-matchers/define-a-custom-matcher[custom matchers].
+Extract frequently used common logic from your examples into https://rspec.info/features/3-12/rspec-expectations/custom-matchers/define-matcher/[custom matchers].
 
 [source,ruby]
 ----
@@ -1617,7 +1617,7 @@ end
 
 === Check Model Validity[[model-check-validity]]
 
-Add an example ensuring that the model created with ``FactoryBot.create`` is valid.
+Add an example ensuring that the model created with `FactoryBot.create` is valid.
 
 [source,ruby]
 ----
@@ -1762,11 +1762,11 @@ You can also support the project (and RuboCop) with financial contributions via 
 
 It's easy, just follow the contribution guidelines below:
 
-* https://help.github.com/articles/fork-a-repo[Fork] the https://github.com/rubocop/rspec-style-guide[project] on GitHub
+* https://docs.github.com/en/get-started/quickstart/fork-a-repo[Fork] the https://github.com/rubocop/rspec-style-guide[project] on GitHub
 * Make your feature addition or bug fix in a feature branch
 * Include a http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html[good description] of your changes
 * Push your feature branch to GitHub
-* Send a https://help.github.com/articles/using-pull-requests[Pull Request]
+* Send a https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests[Pull Request]
 
 == License
 
@@ -1779,8 +1779,8 @@ Inspiration was taken from the following:
 
 https://github.com/howaboutwe/rspec-style-guide[HowAboutWe's RSpec style guide]
 
-https://github.com/rubocop-hq/rails-style-guide[Community Rails style guide]
+https://github.com/rubocop/rails-style-guide[Community Rails style guide]
 
 This guide was maintained by https://github.com/reachlocal[ReachLocal] for a long while.
 
-This guide includes material originally present in https://github.com/lelylan/betterspecs[BetterSpecs] (https://lelylan.github.io/betterspecs/[newer site] http://www.betterspecs.org/[older site]), sponsored by https://github.com/lelylan[Lelylan] and maintained by https://github.com/andreareginato[Andrea Reginato] and https://github.com/lelylan/betterspecs/graphs/contributors[many others] for a long while.
+This guide includes material originally present in https://github.com/betterspecs/betterspecs[BetterSpecs] (https://betterspecs.github.io/betterspecs/[newer site] https://www.betterspecs.org/[older site]), sponsored by https://github.com/lelylan[Lelylan] and maintained by https://github.com/andreareginato[Andrea Reginato] and https://github.com/betterspecs/betterspecs/graphs/contributors[many others] for a long while.
