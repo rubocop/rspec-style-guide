@@ -941,6 +941,40 @@ expect(notifier).to receive(:notify).with('suspended as')
 
 NOTE: If you stub a method that could give a false-positive test result, you have gone too far.
 
+=== Method Stubs vs Expectations
+
+Prefer stubs over expectations when setting up test doubles. This approach leads to more maintainable and clearer tests by separating the setup of test doubles from the verification of their usage. Using `allow` for stubs makes the intent clearer - you're setting up the test environment rather than making assertions about behavior.
+
+When you need to verify that a method was called, you can add an expectation with `have_received` after the fact. This separation of concerns makes tests easier to understand and maintain.
+
+[source,ruby]
+----
+# bad - expecting instance double
+article = instance_double('Article')
+expect(article).to receive(:author).and_return(nil)
+
+
+presenter = described_class.new(article)
+expect(presenter.title).to include('by an unknown author')
+
+
+# good - testing actual method
+article = instance_double('Article')
+allow(article).to receive(:author).and_return(nil)
+
+presenter = described_class.new(article)
+expect(presenter.title).to include('by an unknown author')
+
+
+# good - verifying instance double
+article = instance_double('Article')
+allow(article).to receive(:author).and_return(nil)
+
+presenter = described_class.new(article)
+expect(presenter.title).to include('by an unknown author')
+expect(article).to have_received(:author)
+----
+
 === Dealing with Time
 
 Always use https://github.com/travisjeffery/timecop[Timecop] instead of stubbing anything on Time or Date.
